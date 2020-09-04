@@ -22,7 +22,10 @@ Käyttöliittymä
 --------
 * Kirjautumismahdollisuus
 * Eri tyyppisten tilausten haku
-* Keskimääräiset toimitusajat tilastona
+  * näyttää esim. aikajanana kuinka pitkä aika on mennyt missäkin työvaiheessa keskimäärin
+* Tietyn tilauksen haku koodilla
+  * näyttää esim. aikajanana kuinka pitkä aika on mennyt missäkin työvaiheessa ja ilmaisee jollain tapaa jos aika on yli keskiarvon
+* Keskimääräiset toimitusajat tilastona eri tyyppisille tilauksille
 * Mahdollisuuksien mukaan myös muita toimintoja
 
 
