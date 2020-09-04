@@ -3,7 +3,7 @@ PULLONKAULA
 
 _Tämä on kurssin 'Tietokantasovellus' -harjoitustyö._
 
-Olen aikaisemmin tehnyt ohjelmistotekniikan kurssilla [tuotannonohjausjärjestelmän](https://github.com/Skorp7/ot-harjoitustyo) javalla ja SQLitellä. Nyt aion tehdä saman tapaisen sovelluksen, mutta eri painotuksilla ja kokonaan alusta alkaen. Toteutan siis kokonaan uuden sovelluksen ja rakennan myös tietokantapuolen eri tavalla.
+Olen aikaisemmin tehnyt ohjelmistotekniikan kurssilla [tuotannonohjausjärjestelmän](https://github.com/Skorp7/ot-harjoitustyo) Javalla ja SQLitellä. Nyt aion tehdä saman tapaisen sovelluksen, mutta eri painotuksilla ja kokonaan alusta alkaen. Toteutan siis kokonaan uuden sovelluksen ja rakennan myös tietokantapuolen eri tavalla.
 
 Aikaisemmassa sovelluksessa pääpaino oli siinä, että näkee helposti kuka työntekijä on tehnyt minkäkin työvaiheen ja jos jokin tilaus on hukassa, niin koodilla voi etsiä kuka tilausta on käsitellyt viimeksi. Sovellus näytti myös päiväkohtaisia työmääriä.
 
