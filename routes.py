@@ -1,10 +1,10 @@
 from app import app
+import visits
 from flask import render_template
-import visits 
-
 
 @app.route("/")
 def index():
     visits.add_visit()
-    counter = result.fetchone()[0]
-    return render_template("index.html", counter=counter) 
+    counter = visits.get_counter()
+    return render_template("index.html", counter=counter)
+
