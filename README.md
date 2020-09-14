@@ -1,7 +1,10 @@
-PULLONKAULA
+TUOTANNONSEURANTA
 =======
 
 _Tämä on kurssin 'Tietokantasovellus' -harjoitustyö._
+
+Sovellusta pääsee kokeilemaan osoitteessa: https://tsoha-tuotannonseuranta.herokuapp.com
+
 
 Olen aikaisemmin tehnyt ohjelmistotekniikan kurssilla [tuotannonohjausjärjestelmän](https://github.com/Skorp7/ot-harjoitustyo) Javalla ja SQLitellä. Nyt aion tehdä saman tapaisen sovelluksen, mutta eri painotuksilla ja kokonaan alusta alkaen. Toteutan siis kokonaan uuden sovelluksen ja rakennan myös tietokantapuolen eri tavalla. Kielenä tulee olemaan Python (minulle uusi kieli) ja tietokantana PostgreSQL.
 
