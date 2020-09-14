@@ -2,7 +2,7 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY, 
     name TEXT UNIQUE, 
     status INTEGER, 
-    password TEXT;
+    password TEXT,
     visible INTEGER
 );
 

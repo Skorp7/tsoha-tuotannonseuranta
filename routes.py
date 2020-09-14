@@ -1,6 +1,6 @@
 from app import app
-import visits
-from flask import render_template
+from flask import render_template, request, redirect
+import users, visits
 
 @app.route("/")
 def index():
@@ -36,4 +36,4 @@ def register():
         if users.register(username,password):
             return redirect("/")
         else:
-            return render_template("error.html",message="Rekisteröinti ei onnistunut")
+            return render_template("error.html",message="Rekisteröinti ei onnistunut, kokeile toista käyttäjätunnusta.")

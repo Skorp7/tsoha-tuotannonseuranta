@@ -1,9 +1,11 @@
 TERVETULOA!
 <hr>
+<i>Tässä näkyy listattua tietoa tietokannasta</i>
+<br>
+<i>Käyttäjien määrä: </i> {{ counter }}
 {% for message in messages %}
 <i>Viesti:</i> {{ message[0] }}
-<i>Tässä näkyy listattua tietoa tietokannasta</i>
-<i>Käyttäjien määrä: </i> {{ counter }}
+
 <p>
 <i>Lähettäjä:</i> {{ message[1] }}
 <p>
