@@ -1,0 +1,31 @@
+Muuta käyttäjän oikeuksia
+<hr>
+<label for="users">Käyttäjä:</label>
+
+<select id="users" name="username" form="statusform">
+{% for name in user_list %}
+  <option value="{{ name[0] }}">{{ name[0] }} :
+{% if (name[1] == 1): %} (työnjohtaja) {% else %} (peruskäyttäjä) {% endif %}</option>
+<hr>
+{% endfor %}
+</select> 
+<p>
+
+<label for="statuses">Uusi status:</label>
+
+<select name="new_status" id="statuses" form="statusform">
+  <option value=0>peruskäyttäjä</option>
+  <option value=1>työnjohtaja (admin)</option>
+<hr>
+</select> 
+<p>
+
+
+<form action="/change_status" method="post" id="statusform">
+
+<input type="submit" value="Muuta status">
+
+</form> 
+
+<hr>
+ <a href="/"><Button>Takaisin</Button></a>

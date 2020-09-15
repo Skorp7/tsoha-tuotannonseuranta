@@ -3,6 +3,7 @@ TERVETULOA!
 <i>Tässä näkyy listattua tietoa tietokannasta</i>
 <br>
 <i>Käyttäjien määrä: </i> {{ counter }}
+<br>
 {% for message in messages %}
 <i>Viesti:</i> {{ message[0] }}
 
@@ -14,7 +15,12 @@ TERVETULOA!
 {% endfor %}
 {% if session.user_id %}
 Olet kirjautunut sisään.
-<a href="/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
+<br>
+<a href="/production"><Button>Tuotanto</Button></a>
+<br>
+<a href="/admin"><Button>Hallinta</Button></a>
+<br>
+<a href="/logout"><Button>Kirjaudu ulos</Button></a>
 {% else %}
-<a href="/login">Kirjaudu sisään</a>
+<a href="/login"><Button>Kirjaudu sisään</Button></a>
 {% endif %}
