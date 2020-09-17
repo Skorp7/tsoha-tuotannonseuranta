@@ -34,6 +34,14 @@ def logout():
 def charts():
     return render_template("charts.html")
 
+@app.route("/event")
+def event():
+    return render_template("event.html")
+
+@app.route("/seek")
+def seek():
+    return render_template("seek.html")
+
 @app.route("/register", methods=["get","post"])
 def register():
     if request.method == "GET":
