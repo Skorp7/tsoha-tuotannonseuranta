@@ -63,6 +63,9 @@ Tietokannassa asiakkaiden ja käyttäjien kohdalla on sarake 'visible', jolla ne
 
 Sovelluskehityksen tämän hetkinen tilanne
 ------------
+(#some-markdown-heading)
+
+[create an anchor](#anchors-in-markdown)
 
 Tällä hetkellä sovellus tukee seuraavia toimintoja:
 * Kirjautuminen
@@ -72,7 +75,10 @@ Tällä hetkellä sovellus tukee seuraavia toimintoja:
 * Asiakkaiden lisääminen
 * Toimipaikkojen lisääminen
 
+Tietokanta palvelee tämän hetkisiä toimintoja mutta siihen tulee todennäköisesti vielä muutoksia. Käyttöliittymän jäsentelyä erilaisiin asetteluihin ei ole aloitettu.
+
 Sovellusta pääsee kokeilemaan osoitteessa: https://tsoha-tuotannonseuranta.herokuapp.com
+Jos luot itsellesi uuden tunnuksen kokeilua varten, sillä tulee olemaan peruskäyttäjän oikeudet. Voit myös kokeilla adminin oikeuksia tunnuksella 'admin' ja salasanalla 'pass'.
 
 
 _Olen aikaisemmin tehnyt ohjelmistotekniikan kurssilla [tuotannonohjausjärjestelmän](https://github.com/Skorp7/ot-harjoitustyo) Javalla ja SQLitellä. Tämä sovellus perustuu siis samaan ideaan, mutta eri painotuksilla ja ohjelmoin sen kokonaan alusta alkaen. Kielenä on Python (minulle uusi kieli) ja tietokantana PostgreSQL._
