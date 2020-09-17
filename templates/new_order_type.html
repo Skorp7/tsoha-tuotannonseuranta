@@ -1,0 +1,14 @@
+Lisää uusi tuote:
+<hr>
+
+<form action="/new_order_type" method="post">
+Tuote: <input type="text" name="product">
+<p>
+Päämateriaalit: <input type="text" name="materials">
+<p>
+<input type="submit" value="Luo tuote">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+
+<hr>
+<a href="/new_order"><Button>Takaisin</Button></a>

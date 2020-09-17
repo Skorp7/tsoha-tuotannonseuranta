@@ -1,20 +1,12 @@
 TERVETULOA!
 <hr>
-<i>Tässä näkyy listattua tietoa tietokannasta</i>
+<i>Tämä on sovellus tuotannon seurantaan</i>
 <br>
 <i>Käyttäjien määrä: </i> {{ counter }}
 <br>
-{% for message in messages %}
-<i>Viesti:</i> {{ message[0] }}
 
-<p>
-<i>Lähettäjä:</i> {{ message[1] }}
-<p>
-<i>Aika:</i> {{ message[2].strftime("%Y-%m-%d %H:%M:%S") }}
-<hr>
-{% endfor %}
 {% if session.user_id %}
-Olet kirjautunut sisään.
+
 <br>
 <a href="/production"><Button>Tuotanto</Button></a>
 <br>

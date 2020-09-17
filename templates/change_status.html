@@ -5,7 +5,7 @@ Muuta käyttäjän oikeuksia
 <select id="users" name="username" form="statusform">
 {% for name in user_list %}
   <option value="{{ name[0] }}">{{ name[0] }} :
-{% if (name[1] == 1): %} (työnjohtaja) {% else %} (peruskäyttäjä) {% endif %}</option>
+{% if (name[1] == 1): %} (työnjohtaja) {% elif (name[1] == 0): %} (peruskäyttäjä) {% else %} (ei oikeuksia) {% endif %}</option>
 <hr>
 {% endfor %}
 </select> 
@@ -16,6 +16,7 @@ Muuta käyttäjän oikeuksia
 <select name="new_status" id="statuses" form="statusform">
   <option value=0>peruskäyttäjä</option>
   <option value=1>työnjohtaja (admin)</option>
+  <option value=99>ei oikeuksia</option>
 <hr>
 </select> 
 <p>
@@ -24,6 +25,7 @@ Muuta käyttäjän oikeuksia
 <form action="/change_status" method="post" id="statusform">
 
 <input type="submit" value="Muuta status">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
 </form> 
 

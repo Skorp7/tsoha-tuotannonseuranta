@@ -8,4 +8,3 @@ def get_counter():
     result = db.session.execute("SELECT COUNT(*) FROM users")
     counter = result.fetchone()[0]
     return counter
-

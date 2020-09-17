@@ -9,6 +9,8 @@ CREATE TABLE users (
 CREATE TABLE clinics (
     id SERIAL PRIMARY KEY, 
     name TEXT, 
+    adress TEXT,
+    postal_code TEXT,
     city TEXT
 );
 
@@ -21,7 +23,6 @@ CREATE TABLE order_types (
 CREATE TABLE customers (
     id SERIAL PRIMARY KEY, 
     name TEXT, 
-    clinic_id INTEGER REFERENCES clinics, 
     visible INTEGER
 );
 
@@ -29,6 +30,7 @@ CREATE TABLE orders (
     id SERIAL PRIMARY KEY, 
     order_type_id INTEGER REFERENCES order_types,
     customer_id INTEGER REFERENCES customers,
+    delivery_date TIMESTAMP,
     time TIMESTAMP
 );
 

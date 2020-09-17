@@ -1,0 +1,18 @@
+Lisää uusi asiakkaan toimipiste:
+<hr>
+
+<form action="/new_clinic" method="post">
+Toimipisteen nimi: <input type="text" name="name">
+<p>
+Laskutusosoite: <input type="text" name="adress">
+<p>
+Postinumero: <input type="text" name="postal">
+<p>
+Kaupunki: <input type="text" name="city">
+<p>
+<input type="submit" value="Luo toimipiste">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+
+<hr>
+<a href="/new_order"><Button>Takaisin</Button></a>
