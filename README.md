@@ -45,9 +45,9 @@ Käyttöliittymä
 
 Tiedon pysyväistallennus
 --------
-Sovelluksen tietokantana toimii PostgreSQL -tietokanta. Tietokantataulut on jaettu oheisen kaavion mukaisesti, mutta määrä saattaa vielä kehityksen aikana kasvaa.
+Sovelluksen tietokantana toimii PostgreSQL -tietokanta. Tietokantatauluja 6kpl ja ne on jaettu oheisen kaavion mukaisesti, mutta määrä saattaa vielä kehityksen aikana kasvaa. Tietokannan jaottelusta saa parhaiten kuvan tutustumalla [sql-skeemaan]("/schema.sql")
 
-<img src="\documentation\tietokantakaavio.jpg" height="300" title="Tietokantakaaavio"> 
+<img src="/documentation/tietokantakaavio.jpg" height="300" title="Tietokantakaaavio"> 
 
 Sovellusta pääsee kokeilemaan osoitteessa: https://tsoha-tuotannonseuranta.herokuapp.com
 
