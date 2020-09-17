@@ -45,11 +45,13 @@ Käyttöliittymä
 
 Tiedon pysyväistallennus
 --------
-Sovelluksen tietokantana toimii PostgreSQL -tietokanta. Tietokantatauluja 6kpl ja ne on jaettu oheisen kaavion mukaisesti, mutta määrä saattaa vielä kehityksen aikana kasvaa. Tietokannan jaottelusta saa parhaiten kuvan tutustumalla [sql-skeemaan](schema.sql)
+Sovelluksen tietokantana toimii PostgreSQL -tietokanta. Tietokantatauluja 6kpl ja ne on jaettu oheisen kaavion mukaisesti, mutta määrä saattaa vielä kehityksen aikana kasvaa. Tietokannan jaottelusta saa parhaiten kuvan tutustumalla [sql-skeemaan](schema.sql), mutta selvyyden vuoksi otetaan muutama huomio jaottelun taustasyistä; asiakaskunta on hammaslääkärit ja he saattavat työskennellä usealla eri vastaanotolla, sen takia toimipisteet on omassa taulussaan. Lisäksi yhteen tilaukseen liittyy yleensä yksi tilaustyyppi, jotka ovat useimmiten samoja tiettyjä. Tilaustyypin lisäämiseen on kuitenkin jätetty vapaat tekstikentät koska myös hyvin erikoisia tilauksia saattaa tulla.
 
 <img src="/documentation/tietokantakaavio.jpg" height="300" title="Tietokantakaaavio"> 
+
+Tietokannassa asiakkaiden ja käyttäjien kohdalla on sarake 'visible', jolla ne voi piilottaa poistotilanteessa, jottei yhteydet katkea tehtyihin tilauksiin. Tämä on kuitenkin vielä kehityksen alla, että jääkö tämä ominaisuus vai onko siitä vain enemmän haittaa kuin hyötyä.
 
 Sovellusta pääsee kokeilemaan osoitteessa: https://tsoha-tuotannonseuranta.herokuapp.com
 
 
-Olen aikaisemmin tehnyt ohjelmistotekniikan kurssilla [tuotannonohjausjärjestelmän](https://github.com/Skorp7/ot-harjoitustyo) Javalla ja SQLitellä. Nyt aion tehdä saman tapaisen sovelluksen, mutta eri painotuksilla ja kokonaan alusta alkaen. Toteutan siis kokonaan uuden sovelluksen ja rakennan myös tietokantapuolen eri tavalla. Kielenä tulee olemaan Python (minulle uusi kieli) ja tietokantana PostgreSQL.
+_Olen aikaisemmin tehnyt ohjelmistotekniikan kurssilla [tuotannonohjausjärjestelmän](https://github.com/Skorp7/ot-harjoitustyo) Javalla ja SQLitellä. Tämä sovellus perustuu siis samaan ideaan, mutta eri painotuksilla ja ohjelmoin sen kokonaan alusta alkaen. Kielenä on Python (minulle uusi kieli) ja tietokantana PostgreSQL._
