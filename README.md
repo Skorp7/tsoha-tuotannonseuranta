@@ -31,14 +31,24 @@ Esimerkiksi peruskäyttäjän oikeuksilla oleva työntekijä, esim. laskuttaja n
 
 Käyttöliittymä
 --------
-* Kirjautumismahdollisuus
+* Kirjautumisnäkymä
 * TÄNÄÄN-ikkuna josta näkee päivän aikana valmiiksi saatavat tilaukset
-* Työmääriä voi tarkastella hakemalla niitä erilaisilla parametreillä (tilauksen tyyppi, asiakas, toimipaikka, tilausta käsitellyt työntekijä)
-* Tilauksen tilaa voi seurata hakemalla esim. tilauksen id:llä
-  * Työnjohtajalle näyttää esim. aikajanana kuinka pitkä aika on mennyt missäkin työvaiheessa keskimäärin
-  * näyttää esim. aikajanana kuinka pitkä aika on mennyt missäkin työvaiheessa ja ilmaisee jollain tapaa jos aika on yli keskiarvon
-* Keskimääräiset toimitusajat tilastona eri tyyppisille tilauksille
-* Tilaukseen voi liittää viestejä seuraavaa käsittelijää varten
+  * Laidalla navigointipalkki
+* Tuotanto-ikkuna
+  * Työmääriä voi tarkastella hakemalla niitä erilaisilla parametreillä (tilauksen tyyppi, asiakas, toimipaikka, tilausta käsitellyt työntekijä)
+  * Tilauksen tilaa voi seurata hakemalla esim. tilauksen id:llä
+    * Työnjohtajalle näyttää esim. aikajanana kuinka pitkä aika on mennyt missäkin työvaiheessa keskimäärin
+    * näyttää esim. aikajanana kuinka pitkä aika on mennyt missäkin työvaiheessa ja ilmaisee jollain tapaa jos aika on yli keskiarvon
+  * Työvaiheen lisääminen
+    * Tilaukseen voi liittää viestejä seuraavaa käsittelijää varten
+  * Tilauksen lisääminen
+    * Asiakkaan lisääminen
+    * Tilaustyypin lisääminen
+    * Toimipaikan lisääminen
+* Hallinta-ikkuna (vain työnjohtajille)
+  * Käyttäjien statuksen vaihto
+  * Keskimääräiset toimitusajat tilastona eri tyyppisille tilauksille
+
 * Tilauksella on status, se voi olla jonossa tai työn alla. Valmistumisen taas näkee tilauksen tapahtumahistoriasta omana tapahtumanaan.
 * Mahdollisuuksien mukaan myös muita toimintoja ja tilastoja työnjohtoa helpottamaan
 
