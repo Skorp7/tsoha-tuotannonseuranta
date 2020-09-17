@@ -3,34 +3,53 @@ TUOTANNONSEURANTA
 
 _Tämä on kurssin 'Tietokantasovellus' -harjoitustyö._
 
-Sovellusta pääsee kokeilemaan osoitteessa: https://tsoha-tuotannonseuranta.herokuapp.com
+Sovellus on tarkoitettu hammaslaboratoroion tuotannon seurantaan. Sen avulla saa yleiskäsityksen siitä mitä tuotantotiloissa tapahtuu ja sen olisi tarkoitus olla apuväline työnjohtajille tuotannon tehostamisessa. Tuotantotiloissa tilaukset liikkuvat usean eri työntekijän välillä ja tulee helposti sekaannuksia, kuka teki millekin tilaukselle viimeksi mitäkin. Välillä tilauksia voi unohtua eikä ne tavoita pyydettyä toimitusaikaa. Sovellus pyrkii ratkaisemaan näitä tuotannon ongelmia.
 
-
-Olen aikaisemmin tehnyt ohjelmistotekniikan kurssilla [tuotannonohjausjärjestelmän](https://github.com/Skorp7/ot-harjoitustyo) Javalla ja SQLitellä. Nyt aion tehdä saman tapaisen sovelluksen, mutta eri painotuksilla ja kokonaan alusta alkaen. Toteutan siis kokonaan uuden sovelluksen ja rakennan myös tietokantapuolen eri tavalla. Kielenä tulee olemaan Python (minulle uusi kieli) ja tietokantana PostgreSQL.
-
-Aikaisemmassa sovelluksessa pääpaino oli siinä, että näkee helposti kuka työntekijä on tehnyt minkäkin työvaiheen ja jos jokin tilaus on hukassa, niin koodilla voi etsiä kuka tilausta on käsitellyt viimeksi. Sovellus näytti myös päiväkohtaisia työmääriä.
-
-Tässä uudessa sovelluksessa olisi tarkoitus päästä seuraamaan sitä, kuinka kauan mikäkin työvaihe kestää ja lisätä tilauksille mahdollisuus jäädä jonottamaan työn alle pääsyä. Näin työnjohtaja näkisi helposti missä kohtaa tuotantoa on pullonkauloja ja miksi jotkut tietyt tilaukset aina myöhästyvät.
-Esimerkiksi jos valmis tilaus seisoo jonossa kauan ennen kuin se uloskirjataan, niin tiedetään että laskutus on hidasta ja siihen tarvittaisiin tehostamistoimia. Tuotantotilana pidän edellisen sovelluksen tavoin hammaslaboratorion, mutta pyrin rakentamaan sovelluksen niin että se olisi helposti muokattavissa koodia vähän muuttamalla eri tuotannon käyttöön.
+Sovelluksen avulla tulee saamaan selville muun muassa:
+* Missä vaiheessa tuotantoketjua tietty tilaus on menossa
+* Onko tietty tilaus jämähtänyt jonoon odottamaan jotakin tiettyä työvaihetta
+* Onko jossain työvaiheessa yleisesti pitkät jonot (tarvitaanko tehostamista tai lisää työvoimaa)
+* Mitkä tilaukset pitäisi olla valmiina TÄNÄÄN ja mikä niiden sen hetkinen status on
+* Kuka työntekijä on tehnyt mitäkin työvaiheita
 
 Käyttäjäryhmät
 --------
-Sovellukseen tulee kaksi käyttäjäryhmää:
-* työnjohto 
-* työntekijät 
+Sovellukseen tulee kolme käyttäjäryhmää:
+* ei oikeuksia
+  * pystyy kirjautumaan sisään muttei pääse eteenpäin tuotanto-välilehdelle tai muualle
+ 
+* peruskäyttäjä 
+  * voi lisätä tilauksia, asiakkaita, tilaustyyppejä, työvaiheita, toimipaikkoja
+  * voi etsiä tilauksia asiakaskohtaisesti, tilauskohtaisesti, toimipaikkakohtaisesti
 
-Työnjohto näkee kaikkien tilausten kestot kussakin työvaiheessa ja työntekijät näkevät omien työvaiheidensa kestot. Esimerkiksi laskuttaja näkee kuinka kauan häneltä kuluu keskimäärin laskutukseen per tietynlainen tilaus.
+* työnjohto 
+  * samat toiminnot kuin peruskäyttäjällä mutta lisäksi:
+  * voi muuttaa toisten käyttäjien oikeuksia (peruskäyttäjä, työnjohtaja, ei oikeuksia)
+  * näkee tilastoja tuotannosta, esim. työvaiheiden kestoja, tilausmääriä, asiakaskohtaisia tilausmääriä, toimipaikkakohtaisia tilausmääriä
+ 
+Esimerkiksi peruskäyttäjän oikeuksilla oleva työntekijä, esim. laskuttaja näkee kuinka kauan häneltä kuluu keskimäärin laskutukseen per tietynlainen tilaus. Oikeudet voidaan poistaa jos työntekijä esimerkiksi vaihtaa työpaikkaa tai tapahtuu jotain miksi häntä ei voi päästää tietokantaan käsiksi, esim. salasanavuoto. Kirjautumisoikeus pysyy siksi että tiedetään käyttäjän olevan olemassa ja oikeudet voi työnjohtajan halutessa palauttaa.
 
 Käyttöliittymä
 --------
 * Kirjautumismahdollisuus
-* Eri tyyppisten tilausten haku
-  * näyttää esim. aikajanana kuinka pitkä aika on mennyt missäkin työvaiheessa keskimäärin
-* Tietyn tilauksen haku koodilla
+* TÄNÄÄN-ikkuna josta näkee päivän aikana valmiiksi saatavat tilaukset
+* Työmääriä voi tarkastella hakemalla niitä erilaisilla parametreillä (tilauksen tyyppi, asiakas, toimipaikka, tilausta käsitellyt työntekijä)
+* Tilauksen tilaa voi seurata hakemalla esim. tilauksen id:llä
+  * Työnjohtajalle näyttää esim. aikajanana kuinka pitkä aika on mennyt missäkin työvaiheessa keskimäärin
   * näyttää esim. aikajanana kuinka pitkä aika on mennyt missäkin työvaiheessa ja ilmaisee jollain tapaa jos aika on yli keskiarvon
 * Keskimääräiset toimitusajat tilastona eri tyyppisille tilauksille
+* Tilaukseen voi liittää viestejä seuraavaa käsittelijää varten
+* Tilauksella on status, se voi olla jonossa tai työn alla. Valmistumisen taas näkee tilauksen tapahtumahistoriasta omana tapahtumanaan.
 * Mahdollisuuksien mukaan myös muita toimintoja ja tilastoja työnjohtoa helpottamaan
 
 
+Tiedon pysyväistallennus
+--------
+Sovelluksen tietokantana toimii PostgreSQL -tietokanta. Tietokantataulut on jaettu oheisen kaavion mukaisesti, mutta määrä saattaa vielä kehityksen aikana kasvaa.
+
+<img src="\dokumentation\tietokantakaavio.jpg" height="300" title="Tietokantakaaavio"> 
+
+Sovellusta pääsee kokeilemaan osoitteessa: https://tsoha-tuotannonseuranta.herokuapp.com
 
 
+Olen aikaisemmin tehnyt ohjelmistotekniikan kurssilla [tuotannonohjausjärjestelmän](https://github.com/Skorp7/ot-harjoitustyo) Javalla ja SQLitellä. Nyt aion tehdä saman tapaisen sovelluksen, mutta eri painotuksilla ja kokonaan alusta alkaen. Toteutan siis kokonaan uuden sovelluksen ja rakennan myös tietokantapuolen eri tavalla. Kielenä tulee olemaan Python (minulle uusi kieli) ja tietokantana PostgreSQL.
