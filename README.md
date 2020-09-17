@@ -65,6 +65,9 @@ Tietokannassa asiakkaiden ja käyttäjien kohdalla on sarake 'visible', jolla ne
 
 Sovelluskehityksen tämän hetkinen tilanne (#Stht)
 ------------
+
+(#some-markdown-heading)
+
 Tällä hetkellä sovellus tukee seuraavia toimintoja:
 * Kirjautuminen
 * Käyttäjien statuksen vaihto
