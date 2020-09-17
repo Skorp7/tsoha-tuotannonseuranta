@@ -53,7 +53,7 @@ Käyttöliittymä
 * Mahdollisuuksien mukaan myös muita toimintoja ja tilastoja työnjohtoa helpottamaan
 
 
-Tiedon pysyväistallennus
+##Tiedon pysyväistallennus
 --------
 Sovelluksen tietokantana toimii PostgreSQL -tietokanta. Tietokantatauluja 6kpl ja ne on jaettu oheisen kaavion mukaisesti, mutta määrä saattaa vielä kehityksen aikana kasvaa. Tietokannan jaottelusta saa parhaiten kuvan tutustumalla [sql-skeemaan](schema.sql), mutta selvyyden vuoksi otetaan muutama huomio jaottelun taustasyistä; asiakaskunta on hammaslääkärit ja he saattavat työskennellä usealla eri vastaanotolla, sen takia toimipisteet on omassa taulussaan. Lisäksi yhteen tilaukseen liittyy yleensä yksi tilaustyyppi, jotka ovat useimmiten samoja tiettyjä. Tilaustyypin lisäämiseen on kuitenkin jätetty vapaat tekstikentät koska myös hyvin erikoisia tilauksia saattaa tulla.
 
@@ -61,11 +61,8 @@ Sovelluksen tietokantana toimii PostgreSQL -tietokanta. Tietokantatauluja 6kpl j
 
 Tietokannassa asiakkaiden ja käyttäjien kohdalla on sarake 'visible', jolla ne voi piilottaa poistotilanteessa, jottei yhteydet katkea tehtyihin tilauksiin. Tämä on kuitenkin vielä kehityksen alla, että jääkö tämä ominaisuus vai onko siitä vain enemmän haittaa kuin hyötyä.
 
-Sovelluskehityksen tämän hetkinen tilanne
-------------
-(#some-markdown-heading)
-
-[create an anchor](#anchors-in-markdown)
+Sovelluskehityksen-tämän-hetkinen-tilanne
+----------------
 
 Tällä hetkellä sovellus tukee seuraavia toimintoja:
 * Kirjautuminen
