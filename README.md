@@ -63,7 +63,7 @@ Sovelluksen tietokantana toimii PostgreSQL -tietokanta. Tietokantatauluja 6kpl j
 
 Tietokannassa asiakkaiden ja käyttäjien kohdalla on sarake 'visible', jolla ne voi piilottaa poistotilanteessa, jottei yhteydet katkea tehtyihin tilauksiin. Tämä on kuitenkin vielä kehityksen alla, että jääkö tämä ominaisuus vai onko siitä vain enemmän haittaa kuin hyötyä.
 
-Sovelluskehityksen tämän hetkinen tilanne {#Stht}
+Sovelluskehityksen tämän hetkinen tilanne (#Stht)
 ------------
 Tällä hetkellä sovellus tukee seuraavia toimintoja:
 * Kirjautuminen
