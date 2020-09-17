@@ -3,8 +3,6 @@ TUOTANNONSEURANTA
 
 _Tämä on kurssin 'Tietokantasovellus' -harjoitustyö._
 
-[Sovelluskehityksen tämän hetkinen tilanne](#Stht)
-
 Sovellus on tarkoitettu hammaslaboratoroion tuotannon seurantaan. Sen avulla saa yleiskäsityksen siitä mitä tuotantotiloissa tapahtuu ja sen olisi tarkoitus olla apuväline työnjohtajille tuotannon tehostamisessa. Tuotantotiloissa tilaukset liikkuvat usean eri työntekijän välillä ja tulee helposti sekaannuksia, kuka teki millekin tilaukselle viimeksi mitäkin. Välillä tilauksia voi unohtua eikä ne tavoita pyydettyä toimitusaikaa. Sovellus pyrkii ratkaisemaan näitä tuotannon ongelmia.
 
 Sovelluksen avulla tulee saamaan selville muun muassa:
@@ -63,10 +61,8 @@ Sovelluksen tietokantana toimii PostgreSQL -tietokanta. Tietokantatauluja 6kpl j
 
 Tietokannassa asiakkaiden ja käyttäjien kohdalla on sarake 'visible', jolla ne voi piilottaa poistotilanteessa, jottei yhteydet katkea tehtyihin tilauksiin. Tämä on kuitenkin vielä kehityksen alla, että jääkö tämä ominaisuus vai onko siitä vain enemmän haittaa kuin hyötyä.
 
-Sovelluskehityksen tämän hetkinen tilanne (#Stht)
+Sovelluskehityksen tämän hetkinen tilanne
 ------------
-
-(#some-markdown-heading)
 
 Tällä hetkellä sovellus tukee seuraavia toimintoja:
 * Kirjautuminen
