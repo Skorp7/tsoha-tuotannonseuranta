@@ -103,7 +103,7 @@ def new_order_type():
         materials = request.form["materials"]
         token = request.form["csrf_token"]
         if orders.add_order_type(product, materials) and session["csrf_token"] == token:
-            return redirect("/new_order")
+            return redirect("/")
         else:
             return render_template("error.html",message="Tuotteen lisääminen ei onnistunut.")
 
@@ -118,7 +118,7 @@ def new_clinic():
         postal = request.form["postal"]
         token = request.form["csrf_token"]
         if customers.add_clinic(name, adress, postal, city) and session["csrf_token"] == token:
-            return redirect("/new_order")
+            return redirect("/")
         else:
             return render_template("error.html",message="Toimipisteen lisääminen ei onnistunut. Tarkista onko sama toimipiste jo olemassa samassa kaupungissa.")
 
@@ -130,7 +130,7 @@ def new_customer():
         name = request.form["name"]
         token = request.form["csrf_token"]
         if customers.add(name) and session["csrf_token"] == token:
-            return redirect("/new_order")
+            return redirect("/")
         else:
             return render_template("error.html",message="Asiakkaan lisääminen epäonnistui.")
 
