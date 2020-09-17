@@ -30,6 +30,7 @@ CREATE TABLE orders (
     id SERIAL PRIMARY KEY, 
     order_type_id INTEGER REFERENCES order_types,
     customer_id INTEGER REFERENCES customers,
+    clinic_id INTEGER REFERENCES clinics,
     delivery_date TIMESTAMP,
     time TIMESTAMP
 );
