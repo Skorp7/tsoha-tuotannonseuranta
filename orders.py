@@ -4,12 +4,13 @@ from flask import session
 
 def add(order_type_id, customer_id, delivery_date, clinic_id):
     try:
-        sql = "INSERT INTO orders (order_type_id, customer_id, clinic_id, delivery_date, time) VALUES (:order_type_id, :customer_id, :clinic_id, :delivery_date, LOCALTIMESTAMP)"
-        db.session.execute(sql, {"order_type_id":order_type_id, "customer_id":customer_id, "clinic_id":clinic_id, "delivery_date":delivery_date})
+        sql = "INSERT INTO orders (order_type_id, customer_id, clinic_id, delivery_date, time) VALUES (:order_type_id, :customer_id, :clinic_id, :delivery_date, LOCALTIMESTAMP) RETURNING id"
+        result = db.session.execute(sql, {"order_type_id":order_type_id, "customer_id":customer_id, "clinic_id":clinic_id, "delivery_date":delivery_date})
+        latest_id = result.fetchone()[0]
         db.session.commit()
-        return True
+        return latest_id
     except:
-        return False
+        return None
 
 
 def add_order_type(product_type, main_materials):
@@ -40,10 +41,11 @@ def update_delivery_date(new_datetime, order_id):
     except:
         return False
 
-def user_status():
-    id = session.get("user_id",0)
-    sql = "SELECT status FROM users WHERE id=:id"
-    result = db.session.execute(sql, {"id":id})
-    status = result.fetchone()[0]
-    return status
-    
+def get_latest(order_id):
+    try:
+        sql = "SELECT * FROM orders WHERE id=:id"
+        result = db.session.execute(sql, {"id":order_id})
+        order = result.fetchall()
+        return True
+    except:
+        return False

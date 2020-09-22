@@ -1,15 +1,25 @@
 Lisää uusi asiakkaan toimipiste:
 <hr>
 
-<form action="/new_clinic" method="post">
-Toimipisteen nimi: <input type="text" name="name">
+
+Toimipisteen nimi: <input type="text" name="name" form="clinicform">
 <p>
-Laskutusosoite: <input type="text" name="adress">
+Laskutusosoite: <input type="text" name="adress" form="clinicform">
 <p>
-Postinumero: <input type="text" name="postal">
+Postinumero: <input type="text" name="postal" form="clinicform">
 <p>
-Kaupunki: <input type="text" name="city">
+
+<label for="city">Kaupunki/kunta:</label>
+<select id="city" name="city" form="clinicform">
+  <option value="0"></option>
+{% for city in citys %}
+  <option value="{{ city[0] }}">{{ city[0] }}</option>
+<hr>
+{% endfor %}
+</select> 
 <p>
+
+<form action="/new_clinic" method="post" id="clinicform">
 <input type="submit" value="Luo toimipiste">
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>

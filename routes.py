@@ -92,12 +92,14 @@ def new_order():
         d_time = request.form["delivery_time"]
         delivery_date = d_date + ' ' + d_time + ':00.000000'
         token = request.form["csrf_token"]
-        if clinic_id == '0' or order_type_id == '0' or customer_id == '0':
+        if clinic_id == '0' or order_type_id == '0' or customer_id == '0' or d_date == '':
             message = "Täytä kaikki kentät!"
-        elif orders.add(order_type_id, customer_id, delivery_date, clinic_id) and session["csrf_token"] == token:
-            return redirect("/new_order")
-       # else:
-        #   return render_template("error.html",message="Tilauksen lisäys epäonnistui.")
+        elif clinic_id != '0' or order_type_id != '0' or customer_id != '0' and session["csrf_token"] == token:
+            latest_id = orders.add(order_type_id, customer_id, delivery_date, clinic_id)
+            if (latest_id != None):
+                message = 'Tilaus lisätty! Uuden tilauksen id on: ' + str(latest_id) + ' Kirjoita se lähetteeseen.'
+        else:
+           return render_template("error.html",message="Tilauksen lisäys epäonnistui.")
     return render_template('new_order.html', message=message, order_type_list=order_type_list, customer_list=customer_list, clinic_list=clinic_list)
     
 
@@ -110,7 +112,7 @@ def new_order_type():
         product = request.form["product"]
         materials = request.form["materials"]
         token = request.form["csrf_token"]
-        if orders.add_order_type(product, materials) and session["csrf_token"] == token:
+        if product != '' and materials != '' and orders.add_order_type(product, materials) and session["csrf_token"] == token:
             return redirect("/new_order")
         else:
             return render_template("error.html",message="Tuotteen lisääminen ei onnistunut.")
@@ -118,17 +120,18 @@ def new_order_type():
 @app.route("/new_clinic", methods=["get","post"])
 def new_clinic():
     if request.method == "GET":
-        return render_template("new_clinic.html")
+        citys = customers.citys_fi()
+        return render_template("new_clinic.html", citys=citys)
     if request.method == "POST":
         name = request.form["name"]
         adress = request.form["adress"]
         city = request.form["city"]
         postal = request.form["postal"]
         token = request.form["csrf_token"]
-        if customers.add_clinic(name, adress, postal, city) and session["csrf_token"] == token:
+        if name != '' and adress != '' and postal != '' and city != '0' and customers.add_clinic(name, adress, postal, city) and session["csrf_token"] == token:
             return redirect("/new_order")
         else:
-            return render_template("error.html",message="Toimipisteen lisääminen ei onnistunut. Tarkista onko sama toimipiste jo olemassa samassa kaupungissa.")
+            return render_template("error.html",message="Toimipisteen lisääminen ei onnistunut. Tarkista onko sama toimipiste jo olemassa samassa kaupungissa ja täytä kaikki kentät.")
 
 @app.route("/new_customer", methods=["get","post"])
 def new_customer():
@@ -137,7 +140,7 @@ def new_customer():
     if request.method == "POST":
         name = request.form["name"]
         token = request.form["csrf_token"]
-        if customers.add(name) and session["csrf_token"] == token:
+        if name != '' and customers.add(name) and session["csrf_token"] == token:
             return redirect("/new_order")
         else:
             return render_template("error.html",message="Asiakkaan lisääminen epäonnistui.")

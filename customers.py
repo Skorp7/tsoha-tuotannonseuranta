@@ -48,3 +48,12 @@ def customer_list():
         return customer_list
     except:
         return None
+
+def citys_fi():
+    try:
+        sql = "SELECT * FROM citys_fi"
+        result = db.session.execute(sql)
+        citys_fi = result.fetchall()
+        return citys_fi
+    except:
+        return None
