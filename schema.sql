@@ -43,5 +43,9 @@ CREATE TABLE events (
     is_pending INTEGER
 );
    
+CREATE TABLE citys_fi (
+    name TEXT
+);
 
+\copy citys_fi FROM 'kunnat.txt';
 
