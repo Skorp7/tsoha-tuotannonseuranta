@@ -1,0 +1,21 @@
+Lisää työvaihe tilaukselle:
+<hr>
+
+<form action="/new_event" method="post" id="eventform">
+Tilauksen id: <input type="text" name="order_id" form="eventform">
+<p>
+Työvaiheen kuvaus: <input type="text" name="description" form="eventform">
+<form>
+  <input type="radio" id="is_pending" name="is_pending" value="1" checked="checked" form="eventform">
+  <label for="is_pending">Jonossa</label>
+  <input type="radio" id="is_not_pending" name="is_pending" value="0" form="eventform">
+  <label for="is_not_pending">Työn alla</label><br>
+</form> 
+Käsittelijä: {{ user_data[1] }}
+<p>
+<input type="submit" value="Lisää työvaihe" form="eventform">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" form="eventform">
+</form>
+
+<hr>
+<a href="/production"><Button>Takaisin</Button></a>

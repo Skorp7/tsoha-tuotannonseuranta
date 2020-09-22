@@ -1,6 +1,7 @@
 from app import app
 from flask import render_template, request, redirect
-import users, visits, os, orders, customers, datetime
+import users, visits, os, orders, customers, datetime, events
+from datetime import date
 from db import db
 from flask import session
 
@@ -32,15 +33,39 @@ def logout():
 
 @app.route("/charts")
 def charts():
-    return render_template("charts.html")
+    if users.user_status() == 1:
+        return render_template("charts.html")
+    else:
+        return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
+    
 
-@app.route("/event")
-def event():
-    return render_template("event.html")
+@app.route("/new_event", methods=["get","post"])
+def new_event():
+    user_data = users.user()
+    if request.method == "GET":
+        if users.user_status() == 1 or users.user_status() == 0:
+            return render_template("new_event.html", user_data = user_data)
+        else:
+            return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
+    if request.method == "POST":
+        order_id = request.form["order_id"]
+        description = request.form["description"]
+        user_id = user_data[0]
+        is_pending = request.form["is_pending"]
+        token = request.form["csrf_token"]
+        print('tilausid: ' + str(orders.order(order_id)))
+        print('ispendind: ' + str(is_pending) + ' user_id: ' + str(user_id) + ' description: ' + description)
+        if orders.order(order_id) != None and description != '' and events.add(order_id, user_id, description, is_pending) and session["csrf_token"] == token:
+            return redirect("/production")
+        else:
+            return render_template("error.html",message="Työvaiheen lisääminen ei onnistunut.")
 
 @app.route("/seek")
 def seek():
-    return render_template("seek.html")
+    if users.user_status() == 1 or users.user_status() == 0:
+        return render_template("seek.html")
+    else:
+        return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
 @app.route("/register", methods=["get","post"])
 def register():
@@ -65,8 +90,11 @@ def admin():
 @app.route("/change_status", methods=["get","post"])
 def change_status():
     if request.method == "GET":
-        user_list = users.user_list()
-        return render_template("change_status.html", user_list=user_list)
+        if users.user_status() == 1:
+            user_list = users.user_list()
+            return render_template("change_status.html", user_list=user_list)
+        else:
+            return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
     if request.method == "POST":
         new_status = request.form["new_status"]
         username = request.form["username"]
@@ -100,14 +128,21 @@ def new_order():
                 message = 'Tilaus lisätty! Uuden tilauksen id on: ' + str(latest_id) + ' Kirjoita se lähetteeseen.'
         else:
            return render_template("error.html",message="Tilauksen lisäys epäonnistui.")
-    return render_template('new_order.html', message=message, order_type_list=order_type_list, customer_list=customer_list, clinic_list=clinic_list)
+
+    if users.user_status() == 1 or users.user_status() == 0:
+        return render_template('new_order.html', message=message, order_type_list=order_type_list, customer_list=customer_list, clinic_list=clinic_list)
+    else:
+        return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
     
 
 
 @app.route("/new_order_type", methods=["get","post"])
 def new_order_type():
     if request.method == "GET":
-        return render_template("new_order_type.html")
+        if users.user_status() == 1 or users.user_status() == 0:
+            return render_template("new_order_type.html")
+        else:
+            return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
     if request.method == "POST":
         product = request.form["product"]
         materials = request.form["materials"]
@@ -120,8 +155,11 @@ def new_order_type():
 @app.route("/new_clinic", methods=["get","post"])
 def new_clinic():
     if request.method == "GET":
-        citys = customers.citys_fi()
-        return render_template("new_clinic.html", citys=citys)
+        if users.user_status() == 1 or users.user_status() == 0:
+            citys = customers.citys_fi()
+            return render_template("new_clinic.html", citys=citys)
+        else:
+            return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
     if request.method == "POST":
         name = request.form["name"]
         adress = request.form["adress"]
@@ -136,7 +174,10 @@ def new_clinic():
 @app.route("/new_customer", methods=["get","post"])
 def new_customer():
     if request.method == "GET":
-        return render_template("new_customer.html")
+        if users.user_status() == 1 or users.user_status() == 0:
+            return render_template("new_customer.html")
+        else:
+            return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
     if request.method == "POST":
         name = request.form["name"]
         token = request.form["csrf_token"]
@@ -148,10 +189,22 @@ def new_customer():
 
 
 
-@app.route("/production")
+@app.route("/production", methods=["get"])
 def production():
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
             return render_template("production.html")
         else:
             return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
+
+date = date.today()
+
+@app.route("/today", methods=["get", "post"])
+def today():
+    order_list = orders.list(date.strftime("%Y-%m-%d"))
+    if request.method == "GET":
+        if users.user_status() == 1 or users.user_status() == 0:
+            return render_template("today.html", date=date, order_list=order_list)
+        else:
+            return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
+

@@ -32,10 +32,12 @@ CREATE TABLE orders (
     customer_id INTEGER REFERENCES customers,
     clinic_id INTEGER REFERENCES clinics,
     delivery_date TIMESTAMP,
+    in_progress INTEGER,
     time TIMESTAMP
 );
 
 CREATE TABLE events (
+    id SERIAL PRIMARY KEY,
     order_id INTEGER REFERENCES orders,
     user_id INTEGER REFERENCES users,
     description TEXT,

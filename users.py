@@ -35,11 +35,18 @@ def user_id():
     return session.get("user_id",0)
 
 def user_status():
-    id = session.get("user_id",0)
+    usr_id = session.get("user_id",0)
     sql = "SELECT status FROM users WHERE id=:id"
-    result = db.session.execute(sql, {"id":id})
+    result = db.session.execute(sql, {"id":usr_id})
     status = result.fetchone()[0]
     return status
+
+def user():
+    usr_id = session.get("user_id",0)
+    sql = "SELECT id, name, status FROM users WHERE id=:id"
+    result = db.session.execute(sql, {"id":usr_id})
+    user_data = result.fetchone()
+    return user_data
 
 def update_status(username, new_status):
     try:
@@ -58,4 +65,5 @@ def user_list():
         return user_list
     except:
         return None
-    
+
+   
