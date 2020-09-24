@@ -9,8 +9,8 @@ Lisää uusi tilaus
 
 <label for="customer_id">Asiakkaan nimi:</label>
 
-<select id="customer_id" name="customer_id" form="orderform">
-  <option value="0"></option>
+<select id="customer_id" name="customer_id" form="orderform" required>
+  <option value=""></option>
 {% for name in customer_list %}
   <option value="{{ name[0] }}">{{ name[1] }}</option>
 <hr>
@@ -22,8 +22,8 @@ Tai <a href="/new_customer">lisää uusi asiakas</a>.
 
 <label for="order_type_product">Tilattava tuote ja materiaali:</label>
 
-<select id="order_type_product" name="order_type_id" form="orderform">
-  <option value="0"></option>
+<select id="order_type_product" name="order_type_id" form="orderform" required>
+  <option value=""></option>
 {% for product_type in order_type_list %}
   <option value="{{ product_type[0] }}">{{ product_type[1] }} ({{ product_type[2] }})</option>
 <hr>
@@ -35,8 +35,8 @@ Tai <a href="/new_order_type">lisää uusi tuote</a>.
 
 
 <label for="clinic">Toimipiste:</label>
-<select id="clinic" name="clinic_id" form="orderform">
-  <option value="0"></option>
+<select id="clinic" name="clinic_id" form="orderform" required>
+  <option value=""></option>
 {% for clinic in clinic_list %}
   <option value="{{ clinic[0] }}">{{ clinic[1] }} ({{ clinic[3] }},{{ clinic[4] }})</option>
 <hr>
@@ -48,7 +48,7 @@ Tai <a href="/new_clinic">lisää uusi toimipiste</a>.
 
 <p>
  <label for="delivery_date">Pyydetty toimitusaika:</label>
- <input type="date" id="delivery_date" name="delivery_date" form="orderform">
+ <input type="date" id="delivery_date" name="delivery_date" form="orderform" required>
  <input type="time" value="00:00" id="delivery_time" name="delivery_time" form="orderform">
 
 

@@ -2,7 +2,7 @@ Lisää työvaihe tilaukselle:
 <hr>
 
 <form action="/new_event" method="post" id="eventform">
-Tilauksen id: <input type="text" name="order_id" form="eventform" required>
+Tilauksen id: <input type="text" name="order_id" form="eventform" required minlength="1" maxlength="30">
 <p>
 Työvaiheen kuvaus: <input type="text" name="description" form="eventform" minlength="3" maxlength="30" required>
 <form>

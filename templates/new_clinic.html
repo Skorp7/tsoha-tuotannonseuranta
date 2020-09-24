@@ -10,8 +10,8 @@ Postinumero: <input type="text" name="postal" form="clinicform" required minleng
 <p>
 
 <label for="city">Kaupunki/kunta:</label>
-<select id="city" name="city" form="clinicform">
-  <option value="0"></option>
+<select id="city" name="city" form="clinicform" required>
+  <option value=""></option>
 {% for city in citys %}
   <option value="{{ city[0] }}">{{ city[0] }}</option>
 <hr>
