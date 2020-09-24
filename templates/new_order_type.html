@@ -2,9 +2,9 @@ Lisää uusi tuote:
 <hr>
 
 <form action="/new_order_type" method="post">
-Tuote: <input type="text" name="product">
+Tuote: <input type="text" name="product" required minlength="5" maxlength="15">
 <p>
-Päämateriaalit: <input type="text" name="materials">
+Päämateriaalit: <input type="text" name="materials" required minlength="2" maxlength="20">
 <p>
 <input type="submit" value="Luo tuote">
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
