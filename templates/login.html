@@ -1,3 +1,7 @@
+{% extends "layout.html" %}
+{% block title %}Kirjaudu{% endblock %}
+{% block content %}
+
 <form action="/login" method="post">
 Tunnus: <input type="text" name="username">
 <p>
@@ -6,3 +10,5 @@ Salasana: <input type="password" name="password">
 <input type="submit" value="Kirjaudu">
 </form>
 Tai <a href="/register">luo tunnus</a>.
+
+{% endblock %}

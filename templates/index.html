@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+{% block title %}Etusivu{% endblock %}
+{% block content %}
 TERVETULOA!
 <hr>
 <i>Tämä on sovellus tuotannon seurantaan</i>
@@ -5,14 +8,4 @@ TERVETULOA!
 <i>Käyttäjien määrä: </i> {{ counter }}
 <br>
 
-{% if session.user_id %}
-
-<br>
-<a href="/production"><Button>Tuotanto</Button></a>
-<br>
-<a href="/admin"><Button>Hallinta</Button></a>
-<br>
-<a href="/logout"><Button>Kirjaudu ulos</Button></a>
-{% else %}
-<a href="/login"><Button>Kirjaudu sisään</Button></a>
-{% endif %}
+{% endblock %}

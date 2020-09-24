@@ -1,10 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}Tuotanto{% endblock %}
+{% block content %}
+
+
 Tuotanto
 <hr>
-<a href="/new_order"><Button>Lisää uusi tilaus</Button></a>
-<br>
-<a href="/new_event"><Button>Merkitse työvaihe</Button></a>
-<br>
-<a href="/seek"><Button>Etsi</Button></a>
+TÄNÄÄN {{ date.strftime("%d.%m.%Y - %A") }} 
+<p>
+
+Tänään toimitettavat tilaukset:
+
+<p>
 
 <hr>
-<a href="/"><Button>Takaisin</Button></a>
+Ei vielä lähetetty:
+<p>
+Toimitusaika | Tilauksen id | Tilaustyyppi (materiaali) | Asiakas | Toimipiste | Kaupunki | Tilaus jätetty | Tila
+<hr>
+{% for order in order_list %}
+    {% if (order[11] == 1): %}  
+        {{ order[9].strftime("%d.%m.%Y %H:%M") }} | {{ order[0] }} | {{ order[2] }} ({{ order[3] }}) | {{ order[5] }} | {{ order[7] }} | {{ order[8] }} | {{ order[10].strftime("%d.%m.%Y %H:%M") }} | TYÖN ALLA
+    {% endif %}
+<hr>
+{% endfor %}
+<hr>
+Lähetetyt tilaukset:
+<p>
+
+{% for order in order_list %}
+    {% if (order[11] == 0): %}  
+        {{ order[9].strftime("%d.%m.%Y %H:%M") }} | {{ order[0] }} | {{ order[2] }} ({{ order[3] }}) | {{ order[5] }} | {{ order[7] }} | {{ order[8] }} | {{ order[10].strftime("%d.%m.%Y %H:%M") }} | LÄHETETTY
+    {% endif %}
+<hr>
+{% endfor %}
+
+
+{% endblock %}

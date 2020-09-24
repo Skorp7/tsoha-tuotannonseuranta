@@ -1,3 +1,7 @@
+{% extends "layout.html" %}
+{% block title %}Uusi tilaus{% endblock %}
+{% block content %}
+
 Lisää uusi tilaus
 <hr>
     {% if message %}
@@ -59,5 +63,5 @@ Tai <a href="/new_clinic">lisää uusi toimipiste</a>.
 
 </form> 
 
-<hr>
-<a href="/"><Button>Takaisin</Button></a>
+
+{% endblock %}

@@ -1,3 +1,8 @@
+{% extends "layout.html" %}
+{% block title %}Kirjaudu{% endblock %}
+{% block content %}
+
+
 Lisää uusi asiakkaan toimipiste:
 <hr>
 
@@ -25,4 +30,6 @@ Postinumero: <input type="text" name="postal" form="clinicform" required minleng
 </form>
 
 <hr>
-<a href="/new_order"><Button>Takaisin</Button></a>
+<a href="javascript:history.go(-1)"><Button>Takaisin</Button></a>
+
+{% endblock %}

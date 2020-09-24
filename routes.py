@@ -147,7 +147,7 @@ def new_order_type():
         product = request.form["product"]
         materials = request.form["materials"]
         token = request.form["csrf_token"]
-        if product != '' and materials != '' and orders.add_order_type(product, materials) and session["csrf_token"] == token:
+        if orders.add_order_type(product, materials) and session["csrf_token"] == token:
             return redirect("/new_order")
         else:
             return render_template("error.html",message="Tuotteen lisääminen ei onnistunut.")
@@ -166,7 +166,7 @@ def new_clinic():
         city = request.form["city"]
         postal = request.form["postal"]
         token = request.form["csrf_token"]
-        if name != '' and adress != '' and postal != '' and city != '0' and customers.add_clinic(name, adress, postal, city) and session["csrf_token"] == token:
+        if customers.add_clinic(name, adress, postal, city) and session["csrf_token"] == token:
             return redirect("/new_order")
         else:
             return render_template("error.html",message="Toimipisteen lisääminen ei onnistunut. Tarkista onko sama toimipiste jo olemassa samassa kaupungissa ja täytä kaikki kentät.")
@@ -181,30 +181,31 @@ def new_customer():
     if request.method == "POST":
         name = request.form["name"]
         token = request.form["csrf_token"]
-        if name != '' and customers.add(name) and session["csrf_token"] == token:
+        if customers.add(name) and session["csrf_token"] == token:
             return redirect("/new_order")
         else:
             return render_template("error.html",message="Asiakkaan lisääminen epäonnistui.")
 
 
-
+date = date.today()
 
 @app.route("/production", methods=["get"])
 def production():
-    if request.method == "GET":
-        if users.user_status() == 1 or users.user_status() == 0:
-            return render_template("production.html")
-        else:
-            return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
-
-date = date.today()
-
-@app.route("/today", methods=["get", "post"])
-def today():
     order_list = orders.list(date.strftime("%Y-%m-%d"))
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
-            return render_template("today.html", date=date, order_list=order_list)
+            return render_template("production.html", date=date, order_list=order_list)
         else:
             return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
+@app.errorhandler(404)
+def error(e):
+    return render_template("error.html")
+
+@app.errorhandler(500)
+def server_error(e):
+    return redirect("/")
+
+@app.errorhandler(403)
+def forbidden(e):
+    return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
