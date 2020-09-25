@@ -6,6 +6,7 @@ body {
 }
 
 .header {
+    border: 2px solid #28b463;
     background: lightgreen;
     font-weight: bold;
     padding: 1.5em 1em;
@@ -16,22 +17,50 @@ body {
 .container {
     border-radius: .5em;
     margin-top: .5em;
+    margin-bottom: 2em;
 }
 
 .navbar {
     display: block;
     padding: 8px;
+    border-radius: .5em;
 }
 
 .prod_navi {
     @extend .navbar;
     border-radius: .5em;
     padding: 1px;
+    border: 2px solid #28b463;
     background-color: lightgreen;
 }
 
 form {
     display: block;
     padding: .5em;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.in_progress {
+    @extend .td;
+    color: red;
+}
+.sent {
+    @extend .td;
+    color: green;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
 }
 

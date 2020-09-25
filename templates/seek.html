@@ -2,6 +2,82 @@
 {% block title %}Etsi{% endblock %}
 {% block content %}
 
-Ei tuettu vielä
+<h3>Etsi tilausten tapahtumatietoja</h3>
+<p>
+
+<label for="order_id">Tilauksen id:</label>
+<select id="order_id" name="id" form="id_form">
+  <option value=""></option>
+{% for order in orderit %}
+  <option value="{{ order[0] }}">{{ order[0] }}</option>
+<hr>
+{% endfor %}
+</select> 
+
+<form action="/seek" method="POST" id="id_form">
+<input type="submit" value="Etsi">
+</form>
+
+{% if new_id %}
+{% set nid = new_id|int() %}
+
+<h4>Tilauksen tiedot</h4>
+<table>
+  <tr>
+    <th>Toimitusaika</th>
+    <th>ID</th>
+    <th>Tilaustyyppi</th>
+    <th>Asiakas</th>
+    <th>Toimipiste</th>
+    <th>Tila</th>
+  </tr>
+  
+  {% for order in orderit %}
+  {% if (order[0] == nid) %}  
+  <tr>
+    <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>
+    <td>{{ order[0] }}</td>
+    <td>{{ order[2] }} ({{ order[3] }})</td>
+    <td>{{ order[5] }}</td>
+    <td>{{ order[7] }} ({{ order[8] }})</td>
+    {% if (order[11] == 1) %}  
+    <td class="in_progress">TYÖN ALLA</td>
+    {% else %}
+    <td class="sent">LÄHETETTY</td>
+    {% endif %}
+  </tr>
+  {% endif %}
+  {% endfor %}
+</table>
+
+<p></p>
+
+<h4>Tilauksen työvaiheet tuotannossa</h4>
+
+<table>
+  <tr>
+    <th>Aikaleima</th>
+    <th>Työvaihe</th>
+    <th>Käsittelijä</th>
+    <th>Edistyminen</th>
+  </tr>
+  
+
+  {% for event in eventsit %}
+  {% if (event[0] == nid) %}  
+  <tr>
+    <td>{{ event[3].strftime("%d.%m.%Y %H:%M") }}</td>
+    <td>{{ event[2] }}</td>
+    <td>{{ event[5] }}</td>
+    {% if (event[4] == 0) %}
+    <td>Käsittelyssä/käsitelty</td>
+    {% else %}
+    <td>Jonossa</td>
+    {% endif %}
+  </tr>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+</table>
 
 {% endblock %}

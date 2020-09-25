@@ -24,7 +24,7 @@ def set_pending(event_id, is_pending):
 
 def event_list():
     try:
-        sql = "SELECT * FROM events ORDER BY order_id"
+        sql = "SELECT E.order_id, E.user_id, E.description, E.time, E.is_pending, U.name FROM events E LEFT JOIN users U ON U.id = E.user_id ORDER BY E.time"
         result = db.session.execute(sql)
         order_type_list = result.fetchall()
         return order_type_list
@@ -40,5 +40,4 @@ def list(order_id):
     except:
         return None
  
-
 

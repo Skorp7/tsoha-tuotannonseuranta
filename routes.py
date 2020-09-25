@@ -40,9 +40,10 @@ def charts():
 @app.route("/new_event", methods=["get","post"])
 def new_event():
     user_data = users.user()
+    order_list = orders.listAll()
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
-            return render_template("new_event.html", user_data = user_data)
+            return render_template("new_event.html", user_data = user_data, order_list = order_list)
         else:
             return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
     if request.method == "POST":
@@ -50,18 +51,25 @@ def new_event():
         description = request.form["description"]
         user_id = user_data[0]
         is_pending = request.form["is_pending"]
+        in_progress = request.form["in_progress"]
         token = request.form["csrf_token"]
-        print('tilausid: ' + str(orders.order(order_id)))
-        print('ispendind: ' + str(is_pending) + ' user_id: ' + str(user_id) + ' description: ' + description)
         if orders.order(order_id) != None and description != '' and events.add(order_id, user_id, description, is_pending) and session["csrf_token"] == token:
+            if in_progress == '0':
+                orders.check_out_in(order_id, in_progress)
+                events.add(order_id, user_id, "Uloskirjaus ja lähetys", 0)
             return redirect("/production")
         else:
             return render_template("error.html",message="Työvaiheen lisääminen ei onnistunut.")
 
-@app.route("/seek")
+@app.route("/seek", methods=["get", "post"])
 def seek():
+    order_list = orders.listAll()
+    event_list = events.event_list()
+    if request.method == "POST":
+        order_id = request.form["id"]
+        return render_template("seek.html", new_id=order_id, eventsit = event_list, orderit = order_list)
     if users.user_status() == 1 or users.user_status() == 0:
-        return render_template("seek.html")
+        return render_template("seek.html", eventsit = event_list, orderit = order_list)
     else:
         return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
@@ -124,6 +132,7 @@ def new_order():
             latest_id = orders.add(order_type_id, customer_id, delivery_date, clinic_id)
             if (latest_id != None):
                 message = 'Tilaus lisätty! Uuden tilauksen id on: ' + str(latest_id) + ' Kirjoita se lähetteeseen.'
+                events.add(latest_id, users.user()[0], "Sisäänkirjaus", 0)
         else:
            return render_template("error.html",message="Tilauksen lisäys epäonnistui.")
 

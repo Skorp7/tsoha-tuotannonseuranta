@@ -3,36 +3,58 @@
 {% block content %}
 
 
-Tuotanto
+<h3>TÄNÄÄN {{ date.strftime("%d.%m.%Y - %A") }} </h3> 
 <hr>
-TÄNÄÄN {{ date.strftime("%d.%m.%Y - %A") }} 
+
 <p>
 
 Tänään toimitettavat tilaukset:
 
 <p>
 
-<hr>
-Ei vielä lähetetty:
-<p>
-Toimitusaika | Tilauksen id | Tilaustyyppi (materiaali) | Asiakas | Toimipiste | Kaupunki | Tilaus jätetty | Tila
-<hr>
-{% for order in order_list %}
-    {% if (order[11] == 1): %}  
-        {{ order[9].strftime("%d.%m.%Y %H:%M") }} | {{ order[0] }} | {{ order[2] }} ({{ order[3] }}) | {{ order[5] }} | {{ order[7] }} | {{ order[8] }} | {{ order[10].strftime("%d.%m.%Y %H:%M") }} | TYÖN ALLA
-    {% endif %}
-<hr>
-{% endfor %}
-<hr>
-Lähetetyt tilaukset:
-<p>
 
-{% for order in order_list %}
-    {% if (order[11] == 0): %}  
-        {{ order[9].strftime("%d.%m.%Y %H:%M") }} | {{ order[0] }} | {{ order[2] }} ({{ order[3] }}) | {{ order[5] }} | {{ order[7] }} | {{ order[8] }} | {{ order[10].strftime("%d.%m.%Y %H:%M") }} | LÄHETETTY
-    {% endif %}
-<hr>
-{% endfor %}
+    <table>
+        <tr>
+          <th>Toimitusaika</th>
+          <th>ID</th>
+          <th>Tilaustyyppi</th>
+          <th>Asiakas</th>
+          <th>Toimipiste</th>
+          <th>Tilaus jätetty</th>
+          <th>Tila</th>
+        </tr>
+        
+        {% for order in order_list %}
+        {% if (order[11] == 1): %}  
+        <tr>
+          <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>
+          <td>{{ order[0] }}</td>
+          <td>{{ order[2] }} ({{ order[3] }})</td>
+          <td>{{ order[5] }}</td>
+          <td>{{ order[7] }} ({{ order[8] }})</td>
+          <td>{{ order[10].strftime("%d.%m.%Y %H:%M") }}</td>
+          <td class="in_progress">TYÖN ALLA</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    
+               
+        {% for order in order_list %}
+        {% if (order[11] == 0): %}  
+        <tr> 
+            <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>
+            <td>{{ order[0] }}</td>
+            <td>{{ order[2] }} ({{ order[3] }})</td>
+            <td>{{ order[5] }}</td>
+            <td>{{ order[7] }} ({{ order[8] }})</td>
+            <td>{{ order[10].strftime("%d.%m.%Y %H:%M") }}</td>
+            <td class="sent">LÄHETETTY</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        
+      </table>
+
 
 
 {% endblock %}
