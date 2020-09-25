@@ -1,13 +1,37 @@
 body {
     margin: auto;
-    max-width: 45em;
-    font-family: 'Helvetica', 'Arial', sans-serif;
+    padding: .5em;
+    max-width: 70em;
+    font-family: cursive, 'Arial';
 }
 
 .header {
-    background: sandybrown;
+    background: lightgreen;
     font-weight: bold;
-    padding: 2em 1em;
-    font-size: 2em;
+    padding: 1.5em 1em;
+    font-size: 1em;
+    border-radius: .5em;
+}
+
+.container {
+    border-radius: .5em;
+    margin-top: .5em;
+}
+
+.navbar {
+    display: block;
+    padding: 8px;
+}
+
+.prod_navi {
+    @extend .navbar;
+    border-radius: .5em;
+    padding: 1px;
+    background-color: lightgreen;
+}
+
+form {
+    display: block;
+    padding: .5em;
 }
 

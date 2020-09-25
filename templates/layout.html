@@ -9,7 +9,7 @@
    <h1>Tuotannonseuranta</h1>
   </div>
     
-    <nav>
+    <nav class="navi">
       <ul>
         <a href="/"><button type="button">Etusivu</button></a>
         {% if (session.get("user_status",0) == 1): %}
@@ -23,35 +23,37 @@
         {% endif %}
       </ul>
     </nav>
+
+    {% if ((session.get("user_status",0) == 1 or session.get("user_status",0) == 0) and (request.path == "/production" or request.path == "/new_order" or request.path == "/new_event" or request.path == "/seek" or request.path == "/new_customer" or request.path == "/new_clinic" or request.path == "/new_order_type")): %}
+ 
+    <nav class="prod_navi">
+        <ul>
+          <a href="/new_order"><button type="button">Lisää uusi tilaus</button></a>
+        
+          <a href="/new_event"><button type="button">Merkitse työvaihe</Button></a>
+          
+          <a href="/seek"><button type="button">Etsi</Button></a>
+        </ul>
+    </nav>
+
+
+  {% elif (request.path == "/admin" or request.path == "/change_status" or request.path == "/charts"): %}
+
+    <nav class="prod_navi">
+        <ul>
+          <a href="/charts"><button type="button">Tilastot</button></a>
+          
+          <a href="/change_status"><button type="button">Muuta käyttäjän oikeuksia</Button></a>
+        </ul>
+    </nav>
+
+  {% endif %}
   
 
 
-
-      {% block content %}{% endblock %}
+<div class="container">
+  {% block content %}{% endblock %}
       
-        {% if ((session.get("user_status",0) == 1 or session.get("user_status",0) == 0) and (request.path == "/production" or request.path == "/new_order" or request.path == "/new_event" or request.path == "/seek" or request.path == "/new_customer" or request.path == "/new_clinic" or request.path == "/new_order_type")): %}
- 
-          <nav>
-              <ul>
-                <a href="/new_order"><button type="button">Lisää uusi tilaus</button></a>
-                <br>
-                <a href="/new_event"><button type="button">Merkitse työvaihe</Button></a>
-                <br>
-                <a href="/seek"><button type="button">Etsi</Button></a>
-              </ul>
-          </nav>
-    
-
-        {% elif (request.path == "/admin" or request.path == "/change_status" or request.path == "/charts"): %}
-      
-          <nav>
-              <ul>
-                <a href="/charts"><button type="button">Tilastot</button></a>
-                <br>
-                <a href="/change_status"><button type="button">Muuta käyttäjän oikeuksia</Button></a>
-              </ul>
-          </nav>
-
-        {% endif %}
+</div>
 
 </body>
