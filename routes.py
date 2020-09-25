@@ -5,8 +5,6 @@ from datetime import date
 from db import db
 from flask import session
 
-
-
 @app.route("/")
 def index():
     counter = visits.get_counter()

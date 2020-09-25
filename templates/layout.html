@@ -1,64 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<link rel="stylesheet" href="custom.css" type="text/css">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
 <title>Tuotannonseuranta</title>
-
-<div class="header">
-	<h1>Tuotannonseuranta</h1>
+<body>
+  <div class="header">
+   <h1>Tuotannonseuranta</h1>
   </div>
-  <nav class="navbar navbar-light bg-light">
-    <form class="form-inline">
-    <ul>
-      <a href="/"><button class="btn btn-outline-success" type="button">Etusivu</button></a>
-      {% if (session.get("user_status",0) == 1): %}
-      <a href="/admin"><button class="btn btn-outline-success" type="button">Hallinta</Button></a>
-      {% endif %}
-      {% if session.get("user_id",0) %}
-      <a href="/production"><button class="btn btn-outline-success" type="button">Tuotanto</Button></a>
-      <a href="/logout"><button class="btn btn-outline-success" type="button">Kirjaudu ulos</Button></a>
-      {% else %}
-      <a href="/login"><button class="btn btn-outline-success" type="button">Kirjaudu sisään</Button></a>
-      {% endif %}
-    </ul>
-    </form>
-  </nav>
-</div>
+    
+    <nav>
+      <ul>
+        <a href="/"><button type="button">Etusivu</button></a>
+        {% if (session.get("user_status",0) == 1): %}
+        <a href="/admin"><button type="button">Hallinta</Button></a>
+        {% endif %}
+        {% if session.get("user_id",0) %}
+        <a href="/production"><button type="button">Tuotanto</Button></a>
+        <a href="/logout"><button type="button">Kirjaudu ulos</Button></a>
+        {% else %}
+        <a href="/login"><button type="button">Kirjaudu sisään</Button></a>
+        {% endif %}
+      </ul>
+    </nav>
+  
 
 
-<div class="container">
-    <div class="row">
-      <div class="col-8">
-    {% block content %}{% endblock %}
-      </div>
-      {% if ((session.get("user_status",0) == 1 or session.get("user_status",0) == 0) and (request.path == "/production" or request.path == "/new_order" or request.path == "/new_event" or request.path == "/seek" or request.path == "/new_customer" or request.path == "/new_clinic" or request.path == "/new_order_type")): %}
-      <div class="col-4">
-        <nav class="navbar navbar-light bg-light">
-            <form class="form-inline">
-            <ul>
-              <a href="/new_order"><button class="btn btn-outline-success" type="button">Lisää uusi tilaus</button></a>
-              <br>
-              <a href="/new_event"><button class="btn btn-outline-success" type="button">Merkitse työvaihe</Button></a>
-              <br>
-              <a href="/seek"><button class="btn btn-outline-success" type="button">Etsi</Button></a>
-            </ul>
-            </form>
-        </nav>
-      </div>
 
-      {% elif (request.path == "/admin" or request.path == "/change_status" or request.path == "/charts"): %}
-      <div class="col-4">
-        <nav class="navbar navbar-light bg-light">
-            <form class="form-inline">
-            <ul>
-              <a href="/charts"><button class="btn btn-outline-success" type="button">Tilastot</button></a>
-              <br>
-              <a href="/change_status"><button class="btn btn-outline-success" type="button">Muuta käyttäjän oikeuksia</Button></a>
-            </ul>
-            </form>
-        </nav>
-      </div>
-      {% endif %}
-    </div>
-  </div>
+      {% block content %}{% endblock %}
+      
+        {% if ((session.get("user_status",0) == 1 or session.get("user_status",0) == 0) and (request.path == "/production" or request.path == "/new_order" or request.path == "/new_event" or request.path == "/seek" or request.path == "/new_customer" or request.path == "/new_clinic" or request.path == "/new_order_type")): %}
+ 
+          <nav>
+              <ul>
+                <a href="/new_order"><button type="button">Lisää uusi tilaus</button></a>
+                <br>
+                <a href="/new_event"><button type="button">Merkitse työvaihe</Button></a>
+                <br>
+                <a href="/seek"><button type="button">Etsi</Button></a>
+              </ul>
+          </nav>
+    
 
+        {% elif (request.path == "/admin" or request.path == "/change_status" or request.path == "/charts"): %}
+      
+          <nav>
+              <ul>
+                <a href="/charts"><button type="button">Tilastot</button></a>
+                <br>
+                <a href="/change_status"><button type="button">Muuta käyttäjän oikeuksia</Button></a>
+              </ul>
+          </nav>
 
+        {% endif %}
+
+</body>
