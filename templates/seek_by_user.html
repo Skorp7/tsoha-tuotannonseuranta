@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}Etsi{% endblock %}
+{% block content %}
+
+<h4>Tapahtumat, joissa käsittelijänä {{ username }}</h4>
+<p>
+
+<h4>Työvaiheet tuotannossa</h4>
+
+<table>
+  <tr>
+    <th>Aikaleima</th>
+    <th>Tilauksen id</th>
+    <th>Työvaihe</th>
+    <th>Käsittelijä</th>
+    <th>Edistyminen</th>
+  </tr>
+  {% if user_id %}
+  {% set uid = user_id|int() %} 
+  {% for event in event_list %}
+  {% if (event[1] == uid) %}  
+  <tr>
+    <td>{{ event[3].strftime("%d.%m.%Y %H:%M") }}</td>
+    <td>{{ event[0] }}</td>
+    <td>{{ event[2] }}</td>
+    <td>{{ event[5] }}</td>
+    {% if (event[4] == 0) %}
+    <td>Käsittelyssä/käsitelty</td>
+    {% else %}
+    <td>Jonossa</td>
+    {% endif %}
+  </tr>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+</table>
+
+{% endblock %}

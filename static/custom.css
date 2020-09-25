@@ -64,3 +64,6 @@ tr:nth-child(even) {
     background-color: #dddddd;
 }
 
+span {
+    margin-left: 2em;
+}

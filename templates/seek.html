@@ -5,19 +5,19 @@
 <h3>Etsi tilausten tapahtumatietoja</h3>
 <p>
 
-<label for="order_id">Tilauksen id:</label>
+<form action="/seek" method="POST" id="id_form" class="floating_form">
+<label for="order_id">Tilauksen id:n perusteella: </label>
 <select id="order_id" name="id" form="id_form">
   <option value=""></option>
 {% for order in orderit %}
   <option value="{{ order[0] }}">{{ order[0] }}</option>
-<hr>
 {% endfor %}
 </select> 
-
-<form action="/seek" method="POST" id="id_form">
-<input type="submit" value="Etsi">
+<input type="submit" value="Etsi" form="id_form"> 
 </form>
+<br>
 
+&nbsp;&nbsp;Käyttäjän perusteella: <a href="/seek_by_user"><Button>Etsi omat työvaiheet</Button></a>
 {% if new_id %}
 {% set nid = new_id|int() %}
 
@@ -63,7 +63,7 @@
   </tr>
   
 
-  {% for event in eventsit %}
+  {% for event in event_list %}
   {% if (event[0] == nid) %}  
   <tr>
     <td>{{ event[3].strftime("%d.%m.%Y %H:%M") }}</td>

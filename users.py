@@ -19,7 +19,6 @@ def login(username,password):
             return False
 
 def logout():
-    logged_in = None
     del session["user_id"]
     del session["user_status"]
 

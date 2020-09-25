@@ -24,7 +24,7 @@
       </ul>
     </nav>
 
-    {% if ((session.get("user_status",0) == 1 or session.get("user_status",0) == 0) and (request.path == "/production" or request.path == "/new_order" or request.path == "/new_event" or request.path == "/seek" or request.path == "/new_customer" or request.path == "/new_clinic" or request.path == "/new_order_type")): %}
+    {% if ((session.get("user_status",0) == 1 or session.get("user_status",0) == 0) and (request.path == "/production" or request.path == "/new_order" or request.path == "/new_event" or request.path == "/seek" or request.path == "/new_customer" or request.path == "/new_clinic" or request.path == "/new_order_type" or request.path == "/seek_by_user")): %}
  
     <nav class="prod_navi">
         <ul>

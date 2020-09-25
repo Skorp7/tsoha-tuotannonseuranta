@@ -56,10 +56,20 @@ def new_event():
         if orders.order(order_id) != None and description != '' and events.add(order_id, user_id, description, is_pending) and session["csrf_token"] == token:
             if in_progress == '0':
                 orders.check_out_in(order_id, in_progress)
-                events.add(order_id, user_id, "Uloskirjaus ja lähetys", 0)
+                events.add(order_id, user_id, "Uloskirjaus", 0)
             return redirect("/production")
         else:
             return render_template("error.html",message="Työvaiheen lisääminen ei onnistunut.")
+
+@app.route("/seek_by_user")
+def seek_by_user():
+    event_list = events.event_list()
+    username = users.user()[1]
+    user_id = users.user()[0]
+    if users.user_status() == 1 or users.user_status() == 0:
+        return render_template("seek_by_user.html", event_list = event_list, user_id = user_id, username = username)
+    else:
+        return render_template("error.html",message="")
 
 @app.route("/seek", methods=["get", "post"])
 def seek():
@@ -67,9 +77,9 @@ def seek():
     event_list = events.event_list()
     if request.method == "POST":
         order_id = request.form["id"]
-        return render_template("seek.html", new_id=order_id, eventsit = event_list, orderit = order_list)
+        return render_template("seek.html", new_id=order_id, event_list = event_list, orderit = order_list)
     if users.user_status() == 1 or users.user_status() == 0:
-        return render_template("seek.html", eventsit = event_list, orderit = order_list)
+        return render_template("seek.html", event_list = event_list, orderit = order_list)
     else:
         return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 

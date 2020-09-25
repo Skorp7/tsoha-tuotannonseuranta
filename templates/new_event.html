@@ -8,7 +8,7 @@ Lisää työvaihe tilaukselle:
 
 <form action="/new_event" method="post" id="eventform">
 <label for="order_id">Tilauksen id:</label>
-<select id="order_id" name="id" form="id_form" required>
+<select id="order_id" name="order_id" form="eventform" required>
   <option value=""></option>
 {% for order in order_list %}
   <option value="{{ order[0] }}">{{ order[0] }}</option>
