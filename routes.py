@@ -71,15 +71,21 @@ def seek_by_user():
     else:
         return render_template("error.html",message="")
 
-@app.route("/seek", methods=["get", "post"])
+
+@app.route("/hello/")
+
+def hello():
+
+    return request.args.get("page_number")
+
+@app.route("/seek/", methods=["get"])
 def seek():
     order_list = orders.listAll()
     event_list = events.event_list()
-    if request.method == "POST":
-        order_id = request.form["id"]
-        return render_template("seek.html", new_id=order_id, event_list = event_list, orderit = order_list)
-    if users.user_status() == 1 or users.user_status() == 0:
-        return render_template("seek.html", event_list = event_list, orderit = order_list)
+    if request.method == 'GET':
+       order_id = request.args.get("order_id", "")
+       if users.user_status() == 1 or users.user_status() == 0:
+           return render_template("seek.html", event_list = event_list, orderit = order_list, order_id=order_id)
     else:
         return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 

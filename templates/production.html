@@ -28,7 +28,7 @@ Tänään toimitettavat tilaukset:
         {% if (order[11] == 1): %}  
         <tr>
           <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>
-          <td>{{ order[0] }}</td>
+          <td><a href="/seek/?order_id={{ order[0] }}">{{ order[0] }}</a></td>
           <td>{{ order[2] }} ({{ order[3] }})</td>
           <td>{{ order[5] }}</td>
           <td>{{ order[7] }} ({{ order[8] }})</td>

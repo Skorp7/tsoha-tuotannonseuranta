@@ -5,21 +5,25 @@
 <h3>Etsi tilausten tapahtumatietoja</h3>
 <p>
 
-<form action="/seek" method="POST" id="id_form" class="floating_form">
 <label for="order_id">Tilauksen id:n perusteella: </label>
-<select id="order_id" name="id" form="id_form">
+<select id="order_id" name="id" onchange="javascript:handleSelect(this)">
   <option value=""></option>
-{% for order in orderit %}
+  {% for order in orderit %}
   <option value="{{ order[0] }}">{{ order[0] }}</option>
-{% endfor %}
-</select> 
-<input type="submit" value="Etsi" form="id_form"> 
-</form>
-<br>
+  {% endfor %}
+  </select>
+  
+  <script type="text/javascript">
+    function handleSelect(elm)
+    {
+       window.location = "?order_id="+elm.value;
+    }
+  </script>
 
-&nbsp;&nbsp;Käyttäjän perusteella: <a href="/seek_by_user"><Button>Etsi omat työvaiheet</Button></a>
-{% if new_id %}
-{% set nid = new_id|int() %}
+<p>
+Käyttäjän perusteella: <a href="/seek_by_user"><Button>Etsi omat työvaiheet</Button></a>
+{% if order_id %}
+{% set oid = order_id|int() %}
 
 <h4>Tilauksen tiedot</h4>
 <table>
@@ -33,7 +37,7 @@
   </tr>
   
   {% for order in orderit %}
-  {% if (order[0] == nid) %}  
+  {% if (order[0] == oid) %}  
   <tr>
     <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>
     <td>{{ order[0] }}</td>
@@ -64,7 +68,7 @@
   
 
   {% for event in event_list %}
-  {% if (event[0] == nid) %}  
+  {% if (event[0] == oid) %}  
   <tr>
     <td>{{ event[3].strftime("%d.%m.%Y %H:%M") }}</td>
     <td>{{ event[2] }}</td>
