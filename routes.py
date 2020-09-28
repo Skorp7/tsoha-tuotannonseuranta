@@ -210,16 +210,23 @@ def new_customer():
             return render_template("error.html",message="Asiakkaan lisääminen epäonnistui.")
 
 
-date = date.today()
+today = date.today()
 
-@app.route("/production", methods=["get"])
+@app.route("/production", methods=["get", "post"])
 def production():
-    order_list = orders.list(date.strftime("%Y-%m-%d"))
+    order_list = orders.list(today.strftime("%Y-%m-%d"))
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
-            return render_template("production.html", date=date, order_list=order_list)
+            return render_template("production.html", date=today, order_list=order_list, today=today)
         else:
             return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
+    if request.method == "POST":
+        datef = request.form["date"]
+        new_date = datetime.datetime.strptime(datef, '%Y-%m-%d').date()
+        new_order_list = orders.list(datef)
+        return render_template("production.html", date=new_date, order_list=new_order_list, today=today)
+    else:
+        return render_template("error.html",message="")
 
 @app.errorhandler(404)
 def error(e):
