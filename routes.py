@@ -8,7 +8,9 @@ from flask import session
 @app.route("/")
 def index():
     counter = visits.get_counter()
-    return render_template("index.html", counter=counter)
+    time = datetime.datetime.now()
+    date = time.strftime("%d.%m.%Y")
+    return render_template("index.html", counter=counter, time=time.strftime("%H:%M"), date=date)
 
 
 @app.route("/login", methods=["get","post"])
