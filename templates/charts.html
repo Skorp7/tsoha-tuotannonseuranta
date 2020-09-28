@@ -1,5 +1,24 @@
 {% extends "layout.html" %}
 {% block title %}Kirjaudu{% endblock %}
 {% block content %}
-Ei tuettu vielä
+
+
+<h4>Eniten merkittyjä työvaiheita:</h4> 
+{% for name in hard_worker_list %}
+- {{ name[2] }} ({{ name[0] }} kpl)<br>
+{% endfor %}
+
+<p>
+
+<h4>Pisimmät jonotusajat työvaiheesiin:</h4>
+
+{% for item in slowest %}
+{{ item[0] }}:   {{ (item[1]/86400)|round|int }} d 
+                 {{ (item[1]/3600)|round|int }} h  
+                 {{ ((item[1]%3600)/60)|round|int }} min<br>
+
+{% endfor %}
+
+
+
 {% endblock %}

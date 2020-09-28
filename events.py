@@ -20,11 +20,20 @@ def set_pending(event_id, is_pending):
     except:
         return False
 
+def hard_workers():
+    try:
+        sql = "SELECT count(*), E.user_id, U.name FROM events E LEFT JOIN Users U ON U.id=E.user_id GROUP BY E.user_id, U.name ORDER BY count(*) DESC"
+        result = db.session.execute(sql)
+        hard_worker_list = result.fetchall()
+        return hard_worker_list
+    except:
+        return None
+
 
 
 def event_list():
     try:
-        sql = "SELECT E.order_id, E.user_id, E.description, E.time, E.is_pending, U.name FROM events E LEFT JOIN users U ON U.id = E.user_id ORDER BY E.time"
+        sql = "SELECT E.order_id, E.user_id, E.description, E.time, E.is_pending, U.name FROM events E LEFT JOIN users U ON U.id = E.user_id ORDER BY E.time DESC"
         result = db.session.execute(sql)
         order_type_list = result.fetchall()
         return order_type_list
@@ -33,8 +42,8 @@ def event_list():
 
 def list(order_id):
     try:
-        sql = "SELECT * FROM events E LEFT JOIN users U ON E.user_id=U.id LEFT JOIN Orders O ON E.order_id=O.id"
-        result = db.session.execute(sql, {"date":date+"%"})
+        sql = "SELECT E.order_id, E.user_id, U.name, E.time, E.is_pending, E.description, O.order_type_id FROM events E LEFT JOIN users U ON E.user_id=U.id LEFT JOIN Orders O ON E.order_id=O.id WHERE E.order_id=:order_id ORDER BY E.time"
+        result = db.session.execute(sql, {"order_id":order_id})
         order_list = result.fetchall()
         return order_list
     except:

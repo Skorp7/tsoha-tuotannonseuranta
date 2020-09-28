@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect
-import users, visits, os, orders, customers, datetime, events
+import users, visits, os, orders, customers, datetime, events, calculate
 from datetime import date
 from db import db
 from flask import session
@@ -31,8 +31,12 @@ def logout():
 
 @app.route("/charts")
 def charts():
+    hard_worker_list = events.hard_workers()
+    slowest = calculate.seek_slowest()
+    print('status on', users.user_status())
+    print(slowest)
     if users.user_status() == 1:
-        return render_template("charts.html")
+        return render_template("charts.html", hard_worker_list=hard_worker_list, slowest=slowest)
     else:
         return render_template("error.html",message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
     
@@ -71,12 +75,6 @@ def seek_by_user():
     else:
         return render_template("error.html",message="")
 
-
-@app.route("/hello/")
-
-def hello():
-
-    return request.args.get("page_number")
 
 @app.route("/seek/", methods=["get"])
 def seek():
