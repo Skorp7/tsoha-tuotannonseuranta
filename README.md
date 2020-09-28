@@ -57,7 +57,7 @@ Esimerkiksi peruskäyttäjän oikeuksilla oleva työntekijä, esim. laskuttaja n
 
 ### Tiedon pysyväistallennus
 
-Sovelluksen tietokantana toimii PostgreSQL -tietokanta. Tietokantatauluja 6kpl ja ne on jaettu oheisen kaavion mukaisesti, mutta määrä saattaa vielä kehityksen aikana kasvaa. Tietokannan jaottelusta saa parhaiten kuvan tutustumalla [sql-skeemaan](schema.sql), mutta selvyyden vuoksi otetaan muutama huomio jaottelun taustasyistä; asiakaskunta on hammaslääkärit ja he saattavat työskennellä usealla eri vastaanotolla, sen takia toimipisteet on omassa taulussaan. Lisäksi yhteen tilaukseen liittyy yleensä yksi tilaustyyppi, jotka ovat useimmiten samoja tiettyjä. Tilaustyypin lisäämiseen on kuitenkin jätetty vapaat tekstikentät koska myös hyvin erikoisia tilauksia saattaa tulla.
+Sovelluksen tietokantana toimii PostgreSQL -tietokanta. Tietokantatauluja 6kpl ja ne on jaettu oheisen kaavion mukaisesti. Lisäksi on yksi taulu johon on tallennettu Suomen kuntien nimet. Tietokannan jaottelusta saa parhaiten kuvan tutustumalla [sql-skeemaan](schema.sql), mutta selvyyden vuoksi otetaan muutama huomio jaottelun taustasyistä; asiakaskunta on hammaslääkärit ja he saattavat työskennellä usealla eri vastaanotolla, sen takia toimipisteet on omassa taulussaan. Lisäksi yhteen tilaukseen liittyy yleensä yksi tilaustyyppi, jotka ovat useimmiten samoja tiettyjä. Tilaustyypin lisäämiseen on kuitenkin jätetty vapaat tekstikentät koska myös hyvin erikoisia tilauksia saattaa tulla.
 
 <img src="/documentation/tietokantakaavio.jpg" height="300" title="Tietokantakaaavio"> 
 
@@ -71,12 +71,17 @@ Tietokannassa asiakkaiden ja käyttäjien kohdalla on sarake 'visible', jolla ne
 Tällä hetkellä sovellus tukee seuraavia toimintoja:
 * Kirjautuminen
 * Käyttäjien statuksen vaihto
+* Tilastot eniten työvaiheita tehneistä käyttäjistä ja jonotusajoista
 * Tilausten lisääminen
 * Tilaustyyppien (tuotteiden) lisääminen
 * Asiakkaiden lisääminen
 * Toimipaikkojen lisääminen
+* Tilausten etsiminen tilaus-id:llä
+* Tilausten etsiminen joihin sisäänkirjautunut käyttäjä liittyy käsittelijänä
+* TÄNÄÄN-ikkunassa näkyy tänään toimitettavat tilaukset ja niiden sen hetkinen tila
 
-Tietokanta palvelee tämän hetkisiä toimintoja mutta siihen tulee todennäköisesti vielä muutoksia. Käyttöliittymän jäsentelyä erilaisiin asetteluihin ei ole aloitettu.
+Tietokanta palvelee tämän hetkisiä toimintoja mutta siihen tulee todennäköisesti vielä muutoksia.
+Ulkoasu ja lomakkeiden toiminnat on testattu tietokoneella tavallisella selaimella (Chrome, Firefox), joka on myös ajateltu käyttötapa. Esimerkiksi lomakkeiden virheentarkistus ei vielä toimi tekstiselaimella.
 
 Sovellusta pääsee kokeilemaan osoitteessa: https://tsoha-tuotannonseuranta.herokuapp.com
 Jos luot itsellesi uuden tunnuksen kokeilua varten, sillä tulee olemaan peruskäyttäjän oikeudet. Voit myös kokeilla adminin oikeuksia tunnuksella 'admin' ja salasanalla 'pass'.
