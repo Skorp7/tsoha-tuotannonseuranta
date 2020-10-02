@@ -157,7 +157,6 @@ def new_order():
     order_type_list = orders.order_type_list()
     customer_list = customers.customer_list()
     clinic_list = customers.clinic_list()
-    print(clinic_list)
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
             return render_template('new_order.html', order_type_list=order_type_list, customer_list=customer_list, clinic_list=clinic_list)

@@ -12,15 +12,15 @@
 
   <nav class="navi">
     <ul>
-      <a href="/"><button type="button">Etusivu</button></a>
+      <a href="/"><button type="button" class="mainButton">Etusivu</button></a>
       {% if (session.get("user_status",0) == 1): %}
-      <a href="/admin"><button type="button">Hallinta</Button></a>
+      <a href="/admin"><button type="button" class="mainButton">Hallinta</Button></a>
       {% endif %}
       {% if session.get("user_id",0) %}
-      <a href="/production"><button type="button">Tuotanto</Button></a>
-      <a href="/logout"><button type="button">Kirjaudu ulos</Button></a>
+      <a href="/production"><button type="button" class="mainButton">Tuotanto</Button></a>
+      <a href="/logout"><button type="button" class="mainButton">Kirjaudu ulos</Button></a>
       {% else %}
-      <a href="/login"><button type="button">Kirjaudu sisään</Button></a>
+      <a href="/login"><button type="button" class="mainButton">Kirjaudu sisään</Button></a>
       {% endif %}
     </ul>
   </nav>
@@ -29,11 +29,11 @@
 
   <nav class="prod_navi">
     <ul>
-      <a href="/new_order"><button type="button">Lisää uusi tilaus</button></a>
+      <a href="/new_order"><button type="button" class="subButton">Lisää uusi tilaus</button></a>
 
-      <a href="/new_event"><button type="button">Merkitse työvaihe</Button></a>
+      <a href="/new_event"><button type="button" class="subButton">Merkitse työvaihe</Button></a>
 
-      <a href="/seek"><button type="button">Etsi</Button></a>
+      <a href="/seek"><button type="button" class="subButton">Etsi</Button></a>
     </ul>
   </nav>
 
@@ -42,15 +42,15 @@
 
   <nav class="prod_navi">
     <ul>
-      <a href="/charts"><button type="button">Tilastot</button></a>
+      <a href="/charts"><button type="button" class="subButton">Tilastot</button></a>
 
-      <a href="/change_status"><button type="button">Muuta käyttäjän oikeuksia</Button></a>
+      <a href="/change_status"><button type="button" class="subButton">Muuta käyttäjän oikeuksia</Button></a>
     </ul>
   </nav>
 
   {% endif %}
 
-  <div class="container">
+  <div class="container-alert">
     <div class="row">
       <div class="column">
         {% with messages = get_flashed_messages(with_categories=true) %}

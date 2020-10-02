@@ -2,8 +2,10 @@
 {% block title %}Uusi tilaus{% endblock %}
 {% block content %}
 
-Lisää uusi tilaus
+<h3>Lisää uusi tilaus</h3>
 <hr>
+<p>
+<form action="/new_order" method="POST" id="orderform">
 <label for="customer_id">Asiakkaan nimi:</label>
 
 <select id="customer_id" name="customer_id" form="orderform" required>
@@ -49,7 +51,7 @@ Tai <a href="/new_clinic">lisää uusi toimipiste</a>.
  <input type="time" value="00:00" id="delivery_time" name="delivery_time" form="orderform">
 
 
-<form action="/new_order" method="POST" id="orderform">
+
 
  <input type="submit" value="Lisää tilaus">
  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
