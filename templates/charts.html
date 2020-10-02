@@ -13,9 +13,9 @@
 <h4>Pisimmät keskimääräiset jonotusajat työvaiheisiin:</h4>
 
 {% for item in slowest %}
-{{ item[0] }}:   {{ (item[1]/86400)|round|int }} d 
-                 {{ (item[1]/3600)|round|int }} h  
-                 {{ ((item[1]%3600)/60)|round|int }} min<br>
+{{ item[0] }}:   {{ (item[1]/24)|round|int }} d 
+                 {{ (item[1]%24)|round|int }} h  
+                 {{ (((item[1]%24)%1)*60)|round|int }} min<br>
 
 {% endfor %}
 
