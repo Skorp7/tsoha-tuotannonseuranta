@@ -258,6 +258,8 @@ def production():
             return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
     if request.method == "POST":
         datef = request.form["date"]
+        if (datef == ""):
+            return render_template("production.html", date=today, order_list=order_list, today=today)
         new_date = datetime.datetime.strptime(datef, '%Y-%m-%d').date()
         new_order_list = orders.list(datef)
         return render_template("production.html", date=new_date, order_list=new_order_list, today=today)
