@@ -67,3 +67,45 @@ tr:nth-child(even) {
 span {
     margin-left: 2em;
 }
+
+
+.alert-warning {
+    color: rgb(165, 4, 4);
+    border-radius: .5em;
+    padding: 1px;
+    border: 2px solid red;
+    background-color: rgb(240, 165, 165, 0.623);
+}
+
+.alert-success {
+    border-radius: .5em;
+    padding: 1px;
+    border: 2px solid rgb(165, 233, 39);
+    background-color: rgba(195, 240, 165, 0.623);
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+.closebtn:hover {
+    color: rgb(109, 100, 100);
+ }
+
+.column {
+    float: left;
+    width: 30%;
+  }
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }

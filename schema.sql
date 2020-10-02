@@ -22,7 +22,7 @@ CREATE TABLE order_types (
 
 CREATE TABLE customers (
     id SERIAL PRIMARY KEY, 
-    name TEXT, 
+    name TEXT UNIQUE, 
     visible INTEGER
 );
 
