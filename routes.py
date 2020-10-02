@@ -108,6 +108,13 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+        password2 = request.form["password2"]
+        if users.seek(username):
+            flash("Käyttäjänimi on varattu", "warning")
+        if password != password2:
+            flash("Salasanat eivät täsmää", "warning")
+        if password != password2 or users.seek(username):
+            return redirect(request.url)
         if users.register(username, password):
             flash("Käyttäjätunnus '"+username+ "' luotu", "success")
             return redirect("/")
@@ -230,10 +237,12 @@ def new_customer():
     if request.method == "POST":
         name = request.form["name"]
         token = request.form["csrf_token"]
-        if customers.add(name) and session["csrf_token"] == token:
+        if name != "" and customers.add(name) and session["csrf_token"] == token:
+            flash("Asiakas lisätty listaan", "success")
             return redirect("/new_order")
         else:
-            return render_template("error.html", message="Asiakkaan lisääminen epäonnistui.")
+            flash("Asiakkaan lisääminen epäonnistui, tarkista onko asiakas jo olemassa", "warning")
+            return redirect(request.url)
 
 
 today = date.today()
