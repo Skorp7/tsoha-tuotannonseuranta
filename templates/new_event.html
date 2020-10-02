@@ -8,34 +8,35 @@
 <p>
 
 <form action="/new_event" method="post" id="eventform">
-<label for="order_id">Tilauksen id:</label>
-<select id="order_id" name="order_id" form="eventform" required>
-  <option value=""></option>
-{% for order in order_list %}
-  <option value="{{ order[0] }}">{{ order[0] }}</option>
-{% endfor %}
-</select> 
-<p>
-Työvaiheen kuvaus: <input autocomplete="on" type="text" name="description" form="eventform" minlength="3" maxlength="30" required>
-<form>
-  <input type="radio" id="is_pending" name="is_pending" value="1" checked="checked" form="eventform">
-  <label for="is_pending">Jonossa</label>
-  <input type="radio" id="is_not_pending" name="is_pending" value="0" form="eventform">
-  <label for="is_not_pending">Työn alla</label>
+  <label for="order_id">Tilauksen id:</label>
+  <select id="order_id" name="order_id" form="eventform" required>
+    <option value=""></option>
+    {% for order in order_list %}
+    <option value="{{ order[0] }}">{{ order[0] }}</option>
+    {% endfor %}
+  </select>
   <p>
-  Kirjaa tilaus samalla ulos:
-  <input type="radio" id="not_out" name="in_progress" value="1" checked="checked" form="eventform">
-  <label for="not_out">Ei</label>
-  <input type="radio" id="out" name="in_progress" value="0" form="eventform">
-  <label for="out">Kyllä</label>
-  <p>
-  Käsittelijä: {{ user_data[1] }}
-</form> 
+    Työvaiheen kuvaus: <input autocomplete="on" type="text" name="description" form="eventform" minlength="3"
+      maxlength="30" required>
+  <form>
+    <input type="radio" id="is_pending" name="is_pending" value="1" checked="checked" form="eventform">
+    <label for="is_pending">Jonossa</label>
+    <input type="radio" id="is_not_pending" name="is_pending" value="0" form="eventform">
+    <label for="is_not_pending">Työn alla</label>
+    <p>
+      Kirjaa tilaus samalla ulos:
+      <input type="radio" id="not_out" name="in_progress" value="1" checked="checked" form="eventform">
+      <label for="not_out">Ei</label>
+      <input type="radio" id="out" name="in_progress" value="0" form="eventform">
+      <label for="out">Kyllä</label>
+    <p>
+      Käsittelijä: {{ user_data[1] }}
+  </form>
 
 
-<p>
-<input type="submit" value="Lisää työvaihe" form="eventform">
-<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" form="eventform">
+  <p>
+    <input type="submit" class="mainButton" value="Lisää työvaihe" form="eventform">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" form="eventform">
 </form>
 
 

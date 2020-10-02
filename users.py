@@ -6,7 +6,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 def login(username,password):
     try:
-        sql = "SELECT password, id, status FROM users WHERE name=:name"
+        sql = "SELECT password, id, status FROM users WHERE name ILIKE :name"
         result = db.session.execute(sql, {"name":username})
         user = result.fetchone()
         if user == None:
