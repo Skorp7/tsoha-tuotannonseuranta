@@ -29,29 +29,30 @@ Sovellukseen tulee kolme käyttäjäryhmää:
   * voi muuttaa toisten käyttäjien oikeuksia (peruskäyttäjä, työnjohtaja, ei oikeuksia)
   * näkee tilastoja tuotannosta, esim. työvaiheiden kestoja, tilausmääriä, asiakaskohtaisia tilausmääriä, toimipaikkakohtaisia tilausmääriä
  
-Esimerkiksi peruskäyttäjän oikeuksilla oleva työntekijä, esim. laskuttaja näkee kuinka kauan häneltä kuluu keskimäärin laskutukseen per tietynlainen tilaus. Oikeudet voidaan poistaa jos työntekijä esimerkiksi vaihtaa työpaikkaa tai tapahtuu jotain miksi häntä ei voi päästää tietokantaan käsiksi, esim. salasanavuoto. Kirjautumisoikeus pysyy siksi että tiedetään käyttäjän olevan olemassa ja oikeudet voi työnjohtajan halutessa palauttaa.
+Oikeudet voidaan poistaa jos työntekijä esimerkiksi vaihtaa työpaikkaa tai tapahtuu jotain miksi häntä ei voi päästää tietokantaan käsiksi, esim. salasanavuoto. Kirjautumisoikeus pysyy siksi että tiedetään käyttäjän olevan olemassa ja oikeudet voi työnjohtajan halutessa palauttaa.
 
 ### Käyttöliittymä
 
 * Kirjautumisnäkymä
-* TÄNÄÄN-ikkuna josta näkee päivän aikana valmiiksi saatavat tilaukset
-  * Laidalla navigointipalkki
+  * Rekisteröityminen
+
 * Tuotanto-ikkuna
+  * Aukeaa TÄNÄÄN-ikkunaan josta näkee päivän aikana valmiiksi saatavat tilaukset
   * Työmääriä voi tarkastella hakemalla niitä erilaisilla parametreillä (tilauksen tyyppi, asiakas, toimipaikka, tilausta käsitellyt työntekijä)
   * Tilauksen tilaa voi seurata hakemalla esim. tilauksen id:llä
-    * Työnjohtajalle näyttää esim. aikajanana kuinka pitkä aika on mennyt missäkin työvaiheessa keskimäärin
     * näyttää esim. aikajanana kuinka pitkä aika on mennyt missäkin työvaiheessa ja ilmaisee jollain tapaa jos aika on yli keskiarvon
   * Työvaiheen lisääminen
-    * Tilaukseen voi liittää viestejä seuraavaa käsittelijää varten
   * Tilauksen lisääminen
     * Asiakkaan lisääminen
     * Tilaustyypin (tuotteen) lisääminen
     * Toimipaikan lisääminen
 * Hallinta-ikkuna (vain työnjohtajille)
   * Käyttäjien statuksen vaihto
+  * Keskimääräiset jonotusajat eri työvaiheisiin
   * Keskimääräiset toimitusajat tilastona eri tyyppisille tilauksille
 
-* Tilauksella on status, se voi olla jonossa tai työn alla. Valmistumisen taas näkee tilauksen tapahtumahistoriasta omana tapahtumanaan.
+* Tilauksella on status, se voi olla 'työn alla' tai 'lähetetty'. 
+* Tilauksen työvaiheilla on myös statukset, status voi olla 'jonossa' tai 'käsittelyssä/käsitelty'.
 * Mahdollisuuksien mukaan myös muita toimintoja ja tilastoja työnjohtoa helpottamaan
 
 
@@ -80,8 +81,7 @@ Tällä hetkellä sovellus tukee seuraavia toimintoja:
 * Tilausten etsiminen joihin sisäänkirjautunut käyttäjä liittyy käsittelijänä
 * TÄNÄÄN-ikkunassa näkyy tänään toimitettavat tilaukset ja niiden sen hetkinen tila
 
-Tietokanta palvelee tämän hetkisiä toimintoja mutta siihen tulee todennäköisesti vielä muutoksia.
-Ulkoasu ja lomakkeiden toiminnat on testattu tietokoneella tavallisella selaimella (Chrome, Firefox), joka on myös ajateltu käyttötapa. Esimerkiksi lomakkeiden virheentarkistus ei vielä toimi tekstiselaimella.
+Ulkoasu ja lomakkeiden toiminnat on testattu tietokoneella tavallisella selaimella (Chrome, Firefox), joka on myös ajateltu käyttötapa. Esimerkiksi lomakkeiden virheentarkistus ja virheilmoitukset ei vielä toimi tekstiselaimella eikä pudotusvalikoiden valinnan aiheuttama heräte.
 
 Sovellusta pääsee kokeilemaan osoitteessa: https://tsoha-tuotannonseuranta.herokuapp.com
 Jos luot itsellesi uuden tunnuksen kokeilua varten, sillä tulee olemaan peruskäyttäjän oikeudet. Voit myös kokeilla adminin oikeuksia tunnuksella 'admin' ja salasanalla 'pass'.
