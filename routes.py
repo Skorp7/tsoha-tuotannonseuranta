@@ -12,6 +12,8 @@ from datetime import date
 from db import db
 from flask import session
 
+today = date.today()
+today_datetime = datetime.datetime.now()
 
 @app.route("/")
 def index():
@@ -170,9 +172,13 @@ def new_order():
         d_date = request.form["delivery_date"]
         d_time = request.form["delivery_time"]
         delivery_date = d_date + ' ' + d_time + ':00.000000'
+        dd_datetime = datetime.datetime.strptime(delivery_date,"%Y-%m-%d %H:%M:%S.%f")
         token = request.form["csrf_token"]
         if clinic_id == '0' or order_type_id == '0' or customer_id == '0' or d_date == '':
             flash("Täytä kaikki kentät!", "warning")
+            return redirect(request.url)
+        if dd_datetime - today_datetime < datetime.timedelta(minutes=1):
+            flash("Pyydetty toimitusaika on menneisyydessä", "warning")
             return redirect(request.url)
         elif clinic_id != '0' or order_type_id != '0' or customer_id != '0' and session["csrf_token"] == token:
             latest_id = orders.add(
@@ -243,8 +249,6 @@ def new_customer():
             flash("Asiakkaan lisääminen epäonnistui, tarkista onko asiakas jo olemassa", "warning")
             return redirect(request.url)
 
-
-today = date.today()
 
 
 @app.route("/production", methods=["get", "post"])
