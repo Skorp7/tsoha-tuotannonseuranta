@@ -2,25 +2,51 @@
 {% block title %}Kirjaudu{% endblock %}
 {% block content %}
 
+<div class="row">
+  <div class="column">
+    <h4>Eniten merkittyjä työvaiheita:</h4>
+    {% for name in hard_worker_list %}
+    - {{ name[2] }} ({{ name[0] }} kpl)<br>
+    {% endfor %}
 
-<h4>Eniten merkittyjä työvaiheita:</h4> 
-{% for name in hard_worker_list %}
-- {{ name[2] }} ({{ name[0] }} kpl)<br>
-{% endfor %}
+    <p>
 
-<p>
+    <h4>Pisimmät keskimääräiset jonotusajat työvaiheisiin:</h4>
 
-<h4>Pisimmät keskimääräiset jonotusajat työvaiheisiin:</h4>
+    {% for item in slowest %}
+    {{ item[0] }}: {% set str = item[1]|string %}
+    {% set pieces = str.split(":") %}
+    {{ pieces[0] }} h
+    {{ pieces[1] }} min
+    <br>
 
-{% for item in slowest %}
-{{ item[0] }}:   {% set str = item[1]|string %}
-                 {% set pieces = str.split(":") %} 
-                 {{ pieces[0] }} h
-                 {{ pieces[1] }} min
-               <br>
+    {% endfor %}
+  </div>
+  <div class="column"> </div>
+  <div class="column">
+    <div id="piechart">
 
-{% endfor %}
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript">
+        // This chart is provided by google and tutorial to make it is mostly from www.w3schools.com
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
 
+        function drawChart() {
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Product');
+          data.addColumn('number', 'Count');
+          var array = JSON.parse('{{ percents_order_list | tojson }}');
+          data.addRows(array);
 
+          var options = { 'title': 'Tlaustyyppien osuudet', 'width': 550, 'height': 400 };
+          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+          chart.draw(data, options);
+        }
+      </script>
+
+    </div>
+  </div>
+</div>
 
 {% endblock %}
