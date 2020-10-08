@@ -12,15 +12,20 @@ from datetime import date
 from db import db
 from flask import session
 
-today = date.today()
-today_datetime = datetime.datetime.now()
 
-@app.route("/")
+
+
+@app.route("/", methods=["get", "post"])
 def index():
     counter = visits.get_counter()
     time = datetime.datetime.now()
     date = time.strftime("%d.%m.%Y")
-    return render_template("index.html", counter=counter, time=time.strftime("%H:%M"), date=date)
+    if request.method == "GET":
+        return render_template("index.html", counter=counter, time=time.strftime("%H:%M"), date=date)
+    if request.method == "POST":
+        print("vinkit: ", request.form["show_tips"])
+        session["show_tips"] = request.form["show_tips"]
+        return render_template("index.html", counter=counter, time=time.strftime("%H:%M"), date=date)
 
 
 @app.route("/login", methods=["get", "post"])
@@ -32,6 +37,7 @@ def login():
         password = request.form["password"]
         if users.login(username, password):
             session["csrf_token"] = os.urandom(16).hex()
+            session["show_tips"] = "1"
             return redirect("/")
         else:
             flash("Väärä tunnus tai salasana", "warning")
@@ -46,10 +52,12 @@ def logout():
 
 @app.route("/charts")
 def charts():
+    percents_order_list = orders.percent_orders_list()
+    print(percents_order_list)
     hard_worker_list = events.hard_workers()
     slowest = calculate.seek_slowest()
     if users.user_status() == 1:
-        return render_template("charts.html", hard_worker_list=hard_worker_list, slowest=slowest)
+        return render_template("charts.html", hard_worker_list=hard_worker_list, slowest=slowest, percents_order_list=percents_order_list)
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
@@ -70,8 +78,8 @@ def new_event():
         is_pending = request.form["is_pending"]
         in_progress = request.form["in_progress"]
         token = request.form["csrf_token"]
-        if orders.order(order_id) != None and description != '' and events.add(order_id, user_id, description, is_pending) and session["csrf_token"] == token:
-            if in_progress == '0':
+        if orders.order(order_id) != None and description != "" and events.add(order_id, user_id, description, is_pending) and session["csrf_token"] == token:
+            if in_progress == "0":
                 orders.check_out_in(order_id, in_progress)
                 events.add(order_id, user_id, "Uloskirjaus", 0)
             flash("Työvaihe '"+description+ "' lisätty tilaukselle "+order_id, "success")
@@ -156,12 +164,13 @@ def change_status():
 
 @app.route("/new_order", methods=["get", "post"])
 def new_order():
+    today_datetime = datetime.datetime.now()
     order_type_list = orders.order_type_list()
     customer_list = customers.customer_list()
     clinic_list = customers.clinic_list()
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
-            return render_template('new_order.html', order_type_list=order_type_list, customer_list=customer_list, clinic_list=clinic_list)
+            return render_template("new_order.html", order_type_list=order_type_list, customer_list=customer_list, clinic_list=clinic_list)
         else:
             return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
@@ -171,16 +180,16 @@ def new_order():
         customer_id = request.form["customer_id"]
         d_date = request.form["delivery_date"]
         d_time = request.form["delivery_time"]
-        delivery_date = d_date + ' ' + d_time + ':00.000000'
+        delivery_date = d_date + " " + d_time + ":00.000000"
         dd_datetime = datetime.datetime.strptime(delivery_date,"%Y-%m-%d %H:%M:%S.%f")
         token = request.form["csrf_token"]
-        if clinic_id == '0' or order_type_id == '0' or customer_id == '0' or d_date == '':
+        if clinic_id == "0" or order_type_id == "0" or customer_id == "0" or d_date == "":
             flash("Täytä kaikki kentät!", "warning")
             return redirect(request.url)
         if dd_datetime - today_datetime < datetime.timedelta(minutes=1):
             flash("Pyydetty toimitusaika on menneisyydessä", "warning")
             return redirect(request.url)
-        elif clinic_id != '0' or order_type_id != '0' or customer_id != '0' and session["csrf_token"] == token:
+        elif clinic_id != "0" or order_type_id != "0" or customer_id != "0" and session["csrf_token"] == token:
             latest_id = orders.add(
                 order_type_id, customer_id, delivery_date, clinic_id)
             if (latest_id != None):
@@ -253,7 +262,8 @@ def new_customer():
 
 @app.route("/production", methods=["get", "post"])
 def production():
-    order_list = orders.list(today.strftime("%Y-%m-%d"))
+    today = date.today()
+    order_list = orders.order_list(today.strftime("%Y-%m-%d"))
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
             return render_template("production.html", date=today, order_list=order_list, today=today)
@@ -263,8 +273,8 @@ def production():
         datef = request.form["date"]
         if (datef == ""):
             return render_template("production.html", date=today, order_list=order_list, today=today)
-        new_date = datetime.datetime.strptime(datef, '%Y-%m-%d').date()
-        new_order_list = orders.list(datef)
+        new_date = datetime.datetime.strptime(datef, "%Y-%m-%d").date()
+        new_order_list = orders.order_list(datef)
         return render_template("production.html", date=new_date, order_list=new_order_list, today=today)
     else:
         return render_template("error.html", message="")

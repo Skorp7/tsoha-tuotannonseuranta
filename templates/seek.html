@@ -5,25 +5,29 @@
 <h3>Etsi tilausten tapahtumatietoja</h3>
 <hr>
 <p>
-<label for="order_id">Tilauksen id:n perusteella: </label>
-<select id="order_id" name="id" onchange="javascript:handleSelect(this)">
-  <option value=""></option>
-  {% for order in orderit %}
-  <option value="{{ order[0] }}">{{ order[0] }}</option>
-  {% endfor %}
+<div class="tooltip">
+  <label for="order_id">Tilauksen id:n perusteella: </label>
+  <select id="order_id" name="id" onchange="javascript:handleSelect(this)">
+    <option value=""></option>
+    {% for order in orderit %}
+    <option value="{{ order[0] }}">{{ order[0] }}</option>
+    {% endfor %}
   </select>
-  
-  <script type="text/javascript">
-    function handleSelect(elm)
-    {
-       window.location = "?order_id="+elm.value;
-    }
-  </script>
+  {% if session.get("show_tips",0) == '1': %}
+  <span class="tooltiptext">Löydät ID:n lähetteestä</span>
+  {% endif %}
+</div>
+
+<script type="text/javascript">
+  function handleSelect(elm) {
+    window.location = "?order_id=" + elm.value;
+  }
+</script>
 
 <p>
-Käyttäjän perusteella: <a href="/seek_by_user"><Button class="mainButton">Etsi omat työvaiheet</Button></a>
-{% if order_id %}
-{% set oid = order_id|int() %}
+  Käyttäjän perusteella: <a href="/seek_by_user"><Button class="mainButton">Etsi omat työvaiheet</Button></a>
+  {% if order_id %}
+  {% set oid = order_id|int() %}
 
 <h4>Tilauksen tiedot</h4>
 <table>
@@ -35,16 +39,16 @@ Käyttäjän perusteella: <a href="/seek_by_user"><Button class="mainButton">Ets
     <th>Toimipiste</th>
     <th>Tila</th>
   </tr>
-  
+
   {% for order in orderit %}
-  {% if (order[0] == oid) %}  
+  {% if (order[0] == oid) %}
   <tr>
     <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>
     <td>{{ order[0] }}</td>
     <td>{{ order[2] }} ({{ order[3] }})</td>
     <td>{{ order[5] }}</td>
     <td>{{ order[7] }} ({{ order[8] }})</td>
-    {% if (order[11] == 1) %}  
+    {% if (order[11] == 1) %}
     <td class="in_progress">TYÖN ALLA</td>
     {% else %}
     <td class="sent">LÄHETETTY</td>
@@ -65,10 +69,10 @@ Käyttäjän perusteella: <a href="/seek_by_user"><Button class="mainButton">Ets
     <th>Käsittelijä</th>
     <th>Edistyminen</th>
   </tr>
-  
+
 
   {% for event in event_list %}
-  {% if (event[0] == oid) %}  
+  {% if (event[0] == oid) %}
   <tr>
     <td>{{ event[3].strftime("%d.%m.%Y %H:%M") }}</td>
     <td>{{ event[2] }}</td>

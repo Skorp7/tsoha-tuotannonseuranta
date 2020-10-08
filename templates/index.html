@@ -5,11 +5,33 @@
 <hr>
 <i>Tämä on sovellus tuotannon seurantaan</i>
 <p>
-Heroku-palvelimella tämä sovellus toimii ajassa UTC.<br>
-Sovelluksen kello: {{ time }}<br>
-Päivämäärä: {{ date }}
+    Heroku-palvelimella tämä sovellus toimii ajassa UTC.<br>
+    Sovelluksen kello: {{ time }}<br>
+    Päivämäärä: {{ date }}
 <p>
-<i>Käyttäjien määrä: </i> {{ counter }}
-<br>
+    {% if session.get("user_id",0) %}
+    <i>Käyttäjien määrä: </i> {{ counter }}
+<p>
 
+<form action="/" method="post" id="tipsform">
+    {% if session.get("show_tips",0) == '0':  %}
+    <input type="checkbox" id="tips" name="show_tips" value="0" onchange="javascript:handleSelect()" checked>
+    {% elif session.get("show_tips",0) == '1': %}
+    <input type="checkbox" id="tips" name="show_tips" value="0" onchange="javascript:handleSelect()">
+    {% endif %}
+    <label for="tips"> Älä näytä pop-up käyttövinkkejä</label>
+    <input type="hidden" id="tips_hidden" name="show_tips" value="1">
+</form>
+
+
+<script type="text/javascript">
+    function handleSelect() {
+        if (document.getElementById("tips").checked) {
+        document.getElementById("tips_hidden").disabled = true;
+        }
+        document.getElementById("tipsform").submit();
+    }
+</script>
+
+{% endif%}
 {% endblock %}
