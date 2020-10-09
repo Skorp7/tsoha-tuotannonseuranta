@@ -84,11 +84,11 @@ def order(order_id):
     order_data = result.fetchall()
     return order_data
 
-def percent_orders_list():
-    sql2 = "SELECT ot.product_type, count(*) from orders o left join order_types ot on o.order_type_id=ot.id group by ot.product_type"
-    sql = "SELECT ot.product_type, (count(*)::decimal/(select count(*) from orders))*100 AS percent " \
-        "from orders o left join order_types ot on o.order_type_id=ot.id group by ot.product_type"
+
+def amount_orders_list():
+    sql2 = "SELECT ot.product_type, count(*) FROM orders o LEFT JOIN " \
+        "order_types ot ON o.order_type_id=ot.id GROUP BY ot.product_type ORDER BY count"
     result = db.session.execute(sql2)
-    percent_orders = result.fetchall()
-    percent_orders_not_tuples = [list(elem) for elem in percent_orders]
-    return percent_orders_not_tuples
+    am_orders = result.fetchall()
+    am_orders_not_tuples = [list(elem) for elem in am_orders]
+    return am_orders_not_tuples

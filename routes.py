@@ -23,7 +23,6 @@ def index():
     if request.method == "GET":
         return render_template("index.html", counter=counter, time=time.strftime("%H:%M"), date=date)
     if request.method == "POST":
-        print("vinkit: ", request.form["show_tips"])
         session["show_tips"] = request.form["show_tips"]
         return render_template("index.html", counter=counter, time=time.strftime("%H:%M"), date=date)
 
@@ -52,12 +51,11 @@ def logout():
 
 @app.route("/charts")
 def charts():
-    percents_order_list = orders.percent_orders_list()
-    print(percents_order_list)
+    amount_order_list = orders.amount_orders_list()
     hard_worker_list = events.hard_workers()
     slowest = calculate.seek_slowest()
     if users.user_status() == 1:
-        return render_template("charts.html", hard_worker_list=hard_worker_list, slowest=slowest, percents_order_list=percents_order_list)
+        return render_template("charts.html", hard_worker_list=hard_worker_list, slowest=slowest, amount_order_list=amount_order_list)
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
