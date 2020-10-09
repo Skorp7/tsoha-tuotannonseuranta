@@ -52,7 +52,7 @@ def charts():
     amount_order_list = orders.amount_orders_list()
     hard_worker_list = events.hard_workers()
     queue_durations = events.queue_durations()
-    counter = visits.get_counter()
+    counter = len(users.user_list())
     if users.user_status() == 1:
         return render_template("charts.html", counter=counter, hard_worker_list=hard_worker_list, queue_durations=queue_durations, amount_order_list=amount_order_list)
     else:
