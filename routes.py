@@ -7,7 +7,6 @@ import orders
 import customers
 import datetime
 import events
-import calculate
 from datetime import date
 from db import db
 from flask import session
@@ -53,9 +52,9 @@ def logout():
 def charts():
     amount_order_list = orders.amount_orders_list()
     hard_worker_list = events.hard_workers()
-    slowest = calculate.seek_slowest()
+    queue_durations = events.queue_durations()
     if users.user_status() == 1:
-        return render_template("charts.html", hard_worker_list=hard_worker_list, slowest=slowest, amount_order_list=amount_order_list)
+        return render_template("charts.html", hard_worker_list=hard_worker_list, queue_durations=queue_durations, amount_order_list=amount_order_list)
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 

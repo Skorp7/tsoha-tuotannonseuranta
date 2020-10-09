@@ -13,8 +13,8 @@
 
     <h4>Pisimmät keskimääräiset jonotusajat työvaiheisiin:</h4>
 
-    {% for item in slowest %}
-    {{ item[0] }}: {% set str = item[1]|string %}
+    {% for item in queue_durations %}
+    {{ item[1] }}: {% set str = item[0]|string %}
     {% set pieces = str.split(":") %}
     {{ pieces[0] }} h
     {{ pieces[1] }} min
