@@ -16,14 +16,13 @@ from flask import session
 
 @app.route("/", methods=["get", "post"])
 def index():
-    counter = visits.get_counter()
     time = datetime.datetime.now()
     date = time.strftime("%d.%m.%Y")
     if request.method == "GET":
-        return render_template("index.html", counter=counter, time=time.strftime("%H:%M"), date=date)
+        return render_template("index.html", time=time.strftime("%H:%M"), date=date)
     if request.method == "POST":
         session["show_tips"] = request.form["show_tips"]
-        return render_template("index.html", counter=counter, time=time.strftime("%H:%M"), date=date)
+        return render_template("index.html", time=time.strftime("%H:%M"), date=date)
 
 
 @app.route("/login", methods=["get", "post"])
@@ -53,8 +52,9 @@ def charts():
     amount_order_list = orders.amount_orders_list()
     hard_worker_list = events.hard_workers()
     queue_durations = events.queue_durations()
+    counter = visits.get_counter()
     if users.user_status() == 1:
-        return render_template("charts.html", hard_worker_list=hard_worker_list, queue_durations=queue_durations, amount_order_list=amount_order_list)
+        return render_template("charts.html", counter=counter, hard_worker_list=hard_worker_list, queue_durations=queue_durations, amount_order_list=amount_order_list)
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 

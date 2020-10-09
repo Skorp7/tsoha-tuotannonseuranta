@@ -4,6 +4,8 @@
 
 <div class="row">
   <div class="column">
+    <h4>Käyttäjien määrä: </h4> {{ counter }}
+    <p>
     <h4>Eniten merkittyjä työvaiheita:</h4>
     {% for name in hard_worker_list %}
     - {{ name[2] }} ({{ name[0] }} kpl)<br>
@@ -12,15 +14,24 @@
     <p>
 
     <h4>Pisimmät keskimääräiset jonotusajat työvaiheisiin:</h4>
-
+    <table class="minitable">     
     {% for item in queue_durations %}
-    {{ item[1] }}: {% set str = item[0]|string %}
-    {% set pieces = str.split(":") %}
-    {{ pieces[0] }} h
-    {{ pieces[1] }} min
-    <br>
-
+      {% set str = item[0]|string %}
+      {% set pieces = str.split(":") %}
+      {% if pieces[0] == "0" and pieces[1] == "00" %}
+        <!-- continue - we don't  want to know if there is a 30sec or 0sec queue ;) -->
+      {% else %}
+      <tr class="minitr">
+      <td class="minitd">{{ item[1] }}:</th>
+      <td class="minitd">
+        {{ pieces[0] }} h
+        {{ pieces[1] }} min
+      </th>
+      </tr>
+      {% endif %}
     {% endfor %}
+    
+  </table>
   </div>
   <div class="column"> </div>
   <div class="column">

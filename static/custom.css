@@ -51,10 +51,11 @@ form {
 }
 
 table {
-    font-family: arial, sans-serif;
+    font-family: Arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
+
 
 td, th {
     border: 1px solid #dddddd;
@@ -62,8 +63,32 @@ td, th {
     padding: 8px;
 }
 
+
+
 tr:nth-child(even) {
     background-color: #dddddd;
+    border-collapse: collapse;
+}
+
+.minitable {
+    font-family: Arial;
+    border-collapse: collapse;
+    border: none !important;
+    width: 100%;
+}
+
+.minitd, .minith {
+    border-collapse: collapse;
+    border: none !important;
+    background-color: white;
+    text-align: left;
+    padding: 2px;
+}
+
+.minitr:ntn-child(even) {
+    border-collapse: collapse;
+    border: none !important;
+    background-color: white;
 }
 
 .in_progress {

@@ -48,7 +48,10 @@ def list(order_id):
     order_list = result.fetchall()
     return order_list
 
-
+# FIND THE QUEUE DURATIONS BY EVENT DESCRIPTION:
+# Take all events, group them by order_id, remain all rows where order_id, description are the same and is_pending
+# is different. So we find the pairs when an order has went to queue and when taken to handling.
+# Calculate differences between times and take average of them. Group by event description. 
 def queue_durations():
     sql ="SELECT avg(D.diff) AS average, D.descr FROM "\
             "(SELECT (a.time-b.time) as diff, A.description as descr FROM "\
