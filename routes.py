@@ -11,9 +11,7 @@ from db import db
 from flask import session
 
 
-
-
-@app.route("/", methods=["get", "post"])
+@app.route("/", methods=["GET", "POST"])
 def index():
     time = datetime.datetime.now()
     date = time.strftime("%d.%m.%Y")
@@ -24,7 +22,7 @@ def index():
         return render_template("index.html", time=time.strftime("%H:%M"), date=date)
 
 
-@app.route("/login", methods=["get", "post"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
         return render_template("login.html")
@@ -53,13 +51,13 @@ def charts():
     queue_durations = events.queue_durations()
     counter = len(users.user_list())
     if users.user_status() == 1:
-        return render_template("charts.html", counter=counter, hard_worker_list=hard_worker_list, \
-            queue_durations=queue_durations, amount_order_list=amount_order_list)
+        return render_template("charts.html", counter=counter, hard_worker_list=hard_worker_list,
+                               queue_durations=queue_durations, amount_order_list=amount_order_list)
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
 
-@app.route("/new_event", methods=["get", "post"])
+@app.route("/new_event", methods=["GET", "POST"])
 def new_event():
     user_data = users.user()
     order_list = orders.listAll()
@@ -67,8 +65,8 @@ def new_event():
     event_descr_list = events.common_events()
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
-            return render_template("new_event.html", user_data=user_data, order_list=order_list, \
-                event_list=event_list, event_descr_list=event_descr_list)
+            return render_template("new_event.html", user_data=user_data, order_list=order_list,
+                                   event_list=event_list, event_descr_list=event_descr_list)
         else:
             return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
     if request.method == "POST":
@@ -76,7 +74,7 @@ def new_event():
         description_drop = request.form["description_drop"]
         description_text = request.form["description_text"]
         description = ""
-        if (description_drop != ""): 
+        if (description_drop != ""):
             description = description_drop
         elif (description_text != ""):
             description = description_text
@@ -87,12 +85,13 @@ def new_event():
         is_pending = request.form["is_pending"]
         in_progress = request.form["in_progress"]
         token = request.form["csrf_token"]
-        if orders.order(order_id) != None and description != "" and events.add(order_id, user_id, \
-            description, is_pending) and session["csrf_token"] == token:
+        if orders.order(order_id) != None and description != "" and events.add(order_id, user_id,
+                                                                               description, is_pending) and session["csrf_token"] == token:
             if in_progress == "0":
                 orders.check_out_in(order_id, in_progress)
                 events.add(order_id, user_id, "Uloskirjaus", 0)
-            flash("Työvaihe '"+description+ "' lisätty tilaukselle "+order_id, "success")
+            flash("Työvaihe '"+description +
+                  "' lisätty tilaukselle "+order_id, "success")
             return redirect(request.url)
         else:
             flash("Työvaiheen lisääminen epäonnistui", "warning")
@@ -121,7 +120,7 @@ def seek():
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
 
-@app.route("/register", methods=["get", "post"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
         return render_template("register.html")
@@ -136,23 +135,23 @@ def register():
         if password != password2 or users.seek(username):
             return redirect(request.url)
         if users.register(username, password):
-            flash("Käyttäjätunnus '"+username+ "' luotu", "success")
+            flash("Käyttäjätunnus '"+username + "' luotu", "success")
             return redirect("/")
         else:
-            flash("Rekisteröinti epäonnistui. Käyttäjätunnus '"+username+ "' on ehkä jo olemassa", "warning")
+            flash("Rekisteröinti epäonnistui. Käyttäjätunnus '" +
+                  username + "' on ehkä jo olemassa", "warning")
             return redirect(request.url)
 
 
-@app.route("/admin", methods=["get"])
+@app.route("/admin")
 def admin():
-    if request.method == "GET":
-        if users.user_status() == 1:
-            return render_template("admin.html")
-        else:
-            return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
+    if users.user_status() == 1:
+        return render_template("admin.html")
+    else:
+        return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
 
-@app.route("/change_status", methods=["get", "post"])
+@app.route("/change_status", methods=["GET", "POST"])
 def change_status():
     if request.method == "GET":
         if users.user_status() == 1:
@@ -165,14 +164,14 @@ def change_status():
         username = request.form["username"]
         token = request.form["csrf_token"]
         if users.update_status(username, new_status) and session["csrf_token"] == token:
-            flash("Käyttäjän '"+username+ "' oikeudet päivitetty", "success")
+            flash("Käyttäjän '"+username + "' oikeudet päivitetty", "success")
             return redirect(request.url)
         else:
             flash("Oikeuksien päivitys epäonnistui", "warning")
             return redirect(request.url)
 
 
-@app.route("/new_order", methods=["get", "post"])
+@app.route("/new_order", methods=["GET", "POST"])
 def new_order():
     today_datetime = datetime.datetime.now()
     order_type_list = orders.order_type_list()
@@ -180,8 +179,8 @@ def new_order():
     clinic_list = customers.clinic_list()
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
-            return render_template("new_order.html", order_type_list=order_type_list, customer_list=customer_list, \
-                clinic_list=clinic_list)
+            return render_template("new_order.html", order_type_list=order_type_list, customer_list=customer_list,
+                                   clinic_list=clinic_list)
         else:
             return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
@@ -192,7 +191,8 @@ def new_order():
         d_date = request.form["delivery_date"]
         d_time = request.form["delivery_time"]
         delivery_date = d_date + " " + d_time + ":00.000000"
-        dd_datetime = datetime.datetime.strptime(delivery_date,"%Y-%m-%d %H:%M:%S.%f")
+        dd_datetime = datetime.datetime.strptime(
+            delivery_date, "%Y-%m-%d %H:%M:%S.%f")
         token = request.form["csrf_token"]
         if clinic_id == "0" or order_type_id == "0" or customer_id == "0" or d_date == "":
             flash("Täytä kaikki kentät!", "warning")
@@ -205,14 +205,15 @@ def new_order():
                 order_type_id, customer_id, delivery_date, clinic_id)
             if (latest_id != None):
                 events.add(latest_id, users.user()[0], "Sisäänkirjaus", 0)
-                flash("Tilaus lisätty! Tilauksen id on: "+str(latest_id)+ ". Kirjoita se lähetteeseen.", "success")
+                flash("Tilaus lisätty! Tilauksen id on: " +
+                      str(latest_id) + ". Kirjoita se lähetteeseen.", "success")
                 return redirect(request.url)
         else:
             flash("Tilauksen lisääminen epäonnistui", "warning")
             return redirect(request.url)
 
 
-@app.route("/new_order_type", methods=["get", "post"])
+@app.route("/new_order_type", methods=["GET", "POST"])
 def new_order_type():
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
@@ -224,14 +225,15 @@ def new_order_type():
         materials = request.form["materials"]
         token = request.form["csrf_token"]
         if product != "" and materials != "" and orders.add_order_type(product, materials) and \
-            session["csrf_token"] == token:
+                session["csrf_token"] == token:
             flash("Tuote lisätty listaan", "success")
             return redirect("/new_order")
         else:
             flash("Tuotteen lisääminen epäonnistui", "warning")
             return redirect(request.url)
 
-@app.route("/new_clinic", methods=["get", "post"])
+
+@app.route("/new_clinic", methods=["GET", "POST"])
 def new_clinic():
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
@@ -246,15 +248,16 @@ def new_clinic():
         postal = request.form["postal"]
         token = request.form["csrf_token"]
         if name != "" and adress != "" and postal != "" and customers.add_clinic(name, adress, postal, city) \
-            and session["csrf_token"] == token:
+                and session["csrf_token"] == token:
             flash("Toimipiste lisätty listaan", "success")
             return redirect("/new_order")
         else:
-            flash("Toimipisteen lisääminen epäonnistui, tarkista onko toimipiste jo olemassa", "warning")
+            flash(
+                "Toimipisteen lisääminen epäonnistui, tarkista onko toimipiste jo olemassa", "warning")
             return redirect(request.url)
 
 
-@app.route("/new_customer", methods=["get", "post"])
+@app.route("/new_customer", methods=["GET", "POST"])
 def new_customer():
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
@@ -268,12 +271,12 @@ def new_customer():
             flash("Asiakas lisätty listaan", "success")
             return redirect("/new_order")
         else:
-            flash("Asiakkaan lisääminen epäonnistui, tarkista onko asiakas jo olemassa", "warning")
+            flash(
+                "Asiakkaan lisääminen epäonnistui, tarkista onko asiakas jo olemassa", "warning")
             return redirect(request.url)
 
 
-
-@app.route("/production", methods=["get", "post"])
+@app.route("/production", methods=["GET", "POST"])
 def production():
     today = date.today()
     order_list = orders.order_list(today.strftime("%Y-%m-%d"))
