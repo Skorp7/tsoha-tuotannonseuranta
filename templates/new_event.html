@@ -10,19 +10,42 @@
 <form action="/new_event" method="post" id="eventform">
   <div class="tooltip">
     <label for="order_id">Tilauksen ID:</label>
-    <select id="order_id" name="order_id" form="eventform" required novalidate>
+    <select id="order_id" name="order_id" form="eventform" required onchange="javascript:handleSelect(this)">
       <option value=""></option>
       {% for order in order_list %}
-      <option value="{{ order[0] }}">{{ order[0] }}</option>
+      <option value="{{ order[0] }}">{{ order[0] }} &nbsp; ({{ order[5] }}, {{ order[2] }})</option>
       {% endfor %}
     </select>
     {% if session.get("show_tips",0) == '1': %}
     <span class="tooltiptext">Löydät ID:n paperilähetteestä</span>
     {% endif %}
   </div>
-  
     
-  <p>
+    <script type="text/javascript">
+      function handleSelect(elm) {
+        var chapter = document.getElementById("event_info");
+        chapter.innerHTML = "";
+        var array = JSON.parse('{{ event_list | tojson }}');
+        for (item of array) {
+          if (item[0] == elm.value) {
+          var x = document.createElement("div");
+          var queue = "Jonossa"
+          if (item[4] == '0') {
+            queue = "Tehty"
+          }
+          x.textContent = "  Edellinen työvaihe: " + item[2] + " (" + queue + ")";
+          chapter.appendChild(x);
+          { break; }
+        }
+        }       
+      }
+    </script>
+  
+<p>
+  <div id="event_info" class="info">
+  </div>
+<p>
+
 
   <div class="tooltip">
     Työvaiheen kuvaus: <input autocomplete="on" type="text" name="description" form="eventform" minlength="3"

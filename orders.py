@@ -90,5 +90,4 @@ def amount_orders_list():
         "order_types ot ON o.order_type_id=ot.id GROUP BY ot.product_type ORDER BY count"
     result = db.session.execute(sql2)
     am_orders = result.fetchall()
-    am_orders_not_tuples = [list(elem) for elem in am_orders]
-    return am_orders_not_tuples
+    return am_orders

@@ -1,7 +1,6 @@
 from app import app
 from flask import render_template, request, redirect, flash
 import users
-import visits
 import os
 import orders
 import customers
@@ -49,7 +48,7 @@ def logout():
 
 @app.route("/charts")
 def charts():
-    amount_order_list = orders.amount_orders_list()
+    amount_order_list = [list(elem) for elem in orders.amount_orders_list()]
     hard_worker_list = events.hard_workers()
     queue_durations = events.queue_durations()
     counter = len(users.user_list())
@@ -63,9 +62,10 @@ def charts():
 def new_event():
     user_data = users.user()
     order_list = orders.listAll()
+    event_list = [list(elem) for elem in events.event_list()]
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
-            return render_template("new_event.html", user_data=user_data, order_list=order_list)
+            return render_template("new_event.html", user_data=user_data, order_list=order_list, event_list=event_list)
         else:
             return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
     if request.method == "POST":
@@ -103,7 +103,7 @@ def seek():
     event_list = events.event_list()
     order_id = request.args.get("order_id", "")
     if users.user_status() == 1 or users.user_status() == 0:
-        return render_template("seek.html", event_list=event_list, orderit=order_list, order_id=order_id)
+        return render_template("seek.html", event_list=event_list, order_list=order_list, order_id=order_id)
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 

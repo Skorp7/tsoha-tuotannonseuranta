@@ -9,8 +9,8 @@
   <label for="order_id">Tilauksen id:n perusteella: </label>
   <select id="order_id" name="id" onchange="javascript:handleSelect(this)">
     <option value=""></option>
-    {% for order in orderit %}
-    <option value="{{ order[0] }}">{{ order[0] }}</option>
+    {% for order in order_list %}
+    <option value="{{ order[0] }}">{{ order[0] }} &nbsp; ({{ order[5] }}, {{ order[2] }})</option>
     {% endfor %}
   </select>
   {% if session.get("show_tips",0) == '1': %}
@@ -40,7 +40,7 @@
     <th>Tila</th>
   </tr>
 
-  {% for order in orderit %}
+  {% for order in order_list %}
   {% if (order[0] == oid) %}
   <tr>
     <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>

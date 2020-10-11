@@ -45,6 +45,10 @@ body {
     background-color: rgba(144, 238, 144, 0.651);
 }
 
+.info {
+    color: rgb(255, 196, 0);
+}
+
 form {
     display: block;
     padding: .5em;
@@ -178,7 +182,7 @@ span {
 
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 200px;
+    width: 250px;
     background-color: rgba(59, 59, 59, 0.815);
     color: #fff;
     text-align: center;
