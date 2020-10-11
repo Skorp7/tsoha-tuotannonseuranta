@@ -90,8 +90,8 @@ def new_event():
             if in_progress == "0":
                 orders.check_out_in(order_id, in_progress)
                 events.add(order_id, user_id, "Uloskirjaus", 0)
-            flash("Työvaihe '"+description +
-                  "' lisätty tilaukselle "+order_id, "success")
+            flash("Työvaihe '" + description +
+                  "' lisätty tilaukselle " + order_id, "success")
             return redirect(request.url)
         else:
             flash("Työvaiheen lisääminen epäonnistui", "warning")
@@ -135,7 +135,7 @@ def register():
         if password != password2 or users.seek(username):
             return redirect(request.url)
         if users.register(username, password):
-            flash("Käyttäjätunnus '"+username + "' luotu", "success")
+            flash("Käyttäjätunnus '" + username + "' luotu", "success")
             return redirect("/")
         else:
             flash("Rekisteröinti epäonnistui. Käyttäjätunnus '" +
@@ -164,7 +164,7 @@ def change_status():
         username = request.form["username"]
         token = request.form["csrf_token"]
         if users.update_status(username, new_status) and session["csrf_token"] == token:
-            flash("Käyttäjän '"+username + "' oikeudet päivitetty", "success")
+            flash("Käyttäjän '" + username + "' oikeudet päivitetty", "success")
             return redirect(request.url)
         else:
             flash("Oikeuksien päivitys epäonnistui", "warning")
