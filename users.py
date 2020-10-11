@@ -45,19 +45,6 @@ def register(username, password):
         return False
     return login(username, password)
 
-
-def user_id():
-    return session.get("user_id", 0)
-
-
-def user_status():
-    usr_id = session.get("user_id", 0)
-    sql = "SELECT status FROM users WHERE id=:id"
-    result = db.session.execute(sql, {"id": usr_id})
-    status = result.fetchone()[0]
-    return status
-
-
 def user():
     usr_id = session.get("user_id", 0)
     sql = "SELECT id, name, status FROM users WHERE id=:id"
