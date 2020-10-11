@@ -53,7 +53,7 @@ def list(order_id):
 # is different. So we find the pairs when an order has went to queue and when taken to handling.
 # Calculate differences between times and take average of them. Group by event description. 
 def queue_durations():
-    sql ="SELECT avg(D.diff) AS average, D.descr FROM "\
+    sql = "SELECT avg(D.diff) AS average, D.descr FROM "\
             "(SELECT (a.time-b.time) as diff, A.description as descr FROM "\
                 "(SELECT * FROM (SELECT DISTINCT ON(order_id, description, is_pending)order_id, description, "\
                 "is_pending, time FROM events GROUP BY order_id, description, is_pending, time ORDER BY order_id, "\
@@ -67,3 +67,10 @@ def queue_durations():
     result = db.session.execute(sql)
     duration_list = result.fetchall()
     return duration_list
+
+#find most used event descriptions
+def common_events():
+    sql = "SELECT description, count(*) FROM events GROUP BY description ORDER BY count DESC"
+    result = db.session.execute(sql)
+    description_list = result.fetchall()
+    return description_list

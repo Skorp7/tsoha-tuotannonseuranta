@@ -53,7 +53,8 @@ def charts():
     queue_durations = events.queue_durations()
     counter = len(users.user_list())
     if users.user_status() == 1:
-        return render_template("charts.html", counter=counter, hard_worker_list=hard_worker_list, queue_durations=queue_durations, amount_order_list=amount_order_list)
+        return render_template("charts.html", counter=counter, hard_worker_list=hard_worker_list, \
+            queue_durations=queue_durations, amount_order_list=amount_order_list)
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
@@ -63,19 +64,31 @@ def new_event():
     user_data = users.user()
     order_list = orders.listAll()
     event_list = [list(elem) for elem in events.event_list()]
+    event_descr_list = events.common_events()
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
-            return render_template("new_event.html", user_data=user_data, order_list=order_list, event_list=event_list)
+            return render_template("new_event.html", user_data=user_data, order_list=order_list, \
+                event_list=event_list, event_descr_list=event_descr_list)
         else:
             return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
     if request.method == "POST":
         order_id = request.form["order_id"]
-        description = request.form["description"]
+        description_drop = request.form["description_drop"]
+        description_text = request.form["description_text"]
+        description = ""
+        if (description_drop != ""): 
+            description = description_drop
+        elif (description_text != ""):
+            description = description_text
+        else:
+            flash("Valitse työvaiheen kuvaus listasta tai kirjoita kuvaus", "warning")
+            return redirect(request.url)
         user_id = user_data[0]
         is_pending = request.form["is_pending"]
         in_progress = request.form["in_progress"]
         token = request.form["csrf_token"]
-        if orders.order(order_id) != None and description != "" and events.add(order_id, user_id, description, is_pending) and session["csrf_token"] == token:
+        if orders.order(order_id) != None and description != "" and events.add(order_id, user_id, \
+            description, is_pending) and session["csrf_token"] == token:
             if in_progress == "0":
                 orders.check_out_in(order_id, in_progress)
                 events.add(order_id, user_id, "Uloskirjaus", 0)
@@ -167,7 +180,8 @@ def new_order():
     clinic_list = customers.clinic_list()
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
-            return render_template("new_order.html", order_type_list=order_type_list, customer_list=customer_list, clinic_list=clinic_list)
+            return render_template("new_order.html", order_type_list=order_type_list, customer_list=customer_list, \
+                clinic_list=clinic_list)
         else:
             return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
@@ -209,7 +223,8 @@ def new_order_type():
         product = request.form["product"]
         materials = request.form["materials"]
         token = request.form["csrf_token"]
-        if product != "" and materials != "" and orders.add_order_type(product, materials) and session["csrf_token"] == token:
+        if product != "" and materials != "" and orders.add_order_type(product, materials) and \
+            session["csrf_token"] == token:
             flash("Tuote lisätty listaan", "success")
             return redirect("/new_order")
         else:
@@ -230,7 +245,8 @@ def new_clinic():
         city = request.form["city"]
         postal = request.form["postal"]
         token = request.form["csrf_token"]
-        if name != "" and adress != "" and postal != "" and customers.add_clinic(name, adress, postal, city) and session["csrf_token"] == token:
+        if name != "" and adress != "" and postal != "" and customers.add_clinic(name, adress, postal, city) \
+            and session["csrf_token"] == token:
             flash("Toimipiste lisätty listaan", "success")
             return redirect("/new_order")
         else:

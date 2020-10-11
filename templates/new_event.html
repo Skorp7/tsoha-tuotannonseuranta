@@ -10,7 +10,7 @@
 <form action="/new_event" method="post" id="eventform">
   <div class="tooltip">
     <label for="order_id">Tilauksen ID:</label>
-    <select id="order_id" name="order_id" form="eventform" required onchange="javascript:handleSelect(this)">
+    <select id="order_id" name="order_id" form="eventform" required onchange="javascript:handleSelectID(this)">
       <option value=""></option>
       {% for order in order_list %}
       <option value="{{ order[0] }}">{{ order[0] }} &nbsp; ({{ order[5] }}, {{ order[2] }})</option>
@@ -20,36 +20,27 @@
     <span class="tooltiptext">Löydät ID:n paperilähetteestä</span>
     {% endif %}
   </div>
-    
-    <script type="text/javascript">
-      function handleSelect(elm) {
-        var chapter = document.getElementById("event_info");
-        chapter.innerHTML = "";
-        var array = JSON.parse('{{ event_list | tojson }}');
-        for (item of array) {
-          if (item[0] == elm.value) {
-          var x = document.createElement("div");
-          var queue = "Jonossa"
-          if (item[4] == '0') {
-            queue = "Tehty"
-          }
-          x.textContent = "  Edellinen työvaihe: " + item[2] + " (" + queue + ")";
-          chapter.appendChild(x);
-          { break; }
-        }
-        }       
-      }
-    </script>
-  
-<p>
+
+  <p>
   <div id="event_info" class="info">
   </div>
-<p>
+  <p>
 
 
   <div class="tooltip">
-    Työvaiheen kuvaus: <input autocomplete="on" type="text" name="description" form="eventform" minlength="3"
-      maxlength="30" required>
+    Työvaiheen kuvaus:
+    <select id="description" name="description_drop" form="eventform" required
+      onchange="javascript:changeRequired(this)">
+      <option value=""></option>
+      {% for descr in event_descr_list %}
+      {% if 11 > loop.index %}
+      <option value="{{ descr[0] }}">{{ descr[0] }}</option>
+      {% endif %}
+      {% endfor %}
+    </select>
+    &nbsp; Muu:
+    <input type="text" name="description_text" form="eventform" minlength="3" maxlength="30" required 
+      onkeypress="javascript:changeRequiredText(this)">
     <form>
       <input type="radio" id="is_pending" name="is_pending" value="1" checked="checked" form="eventform">
       <label for="is_pending">Jonossa</label>
@@ -81,6 +72,44 @@
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" form="eventform">
   </form>
 
+  <script type="text/javascript">
+    function handleSelectID(elm) {
+      var chapter = document.getElementById("event_info");
+      chapter.innerHTML = "";
+      var array = JSON.parse('{{ event_list | tojson }}');
+      for (item of array) {
+        if (item[0] == elm.value) {
+          var x = document.createElement("div");
+          var queue = "Jonossa"
+          if (item[4] == '0') {
+            queue = "Tehty"
+          }
+          x.textContent = "  Edellinen työvaihe: " + item[2] + " (" + queue + ")";
+          chapter.appendChild(x);
+          { break; }
+        }
+      }
+    }
+  </script>
 
+
+  <script type="text/javascript">
+    function changeRequired(elm) {
+      if (elm.value != "") {
+        document.querySelector("input[name=description_text").required = false;
+      } else if (elm.value == "") {
+        document.querySelector("input[name=description_text").required = true;
+      }
+    }
+    function changeRequiredText(elm) {
+      if (elm.value != "") {
+        document.querySelector("select[name=description_drop").required = false;
+      } else if (elm.value == "") {
+        document.querySelector("select[name=description_drop").required = true;
+      }
+    }
+  </script>
 
   {% endblock %}
+
+
