@@ -70,7 +70,8 @@ def queue_durations():
 
 #find most used event descriptions
 def common_events():
-    sql = "SELECT description, count(*) FROM events GROUP BY description ORDER BY count DESC"
+    sql = "SELECT description, count(*) FROM events WHERE description != 'Sisäänkirjaus' AND "\
+        "description != 'Uloskirjaus' GROUP BY description ORDER BY count DESC"
     result = db.session.execute(sql)
     description_list = result.fetchall()
     return description_list
