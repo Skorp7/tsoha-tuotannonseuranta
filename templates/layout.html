@@ -14,7 +14,7 @@
   <nav class="navi">
     <ul>
       <a href="/"><button type="button" class="mainButton">Etusivu</button></a>
-      {% if (session.get("user_status",0) == 1): %}
+      {% if (session.get("user_status",-1) == 1): %}
       <a href="/admin"><button type="button" class="mainButton">Hallinta</Button></a>
       {% endif %}
       {% if session.get("user_id",0) %}
@@ -26,7 +26,7 @@
     </ul>
   </nav>
 
-  {% if ((session.get("user_status",0) == 1 or session.get("user_status",0) == 0) and (request.path == "/production" or request.path == "/new_order" or request.path == "/new_event" or "/seek" in request.path or request.path == "/new_customer" or request.path == "/new_clinic" or request.path == "/new_order_type" or request.path == "/seek_by_user")): %}
+  {% if ((session.get("user_status",-1) == 1 or session.get("user_status",-1) == 0) and (request.path == "/production" or request.path == "/new_order" or request.path == "/new_event" or "/seek" in request.path or request.path == "/new_customer" or request.path == "/new_clinic" or request.path == "/new_order_type" or request.path == "/seek_by_user")): %}
 
   <nav class="prod_navi">
     <ul>

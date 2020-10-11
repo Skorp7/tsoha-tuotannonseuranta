@@ -52,6 +52,15 @@ def user():
     user_data = result.fetchone()
     return user_data
 
+#This is almost duplicate but more clear, since it is used so much
+#This is used instead of session.get("user_status"), because this checks every time 
+#if status has changed since last login
+def user_status():
+    usr_id = session.get("user_id", 0)
+    sql = "SELECT status FROM users WHERE id=:id"
+    result = db.session.execute(sql, {"id": usr_id})
+    status = result.fetchone()[0]
+    return status
 
 def update_status(username, new_status):
     try:

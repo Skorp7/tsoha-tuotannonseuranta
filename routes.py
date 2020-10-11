@@ -50,7 +50,7 @@ def charts():
     hard_worker_list = events.hard_workers()
     queue_durations = events.queue_durations()
     counter = len(users.user_list())
-    if session.get("user_status", -1) == 1:
+    if users.user_status() == 1:
         return render_template("charts.html", counter=counter, hard_worker_list=hard_worker_list,
                                queue_durations=queue_durations, amount_order_list=amount_order_list)
     else:
@@ -64,7 +64,7 @@ def new_event():
     event_list = [list(elem) for elem in events.event_list()]
     event_descr_list = events.common_events()
     if request.method == "GET":
-        if session.get("user_status", -1) == 1 or session.get("user_status", -1) == 0:
+        if users.user_status() == 1 or users.user_status() == 0:
             return render_template("new_event.html", user_data=user_data, order_list=order_list,
                                    event_list=event_list, event_descr_list=event_descr_list)
         else:
@@ -103,7 +103,7 @@ def seek_by_user():
     event_list = events.event_list()
     username = users.user()[1]
     user_id = users.user()[0]
-    if session.get("user_status", -1) == 1 or session.get("user_status", -1) == 0:
+    if users.user_status() == 1 or users.user_status() == 0:
         return render_template("seek_by_user.html", event_list=event_list, user_id=user_id, username=username)
     else:
         return render_template("error.html", message="Haku ei onnistunut")
@@ -114,7 +114,7 @@ def seek():
     order_list = orders.listAll()
     event_list = events.event_list()
     order_id = request.args.get("order_id", "")
-    if session.get("user_status", -1) == 1 or session.get("user_status", -1) == 0:
+    if users.user_status() == 1 or users.user_status() == 0:
         return render_template("seek.html", event_list=event_list, order_list=order_list, order_id=order_id)
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
@@ -145,7 +145,7 @@ def register():
 
 @app.route("/admin")
 def admin():
-    if session.get("user_status", -1) == 1:
+    if users.user_status() == 1:
         return render_template("admin.html")
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
@@ -154,7 +154,7 @@ def admin():
 @app.route("/change_status", methods=["GET", "POST"])
 def change_status():
     if request.method == "GET":
-        if session.get("user_status", -1) == 1:
+        if users.user_status() == 1:
             user_list = users.user_list()
             return render_template("change_status.html", user_list=user_list)
         else:
@@ -178,7 +178,7 @@ def new_order():
     customer_list = customers.customer_list()
     clinic_list = customers.clinic_list()
     if request.method == "GET":
-        if session.get("user_status", -1) == 1 or session.get("user_status", -1) == 0:
+        if users.user_status() == 1 or users.user_status() == 0:
             return render_template("new_order.html", order_type_list=order_type_list, customer_list=customer_list,
                                    clinic_list=clinic_list)
         else:
@@ -216,7 +216,7 @@ def new_order():
 @app.route("/new_order_type", methods=["GET", "POST"])
 def new_order_type():
     if request.method == "GET":
-        if session.get("user_status", -1) == 1 or session.get("user_status", -1) == 0:
+        if users.user_status() == 1 or users.user_status() == 0:
             return render_template("new_order_type.html")
         else:
             return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
@@ -236,7 +236,7 @@ def new_order_type():
 @app.route("/new_clinic", methods=["GET", "POST"])
 def new_clinic():
     if request.method == "GET":
-        if session.get("user_status", -1) == 1 or session.get("user_status", -1) == 0:
+        if users.user_status() == 1 or users.user_status() == 0:
             citys = customers.citys_fi()
             return render_template("new_clinic.html", citys=citys)
         else:
@@ -260,7 +260,7 @@ def new_clinic():
 @app.route("/new_customer", methods=["GET", "POST"])
 def new_customer():
     if request.method == "GET":
-        if session.get("user_status", -1) == 1 or session.get("user_status", -1) == 0:
+        if users.user_status() == 1 or users.user_status() == 0:
             return render_template("new_customer.html")
         else:
             return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
@@ -281,7 +281,7 @@ def production():
     today = date.today()
     order_list = orders.order_list(today.strftime("%Y-%m-%d"))
     if request.method == "GET":
-        if session.get("user_status", -1) == 1 or session.get("user_status", -1) == 0:
+        if users.user_status() == 1 or users.user_status() == 0:
             return render_template("production.html", date=today, order_list=order_list, today=today)
         else:
             return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
