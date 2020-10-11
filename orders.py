@@ -53,21 +53,8 @@ def listAll():
     order_list = result.fetchall()
     return order_list
 
-
-def update_delivery_date(new_datetime, order_id):
-    try:
-        sql = "UPDATE orders SET delivery_date=:delivery_date WHERE id=:id"
-        db.session.execute(
-            sql, {"delivery_date": new_datetime, "id": order_id})
-        db.session.commit()
-        return True
-    except:
-        return False
-
 # check out: inprogress = 0
 # check in: inprogress = 1
-
-
 def check_out_in(order_id, in_progress):
     try:
         sql = "UPDATE orders SET in_progress=:in_progress WHERE id=:id"
@@ -78,7 +65,7 @@ def check_out_in(order_id, in_progress):
         return False
 
 
-def order(order_id):
+def seek(order_id):
     sql = "SELECT * FROM orders WHERE id=:id"
     result = db.session.execute(sql, {"id": order_id})
     order_data = result.fetchall()

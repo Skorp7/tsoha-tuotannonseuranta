@@ -14,16 +14,6 @@ def add(order_id, user_id, description, is_pending):
         return False
 
 
-def set_pending(event_id, is_pending):
-    try:
-        sql = "UPDATE events SET is_pending=:is_pending WHERE id=:id"
-        db.session.execute(sql, {"is_pending": is_pending, "id": event_id})
-        db.session.commit()
-        return True
-    except:
-        return False
-
-
 def hard_workers():
     sql = "SELECT count(*), E.user_id, U.name FROM events E LEFT JOIN Users U ON U.id=E.user_id GROUP BY" \
         " E.user_id, U.name ORDER BY count(*) DESC"
@@ -38,15 +28,6 @@ def event_list():
     result = db.session.execute(sql)
     order_type_list = result.fetchall()
     return order_type_list
-
-
-def list(order_id):
-    sql = "SELECT E.order_id, E.user_id, U.name, E.time, E.is_pending, E.description, O.order_type_id "\
-        "FROM events E LEFT JOIN users U ON E.user_id=U.id LEFT JOIN Orders O ON E.order_id=O.id "\
-        "WHERE E.order_id=:order_id ORDER BY E.time"
-    result = db.session.execute(sql, {"order_id": order_id})
-    order_list = result.fetchall()
-    return order_list
 
 # FIND THE QUEUE DURATIONS BY EVENT DESCRIPTION:
 # Take all events, group them by order_id, remain all rows where order_id, description are the same and is_pending
