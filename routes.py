@@ -119,7 +119,6 @@ def seek():
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
