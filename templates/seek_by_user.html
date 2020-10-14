@@ -21,7 +21,7 @@
   {% if (event[1] == uid) %}  
   <tr>
     <td>{{ event[3].strftime("%d.%m.%Y %H:%M") }}</td>
-    <td>{{ event[0] }}</td>
+    <td><a href="/seek/?order_id={{ event[0] }}">{{ event[0] }}</a></td>
     <td>{{ event[2] }}</td>
     <td>{{ event[5] }}</td>
     {% if (event[4] == 0) %}
