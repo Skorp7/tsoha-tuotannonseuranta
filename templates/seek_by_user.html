@@ -4,8 +4,12 @@
 
 <h4>Tapahtumat, joissa käsittelijänä {{ username }}</h4>
 <p>
-
-<h4>Työvaiheet tuotannossa</h4>
+<div class="tooltip">
+  <h4>Työvaiheet tuotannossa</h4>
+  {% if session.get("show_tips",0) == '1': %}
+  <span class="tooltiptext">Hae tilauksen tiedot ja kaikki tapahtumat klikkaamalla ID:tä</span>
+  {% endif %}
+</div>
 
 <table>
   <tr>
@@ -16,9 +20,9 @@
     <th>Edistyminen</th>
   </tr>
   {% if user_id %}
-  {% set uid = user_id|int() %} 
+  {% set uid = user_id|int() %}
   {% for event in event_list %}
-  {% if (event[1] == uid) %}  
+  {% if (event[1] == uid) %}
   <tr>
     <td>{{ event[3].strftime("%d.%m.%Y %H:%M") }}</td>
     <td><a href="/seek/?order_id={{ event[0] }}">{{ event[0] }}</a></td>

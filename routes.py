@@ -50,9 +50,11 @@ def charts():
     hard_worker_list = events.hard_workers()
     queue_durations = events.queue_durations()
     counter = len(users.user_list())
+    fav_customers = orders.fav_customers()
     if users.user_status() == 1:
         return render_template("charts.html", counter=counter, hard_worker_list=hard_worker_list,
-                               queue_durations=queue_durations, amount_order_list=amount_order_list)
+                               queue_durations=queue_durations, amount_order_list=amount_order_list,
+                               fav_customers=fav_customers)
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
@@ -114,8 +116,10 @@ def seek():
     order_list = orders.listAll()
     event_list = events.event_list()
     order_id = request.args.get("order_id", "")
+    search_data = orders.seekAll(request.args.get("search", ""))
     if users.user_status() == 1 or users.user_status() == 0:
-        return render_template("seek.html", event_list=event_list, order_list=order_list, order_id=order_id)
+        return render_template("seek.html", event_list=event_list, order_list=order_list, order_id=order_id, 
+        search_data=search_data)
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 

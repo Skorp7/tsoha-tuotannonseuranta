@@ -7,9 +7,16 @@
     <h4>Käyttäjien määrä: </h4> {{ counter }}
     <p>
     <h4>Eniten merkittyjä työvaiheita:</h4>
-    {% for name in hard_worker_list %}
-    - {{ name[2] }} ({{ name[0] }} kpl)<br>
-    {% endfor %}
+    <table class="minitable">     
+      {% for name in hard_worker_list %}
+        {% if 6 > loop.index %}
+          <tr class="minitr">
+          <td class="minitd">{{ name[2] }}:</td>
+          <td class="minitd">{{ name[0] }} kpl</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+      </table>
 
     <p>
 
@@ -18,22 +25,39 @@
     {% for item in queue_durations %}
       {% set str = item[0]|string %}
       {% set pieces = str.split(":") %}
-      {% if pieces[0] == "0" and pieces[1] == "00" %}
-        <!-- continue - we don't  want to know if there is a 30sec or 0sec queue ;) -->
-      {% else %}
-      <tr class="minitr">
-      <td class="minitd">{{ item[1] }}:</th>
-      <td class="minitd">
-        {{ pieces[0] }} h
-        {{ pieces[1] }} min
-      </th>
-      </tr>
+      {% if 11 > loop.index %}
+        {% if pieces[0] == "0" and pieces[1] == "00" %}
+          <!-- continue - we don't  want to know if there is a 30sec or 0sec queue ;) -->
+        {% else %}
+        <tr class="minitr">
+        <td class="minitd">{{ item[1] }}:</td>
+        <td class="minitd">
+          {{ pieces[0] }} h
+          {{ pieces[1] }} min
+        </td>
+        </tr>
+        {% endif %}
       {% endif %}
     {% endfor %}
     
   </table>
+
+  <p>
+    <h4>Suurimmat asiakkaat:</h4>
+    <table class="minitable">     
+    {% for customer in fav_customers %}
+      {% if 11 > loop.index %}
+        <tr class="minitr">
+        <td class="minitd">{{ customer[0] }}:</td>
+        <td class="minitd">{{ customer[1] }} tilausta</td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+    </table>
   </div>
+
   <div class="column"> </div>
+
   <div class="column">
     <div id="piechart">
 
