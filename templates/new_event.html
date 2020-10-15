@@ -17,7 +17,7 @@
       {% endfor %}
     </select>
     {% if session.get("show_tips",0) == '1': %}
-    <span class="tooltiptext">Löydät ID:n paperilähetteestä</span>
+    <span class="tooltiptext tooltip-right">Löydät ID:n paperilähetteestä</span>
     {% endif %}
   </div>
 
@@ -41,13 +41,12 @@
     &nbsp; Muu:
     <input type="text" name="description_text" form="eventform" minlength="3" maxlength="30" required
       onkeypress="javascript:changeRequiredText(this)">
-    <form>
       <input type="radio" id="is_pending" name="is_pending" value="1" checked="checked" form="eventform">
       <label for="is_pending">Jonossa</label>
       <input type="radio" id="is_not_pending" name="is_pending" value="0" form="eventform">
       <label for="is_not_pending">Työn alla</label>
       {% if session.get("show_tips",0) == '1': %}
-      <span class="tooltiptext">Valitse 'Työn alla' jos aloitat työvaiheen tekemisen saman tien</span>
+      <span class="tooltiptext tooltip-right">Valitse 'Työn alla' jos aloitat työvaiheen tekemisen saman tien</span>
       {% endif %}
   </div>
   <p>
@@ -59,7 +58,7 @@
     <input type="radio" id="out" name="in_progress" value="0" form="eventform">
     <label for="out">Kyllä</label>
     {% if session.get("show_tips",0) == '1': %}
-    <span class="tooltiptext">Valitse 'Kyllä' jos työvaihe on tilauksen viimeinen, esim. laskutus tai lähetys.</span>
+    <span class="tooltiptext tooltip-right">Valitse 'Kyllä' jos työvaihe on tilauksen viimeinen, esim. laskutus tai lähetys.</span>
     {% endif %}
   </div>
   <p>

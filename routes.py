@@ -49,10 +49,10 @@ def charts():
     amount_order_list = [list(elem) for elem in orders.amount_orders_list()]
     hard_worker_list = events.hard_workers()
     queue_durations = events.queue_durations()
-    counter = len(users.user_list())
+    user_counter = len(users.user_list())
     fav_customers = orders.fav_customers()
     if users.user_status() == 1:
-        return render_template("charts.html", counter=counter, hard_worker_list=hard_worker_list,
+        return render_template("charts.html", user_counter=user_counter, hard_worker_list=hard_worker_list,
                                queue_durations=queue_durations, amount_order_list=amount_order_list,
                                fav_customers=fav_customers)
     else:
