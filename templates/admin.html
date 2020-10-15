@@ -2,7 +2,41 @@
 {% block title %}Hallinta{% endblock %}
 {% block content %}
 
-<h3>Hallinta</h3>
+<h3>Hallinta - Työnjohtajien alue</h3>
 <hr>
-Työnjohtajien alue
+
+<h4>Työnjohtajien hakutyökalut</h4>
+
+
+<div class="row">
+    <div class="column">
+        <form>
+            <span class="big">&nbsp;</span><br>
+            <button>Hae kaikki tilaukset</button>
+        </form>
+    </div>
+    <div class="column">
+        <form>
+            <label for="user_id">Tövaiheet käyttäjän perusteella:</label><br>
+            <select id="user_id">
+                <option>Jonni</option>
+            </select>
+        </form>
+    </div>
+    <div class="columnRight">
+        <form>
+          <div class="tooltip">
+            <span class="big">&nbsp;</span><br>
+            {% if session.get("show_tips",0) == '1': %}
+            <span class="tooltiptext tooltip-top">Hae asiakkaan nimellä, toimipaikalla, paikkakunnalla, tilaustyypillä...</span>
+            {% endif %}
+          </div>
+          <br>
+          <input id="src" type="text" name="search" placeholder="Etsi tilauksista..">
+        </form>
+     </div>
+  </div>
+  
+
+
 {% endblock %}
