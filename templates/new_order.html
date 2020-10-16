@@ -37,7 +37,7 @@
     <select id="clinic" name="clinic_id" form="orderform" required>
       <option value=""></option>
       {% for clinic in clinic_list %}
-      <option value="{{ clinic[0] }}">{{ clinic[1] }} ({{ clinic[3] }},{{ clinic[4] }})</option>
+      <option value="{{ clinic[0] }}">{{ clinic[1] }} ({{ clinic[2] }}, {{ clinic[3] }} {{ clinic[4] }})</option>
       <hr>
       {% endfor %}
     </select>

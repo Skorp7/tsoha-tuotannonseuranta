@@ -249,7 +249,7 @@ def new_order_type():
             flash("Tuote lisätty listaan", "success")
             return redirect("/new_order")
         else:
-            flash("Tuotteen lisääminen epäonnistui", "warning")
+            flash("Tuotteen lisääminen epäonnistui, tarkista onko tuote jo olemassa", "warning")
             return redirect(request.url)
 
 

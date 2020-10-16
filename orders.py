@@ -17,6 +17,10 @@ def add(order_type_id, customer_id, delivery_date, clinic_id):
 
 
 def add_order_type(product_type, main_materials):
+    order_types = order_type_list()
+    for type in order_types:
+        if product_type.lower() == type[1].lower() and main_materials.lower() == type[2].lower():
+            return False
     try:
         sql = "INSERT INTO order_types (product_type, main_materials) VALUES (:product_type, :main_materials)"
         db.session.execute(
@@ -92,6 +96,7 @@ def amount_orders_list():
     result = db.session.execute(sql)
     am_orders = result.fetchall()
     return am_orders
+    
 
 def fav_customers():
     sql = "SELECT C.name, count(*) FROM Orders O LEFT JOIN Customers C ON C.id=O.customer_id "\

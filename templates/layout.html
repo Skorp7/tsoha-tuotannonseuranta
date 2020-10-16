@@ -39,7 +39,7 @@
   </nav>
 
 
-  {% elif (request.path == "/admin" or request.path == "/change_status" or request.path == "/charts"): %}
+  {% elif ("/admin" in request.path  or request.path == "/change_status" or request.path == "/charts"): %}
 
   <nav class="prod_navi">
     <ul>
