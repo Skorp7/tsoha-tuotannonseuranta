@@ -2,15 +2,19 @@
 
 Sovellus on tarkoitettu hammaslaboratoroion tuotannon seurantaan. Tuotantotiloissa tuotetta valmistaessa tilaukset liikkuvat usean eri työntekijän välillä ja tulee helposti sekaannuksia, kuka teki millekin tilaukselle viimeksi mitäkin. Välillä tilauksia voi unohtua eikä ne tavoita pyydettyä toimitusaikaa. Sovellus pyrkii ratkaisemaan näitä tuotannon ongelmia.
 
-Uusi tilaus saa luontivaiheessa ID:n joka merkitään työn mukana kulkevaan paperilähetteeseen.
-Tämän ID:n perusteella tilaukseen liittyviä työvaiheita voi merkitä ylös tai selvittää tilauksen sen hetkisen tilan.
-
 Sovelluksen avulla näkee mm.
 * Mitkä tilaukset pitäisi olla valmiina TÄNÄÄN ja mikä niiden sen hetkinen status on (lähetetty/työn alla)
 * Missä vaiheessa tuotantoketjua tietty tilaus on menossa
 * Kuka työntekijä on tehnyt mitäkin työvaiheita
 * Onko tietty tilaus jämähtänyt jonoon odottamaan jotakin tiettyä työvaihetta
 * Onko jossain työvaiheessa yleisesti pitkät jonot (tarvitaanko tehostamista tai lisää työvoimaa)
+
+Tilauksen kulku tuotannossa:
+* Uusi tilaus saa luontivaiheessa ID:n joka merkitään työn mukana kulkevaan paperilähetteeseen.
+* Kun työntekijä ottaa tilauksia (yleensä useita kerralla) omalle pöydälleen, hän merkitsee ID:n perusteella niille työvaiheen jonka aikoo suorittaa (esim. 'maalaus'). Työvaiheen statukseksi merkitään *Jonossa* tai *Työn alla* riippuen siitä aloittaako työntekijä kyseisen tilauksen käsittelyn heti vai jääkö se pöydälle jonoon.
+   * Kun jonossa oleva tilaus pääsee työn alle, työntekijä merkkaa uuden työvaiheen ja klikkaa valinnan "Työn alla".
+* Tilauksen viimeisen työvaiheen kohdalla työntekijä merkkaa valinnan "kirjaa tilaus samalla ulos", jolloin tilauksen tilaksi vaihtuu LÄHETETTY, ja muutkin työntekijät näkevät että tämä tilaus on nyt valmis.
+
 
 ### Käyttäjäryhmät
 
