@@ -31,9 +31,7 @@
   <nav class="prod_navi">
     <ul>
       <a href="/new_order"><button type="button" class="mainButton">Lisää uusi tilaus</button></a>
-
       <a href="/new_event"><button type="button" class="mainButton">Merkitse työvaihe</Button></a>
-
       <a href="/seek"><button type="button" class="mainButton">Etsi</Button></a>
     </ul>
   </nav>
@@ -44,7 +42,6 @@
   <nav class="prod_navi">
     <ul>
       <a href="/charts"><button type="button" class="mainButton">Tilastot</button></a>
-
       <a href="/change_status"><button type="button" class="mainButton">Muuta käyttäjän oikeuksia</Button></a>
     </ul>
   </nav>
@@ -58,25 +55,18 @@
         <div class="column">
           {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
-
-          {% for category, message in messages %}
-          <div class="alert-{{ category }}">
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            {{ message }}
-          </div>
-          {% endfor %}
-
+            {% for category, message in messages %}
+            <div class="alert-{{ category }}">
+              <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+              {{ message }}
+            </div>
+            {% endfor %}
           {% endif %}
           {% endwith %}
         </div>
-
       </div>
-
     </div>
     <p>
-
     {% block content %}{% endblock %}
-
   </div>
-
 </body>

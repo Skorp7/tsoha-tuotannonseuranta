@@ -130,6 +130,7 @@ def seek():
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
@@ -153,7 +154,6 @@ def register():
             return redirect(request.url)
 
 
-
 @app.route("/admin/", methods=["GET", "POST"])
 def admin():
     if request.method == "GET":
@@ -171,6 +171,7 @@ def admin():
         return render_template("seek_by_user.html", event_list=event_list, user_id=user_id, username=username)
     else:
         return render_template("error.html", message="Haku ei onnistunut")
+
 
 @app.route("/change_status", methods=["GET", "POST"])
 def change_status():

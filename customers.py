@@ -1,6 +1,7 @@
 from db import db
 from flask import session
 
+
 def clinic_list():
     sql = "SELECT id, name, adress, postal_code, city FROM clinics ORDER BY name"
     result = db.session.execute(sql)
@@ -17,8 +18,7 @@ def add_clinic(name, adress, postal_code, city):
             return False
     try:
         sql = "INSERT INTO clinics (name, adress, postal_code, city) VALUES (:name, :adress, :postal_code, :city)"
-        db.session.execute(
-            sql, {"name": name, "adress": adress, "postal_code": postal_code, "city": city})
+        db.session.execute(sql, {"name": name, "adress": adress, "postal_code": postal_code, "city": city})
         db.session.commit()
         return True
     except:

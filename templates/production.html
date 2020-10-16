@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<h3>TÄNÄÄN  {{ today.strftime("%d.%m.%Y - %A") }} </h3> 
+<h3>TÄNÄÄN {{ today.strftime("%d.%m.%Y - %A") }} </h3>
 <hr>
 <label for="today">Tai valitse toinen päivä:</label>
 
@@ -13,52 +13,52 @@
 </form>
 <p>
 
-{% if (today == date): %} Tänään {% else %} {{ date.strftime("%d.%m.%Y") }}  {% endif %} toimitettavat tilaukset:
+  {% if (today == date): %} Tänään {% else %} {{ date.strftime("%d.%m.%Y") }} {% endif %} toimitettavat tilaukset:
 
 <p>
 
 
-    <table>
-        <tr>
-          <th>Toimitusaika</th>
-          <th>ID</th>
-          <th>Tilaustyyppi</th>
-          <th>Asiakas</th>
-          <th>Toimipiste</th>
-          <th>Tilaus jätetty</th>
-          <th>Tila</th>
-        </tr>
-        
-        {% for order in order_list %}
-        {% if (order[11] == 1): %}  
-        <tr>
-          <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>
-          <td><a href="/seek/?order_id={{ order[0] }}">{{ order[0] }}</a></td>
-          <td>{{ order[2] }} ({{ order[3] }})</td>
-          <td>{{ order[5] }}</td>
-          <td>{{ order[7] }} ({{ order[8] }})</td>
-          <td>{{ order[10].strftime("%d.%m.%Y %H:%M") }}</td>
-          <td class="in_progress">TYÖN ALLA</td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-    
-               
-        {% for order in order_list %}
-        {% if (order[11] == 0): %}  
-        <tr> 
-            <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>
-            <td><a href="/seek/?order_id={{ order[0] }}">{{ order[0] }}</a></td>
-            <td>{{ order[2] }} ({{ order[3] }})</td>
-            <td>{{ order[5] }}</td>
-            <td>{{ order[7] }} ({{ order[8] }})</td>
-            <td>{{ order[10].strftime("%d.%m.%Y %H:%M") }}</td>
-            <td class="sent">LÄHETETTY</td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-        
-      </table>
+<table>
+  <tr>
+    <th>Toimitusaika</th>
+    <th>ID</th>
+    <th>Tilaustyyppi</th>
+    <th>Asiakas</th>
+    <th>Toimipiste</th>
+    <th>Tilaus jätetty</th>
+    <th>Tila</th>
+  </tr>
+
+  {% for order in order_list %}
+  {% if (order[11] == 1): %}
+  <tr>
+    <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>
+    <td><a href="/seek/?order_id={{ order[0] }}">{{ order[0] }}</a></td>
+    <td>{{ order[2] }} ({{ order[3] }})</td>
+    <td>{{ order[5] }}</td>
+    <td>{{ order[7] }} ({{ order[8] }})</td>
+    <td>{{ order[10].strftime("%d.%m.%Y %H:%M") }}</td>
+    <td class="in_progress">TYÖN ALLA</td>
+  </tr>
+  {% endif %}
+  {% endfor %}
+
+
+  {% for order in order_list %}
+  {% if (order[11] == 0): %}
+  <tr>
+    <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>
+    <td><a href="/seek/?order_id={{ order[0] }}">{{ order[0] }}</a></td>
+    <td>{{ order[2] }} ({{ order[3] }})</td>
+    <td>{{ order[5] }}</td>
+    <td>{{ order[7] }} ({{ order[8] }})</td>
+    <td>{{ order[10].strftime("%d.%m.%Y %H:%M") }}</td>
+    <td class="sent">LÄHETETTY</td>
+  </tr>
+  {% endif %}
+  {% endfor %}
+
+</table>
 
 
 

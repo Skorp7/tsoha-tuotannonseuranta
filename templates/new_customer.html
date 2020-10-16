@@ -6,17 +6,14 @@
 Lisää uusi asiakas
 <hr>
 
-
 <p>
-    Nimi: <input type="text" name="name" form="customerform" minlength="3" maxlength="30" required>
+Nimi: <input type="text" name="name" form="customerform" minlength="3" maxlength="30" required>
 <p>
 
 
 <form action="/new_customer" method="POST" id="customerform">
-
     <input type="submit" class="mainButton" value="Lisää asiakas">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-
 </form>
 
 <hr>

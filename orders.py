@@ -6,8 +6,7 @@ def add(order_type_id, customer_id, delivery_date, clinic_id):
     try:
         sql = "INSERT INTO orders (order_type_id, customer_id, clinic_id, delivery_date, time, in_progress) " \
             "VALUES (:order_type_id, :customer_id, :clinic_id, :delivery_date, LOCALTIMESTAMP, 1) RETURNING id"
-        result = db.session.execute(
-            sql, {"order_type_id": order_type_id, "customer_id": customer_id, \
+        result = db.session.execute(sql, {"order_type_id": order_type_id, "customer_id": customer_id, \
                 "clinic_id": clinic_id, "delivery_date": delivery_date})
         latest_id = result.fetchone()[0]
         db.session.commit()
@@ -23,8 +22,7 @@ def add_order_type(product_type, main_materials):
             return False
     try:
         sql = "INSERT INTO order_types (product_type, main_materials) VALUES (:product_type, :main_materials)"
-        db.session.execute(
-            sql, {"product_type": product_type, "main_materials": main_materials})
+        db.session.execute(sql, {"product_type": product_type, "main_materials": main_materials})
         db.session.commit()
         return True
     except:
@@ -56,6 +54,7 @@ def listAll():
     result = db.session.execute(sql)
     order_list = result.fetchall()
     return order_list
+
 
 # check out: inprogress = 0
 # check in: inprogress = 1

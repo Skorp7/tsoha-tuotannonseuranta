@@ -45,12 +45,14 @@ def register(username, password):
         return False
     return login(username, password)
 
+
 def user():
     usr_id = session.get("user_id", 0)
     sql = "SELECT id, name, status FROM users WHERE id=:id"
     result = db.session.execute(sql, {"id": usr_id})
     user_data = result.fetchone()
     return user_data
+
 
 def userById(id):
     sql = "SELECT id, name, status FROM users WHERE id=:id"
@@ -68,6 +70,7 @@ def user_status():
     result = db.session.execute(sql, {"id": usr_id})
     status = result.fetchone()[0]
     return status
+
 
 def update_status(user_id, new_status):
     try:

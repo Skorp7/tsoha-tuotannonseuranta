@@ -19,42 +19,40 @@
   Tai <a href="/new_customer">lisää uusi asiakas</a>.
   <p>
 
-    <label for="order_type_product">Tilattava tuote ja materiaali:</label>
+  <label for="order_type_product">Tilattava tuote ja materiaali:</label>
 
-    <select id="order_type_product" name="order_type_id" form="orderform" required>
-      <option value=""></option>
-      {% for product_type in order_type_list %}
-      <option value="{{ product_type[0] }}">{{ product_type[1] }} ({{ product_type[2] }})</option>
-      <hr>
-      {% endfor %}
-    </select>
+  <select id="order_type_product" name="order_type_id" form="orderform" required>
+    <option value=""></option>
+    {% for product_type in order_type_list %}
+    <option value="{{ product_type[0] }}">{{ product_type[1] }} ({{ product_type[2] }})</option>
+    <hr>
+    {% endfor %}
+  </select>
 
-    Tai <a href="/new_order_type">lisää uusi tuote</a>.
+  Tai <a href="/new_order_type">lisää uusi tuote</a>.
   <p>
 
 
-    <label for="clinic">Toimipiste:</label>
-    <select id="clinic" name="clinic_id" form="orderform" required>
-      <option value=""></option>
-      {% for clinic in clinic_list %}
-      <option value="{{ clinic[0] }}">{{ clinic[1] }} ({{ clinic[2] }}, {{ clinic[3] }} {{ clinic[4] }})</option>
-      <hr>
-      {% endfor %}
-    </select>
+  <label for="clinic">Toimipiste:</label>
+  <select id="clinic" name="clinic_id" form="orderform" required>
+    <option value=""></option>
+    {% for clinic in clinic_list %}
+    <option value="{{ clinic[0] }}">{{ clinic[1] }} ({{ clinic[2] }}, {{ clinic[3] }} {{ clinic[4] }})</option>
+    <hr>
+    {% endfor %}
+  </select>
 
-    Tai <a href="/new_clinic">lisää uusi toimipiste</a>.
+  Tai <a href="/new_clinic">lisää uusi toimipiste</a>.
 
 
   <p>
-    <label for="delivery_date">Pyydetty toimitusaika:</label>
-    <input type="date" id="delivery_date" name="delivery_date" form="orderform" required>
-    <input type="time" value="00:00" id="delivery_time" name="delivery_time" form="orderform">
-
-
-    <p>
-    <p>
-    <input type="submit" class="mainButton" value="Lisää tilaus">
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+  <label for="delivery_date">Pyydetty toimitusaika:</label>
+  <input type="date" id="delivery_date" name="delivery_date" form="orderform" required>
+  <input type="time" value="00:00" id="delivery_time" name="delivery_time" form="orderform">
+  <p>
+  <p>
+  <input type="submit" class="mainButton" value="Lisää tilaus">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
 </form>
 
