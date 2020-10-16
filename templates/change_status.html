@@ -8,10 +8,10 @@
 <div class="container">
   <label for="users">Käyttäjä:</label>
 
-  <select id="users" name="username" form="statusform">
-    {% for name in user_list %}
-    <option value="{{ name[0] }}">{{ name[0] }} :
-      {% if (name[1] == 1): %} (työnjohtaja) {% elif (name[1] == 0): %} (peruskäyttäjä) {% else %} (ei oikeuksia)
+  <select id="users" name="user_id" form="statusform">
+    {% for user in user_list %}
+    <option value="{{ user[0] }}">{{ user[1] }} :
+      {% if (user[2] == 1): %} (työnjohtaja) {% elif (user[2] == 0): %} (peruskäyttäjä) {% else %} (ei oikeuksia)
       {% endif %}</option>
     <hr>
     {% endfor %}

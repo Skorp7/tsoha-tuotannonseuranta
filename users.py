@@ -52,6 +52,13 @@ def user():
     user_data = result.fetchone()
     return user_data
 
+def userById(id):
+    sql = "SELECT id, name, status FROM users WHERE id=:id"
+    result = db.session.execute(sql, {"id": id})
+    user_data = result.fetchone()
+    return user_data
+
+
 #This is almost duplicate but more clear, since it is used so much
 #This is used instead of session.get("user_status"), because this checks every time 
 #if status has changed since last login
@@ -62,10 +69,10 @@ def user_status():
     status = result.fetchone()[0]
     return status
 
-def update_status(username, new_status):
+def update_status(user_id, new_status):
     try:
-        sql = "UPDATE users SET status=:status WHERE name=:name"
-        db.session.execute(sql, {"status": new_status, "name": username})
+        sql = "UPDATE users SET status=:status WHERE id=:id"
+        db.session.execute(sql, {"status": new_status, "id": user_id})
         db.session.commit()
         return True
     except:
@@ -73,7 +80,7 @@ def update_status(username, new_status):
 
 
 def user_list():
-    sql = "SELECT name, status FROM users ORDER BY name"
+    sql = "SELECT id, name, status FROM users ORDER BY name"
     result = db.session.execute(sql)
     user_list = result.fetchall()
     return user_list

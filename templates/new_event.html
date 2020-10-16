@@ -41,10 +41,10 @@
     &nbsp; Muu:
     <input type="text" name="description_text" form="eventform" minlength="3" maxlength="30" required
       onkeypress="javascript:changeRequiredText(this)">
-      <input type="radio" id="is_pending" name="is_pending" value="1" checked="checked" form="eventform">
-      <label for="is_pending">Jonossa</label>
-      <input type="radio" id="is_not_pending" name="is_pending" value="0" form="eventform">
-      <label for="is_not_pending">Työn alla</label>
+    <input type="radio" id="is_pending" name="is_pending" value="1" checked="checked" form="eventform">
+    <label for="is_pending">Jonossa</label>
+    <input type="radio" id="is_not_pending" name="is_pending" value="0" form="eventform">
+    <label for="is_not_pending">Työn alla</label>
       {% if session.get("show_tips",0) == '1': %}
       <span class="tooltiptext tooltip-right">Valitse 'Työn alla' jos aloitat työvaiheen tekemisen saman tien</span>
       {% endif %}
@@ -53,14 +53,17 @@
 
   <div class="tooltip">
     Kirjaa tilaus samalla ulos:
-    <input type="radio" id="not_out" name="in_progress" value="1" checked="checked" form="eventform">
+    <input type="radio" id="not_out" name="in_progress" value="1" checked="checked" form="eventform" onchange="javascript:deliveryInfo(this)">
     <label for="not_out">Ei</label>
-    <input type="radio" id="out" name="in_progress" value="0" form="eventform">
+    <input type="radio" id="out" name="in_progress" value="0" form="eventform" onchange="javascript:deliveryInfo(this)">
     <label for="out">Kyllä</label>
     {% if session.get("show_tips",0) == '1': %}
     <span class="tooltiptext tooltip-right">Valitse 'Kyllä' jos työvaihe on tilauksen viimeinen, esim. laskutus tai lähetys.</span>
     {% endif %}
   </div>
+  <p>
+    <div id="delivery_info" class="info">
+    </div>
   <p>
     Käsittelijä: {{ user_data[1] }}
 </form>
@@ -73,6 +76,7 @@
 
   <script type="text/javascript">
     function handleSelectID(elm) {
+      deliveryInfo();
       var chapter = document.getElementById("event_info");
       chapter.innerHTML = "";
       var array = JSON.parse('{{ event_list | tojson }}');
@@ -108,5 +112,34 @@
       }
     }
   </script>
+
+<script type="text/javascript">
+  function deliveryInfo() {
+    var o_id = document.getElementById("order_id").value
+    var in_prog = document.getElementsByName("in_progress")
+    var in_progress = 1
+
+    in_prog.forEach((button) => {
+                var chapter = document.getElementById("delivery_info");
+                if (button.checked) {
+                  if(button.value == 0) {  
+                    chapter.innerHTML = "";
+                    var array = JSON.parse('{{ order_list_not_tuple | tojson }}');
+                    for (item of array) {
+                        if (item[0] == o_id) {
+                          var x = document.createElement("div");
+                          x.textContent = " Toimitusosoite: " + item[7] + 
+                          ", " + item[12] + ", " + item[13] + " " + item[8];
+                          chapter.appendChild(x);
+                          { break; }
+                        }
+                    }
+                  } else {
+                    chapter.innerHTML = "";
+                  }
+                }
+    });
+  }
+</script>
 
 {% endblock %}

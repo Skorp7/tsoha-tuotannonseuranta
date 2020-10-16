@@ -1,15 +1,6 @@
 from db import db
 from flask import session
 
-# Seek all clinics where a spesific customer is related to
-def clinic_list_by_customer(customer_id):
-    sql = "SELECT DISTINCT ON(C.id) C.id, C.name, C.adress, C.city from orders O LEFT JOIN "\
-        "clinics C ON O.clinic_id=C.id LEFT JOIN customers CS ON CS.id=O.customer_id WHERE CS.id=:id"
-    result = db.session.execute(sql, {"id": customer_id})
-    clinic_list = result.fetchall()
-    return clinic_list
-
-
 def clinic_list():
     sql = "SELECT id, name, adress, postal_code, city FROM clinics ORDER BY name"
     result = db.session.execute(sql)

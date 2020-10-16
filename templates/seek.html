@@ -7,17 +7,18 @@
     <h3>Etsi tilausten tapahtumatietoja</h3>
   </div>
   <div class="columnRight">
-      <form>
-        <div class="tooltip">
-          <span class="big">&nbsp;</span><br>
-          {% if session.get("show_tips",0) == '1': %}
-          <span class="tooltiptext tooltip-top">Hae asiakkaan nimellä, toimipaikalla, paikkakunnalla, tilaustyypillä...</span>
-          {% endif %}
-        </div>
-        <br>
-        <input id="src" type="text" name="search" placeholder="Etsi tilauksista..">
-      </form>
-   </div>
+    <form>
+      <div class="tooltip">
+        <span class="big">&nbsp;</span><br>
+        {% if session.get("show_tips",0) == '1': %}
+        <span class="tooltiptext tooltip-top">Hae asiakkaan nimellä, toimipaikalla, paikkakunnalla,
+          tilaustyypillä...</span>
+        {% endif %}
+      </div>
+      <br>
+      <input id="src" type="text" name="search" placeholder="Etsi tilauksista..">
+    </form>
+  </div>
 </div>
 
 <hr>
@@ -130,21 +131,36 @@
   </tr>
 
   {% for order in search_data %}
-  <tr>
-    <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>
-    <td><a href="/seek/?order_id={{ order[0] }}">{{ order[0] }}</a></td>
-    <td>{{ order[2] }} ({{ order[3] }})</td>
-    <td>{{ order[5] }}</td>
-    <td>{{ order[7] }} ({{ order[8] }})</td>
-    {% if (order[11] == 1) %}
-    <td class="in_progress">TYÖN ALLA</td>
-    {% else %}
-    <td class="sent">LÄHETETTY</td>
+    {% if (now >= order[9]): %}
+     <tr class="past">
+        <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>
+        <td><a href="/seek/?order_id={{ order[0] }}">{{ order[0] }}</a></td>
+        <td>{{ order[2] }} ({{ order[3] }})</td>
+        <td>{{ order[5] }}</td>
+        <td>{{ order[7] }} ({{ order[8] }})</td>
+        {% if (order[11] == 1) %}
+          <td class="in_progress">TYÖN ALLA</td>
+        {% else %}
+          <td class="sent">LÄHETETTY</td>
+        {% endif %}
+        </tr>
+    {% else %} 
+      <tr>
+        <td>{{ order[9].strftime("%d.%m.%Y %H:%M") }}</td>
+        <td><a href="/seek/?order_id={{ order[0] }}">{{ order[0] }}</a></td>
+        <td>{{ order[2] }} ({{ order[3] }})</td>
+        <td>{{ order[5] }}</td>
+        <td>{{ order[7] }} ({{ order[8] }})</td>
+        {% if (order[11] == 1) %}
+          <td class="in_progress">TYÖN ALLA</td>
+        {% else %}
+          <td class="sent">LÄHETETTY</td>
+        {% endif %}
+      </tr>
     {% endif %}
-  </tr>
   {% endfor %}
-  {% endif %}
 </table>
+{% endif %}
 
 <p></p>
 

@@ -94,6 +94,11 @@ tr:nth-child(even) {
     background-color: white;
 }
 
+.past {
+    @extend tr;
+    opacity: 0.5;
+}
+
 .in_progress {
     @extend .td;
     color: red;

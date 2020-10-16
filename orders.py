@@ -46,9 +46,9 @@ def order_list(date):
 
 def listAll():
     sql = "SELECT O.id, O.order_type_id, OT.product_type, OT.main_materials, O.customer_id, C.name, " \
-        "O.clinic_id, CL.name, CL.city, O.delivery_date, O.time, O.in_progress FROM orders O LEFT JOIN " \
-        "customers C on C.id=O.customer_id LEFT JOIN order_types OT on OT.id=O.order_type_id LEFT JOIN " \
-        "clinics CL ON CL.id=O.clinic_id ORDER BY O.id"
+        "O.clinic_id, CL.name, CL.city, O.delivery_date, O.time, O.in_progress, CL.adress, CL.postal_code "\
+        "FROM orders O LEFT JOIN customers C on C.id=O.customer_id LEFT JOIN order_types OT on OT.id=O.order_type_id "\
+        "LEFT JOIN clinics CL ON CL.id=O.clinic_id ORDER BY O.id"
     result = db.session.execute(sql)
     order_list = result.fetchall()
     return order_list
@@ -74,7 +74,7 @@ def seek(order_id):
 
 #Find all order information which include a part of the search word
 def seekAll(word):
-    if (word == ""):
+    if (word == None):
         return None
     sql = "SELECT O.id, O.order_type_id, OT.product_type, OT.main_materials, O.customer_id, C.name, " \
         "O.clinic_id, CL.name, CL.city, O.delivery_date, O.time, O.in_progress FROM orders O LEFT JOIN " \

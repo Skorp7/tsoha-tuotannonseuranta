@@ -63,11 +63,13 @@ def charts():
 def new_event():
     user_data = users.user()
     order_list = orders.listAll()
+    order_list_not_tuple = [list(elem) for elem in order_list]
     event_list = [list(elem) for elem in events.event_list()]
     event_descr_list = events.common_events()
     if request.method == "GET":
         if users.user_status() == 1 or users.user_status() == 0:
             return render_template("new_event.html", user_data=user_data, order_list=order_list,
+                                   order_list_not_tuple=order_list_not_tuple,
                                    event_list=event_list, event_descr_list=event_descr_list)
         else:
             return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
@@ -116,10 +118,15 @@ def seek():
     order_list = orders.listAll()
     event_list = events.event_list()
     order_id = request.args.get("order_id", "")
-    search_data = orders.seekAll(request.args.get("search", ""))
+    search_word = request.args.get("search", "")
+    search_data = orders.seekAll(search_word)
+    now = datetime.datetime.now()
+    # seek all orders is allowed only for admins
+    if (len(search_word) < 3):
+        search_data = None
     if users.user_status() == 1 or users.user_status() == 0:
         return render_template("seek.html", event_list=event_list, order_list=order_list, order_id=order_id, 
-        search_data=search_data)
+        search_data=search_data, now=now)
     else:
         return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
@@ -146,13 +153,24 @@ def register():
             return redirect(request.url)
 
 
-@app.route("/admin")
-def admin():
-    if users.user_status() == 1:
-        return render_template("admin.html")
-    else:
-        return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
 
+@app.route("/admin/", methods=["GET", "POST"])
+def admin():
+    if request.method == "GET":
+        if users.user_status() == 1:
+            user_list = users.user_list()
+            now = datetime.datetime.now()
+            search_data = orders.seekAll(request.args.get("search", None))
+            return render_template("admin.html", user_list=user_list, search_data=search_data, now=now)
+        else:
+            return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
+    if request.method == "POST":
+        user_id = request.form["user_id"]
+        username = users.userById(user_id)[1]
+        event_list = events.event_list()
+        return render_template("seek_by_user.html", event_list=event_list, user_id=user_id, username=username)
+    else:
+        return render_template("error.html", message="Haku ei onnistunut")
 
 @app.route("/change_status", methods=["GET", "POST"])
 def change_status():
@@ -164,10 +182,10 @@ def change_status():
             return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
     if request.method == "POST":
         new_status = request.form["new_status"]
-        username = request.form["username"]
+        user_id = request.form["user_id"]
         token = request.form["csrf_token"]
-        if users.update_status(username, new_status) and session["csrf_token"] == token:
-            flash("Käyttäjän '" + username + "' oikeudet päivitetty", "success")
+        if users.update_status(user_id, new_status) and session["csrf_token"] == token:
+            flash("Käyttäjän '" + users.userById(user_id)[1] + "' oikeudet päivitetty", "success")
             return redirect(request.url)
         else:
             flash("Oikeuksien päivitys epäonnistui", "warning")
@@ -186,7 +204,6 @@ def new_order():
                                    clinic_list=clinic_list)
         else:
             return render_template("error.html", message="Käyttäjän oikeudet eivät riitä tähän toimintoon.")
-
     if request.method == "POST":
         clinic_id = request.form["clinic_id"]
         order_type_id = request.form["order_type_id"]
