@@ -2,10 +2,10 @@
 
 _Tämä on kurssin 'Tietokantasovellus' -harjoitustyö._
 
-[Sovelluskehityksen tämän hetkinen tilanne](#sovelluskehityksen-tämän-hetkinen-tilanne)
-
-
 Sovellus on tarkoitettu hammaslaboratoroion tuotannon seurantaan. Tuotantotiloissa tuotetta valmistaessa tilaukset liikkuvat usean eri työntekijän välillä ja tulee helposti sekaannuksia, kuka teki millekin tilaukselle viimeksi mitäkin. Välillä tilauksia voi unohtua eikä ne tavoita pyydettyä toimitusaikaa. Sovellus pyrkii ratkaisemaan näitä tuotannon ongelmia.
+
+Uusi tilaus saa luontivaiheessa ID:n joka merkitään työn mukana kulkevaan paperilähetteeseen.
+Tämän ID:n perusteella tilaukseen liittyviä työvaiheita voi merkitä ylös tai selvittää tilauksen sen hetkisen tilan.
 
 Sovelluksen avulla näkee mm.
 * Mitkä tilaukset pitäisi olla valmiina TÄNÄÄN ja mikä niiden sen hetkinen status on (lähetetty/työn alla)
@@ -41,10 +41,9 @@ Sovelluksen tietokantana toimii PostgreSQL -tietokanta. Tietokantatauluja 6kpl j
 
 ### Sovelluksen testaaminen
 
-Ulkoasu ja lomakkeiden toiminnat on testattu toimivaksi tietokoneella tavallisella selaimella (Chrome, Firefox), joka on myös ajateltu käyttötapa.
+Kokeile sovellusta tunnuksella **admin** ja salasanallas **pass** niin pääset käsiksi kaikkiin toimintoihin! 
 
 Sovelluksen osoite: https://tsoha-tuotannonseuranta.herokuapp.com 
 
-Kokeile sovellusta tunnuksella **admin** ja salasanallas **pass** niin pääset käsiksi kaikkiin toimintoihin! 
+Voit myös kokeeksi luoda uuden käyttäjän jolle tulee luodessa peruskäyttäjän oikeudet. Ulkoasu ja lomakkeiden toiminnat on testattu toimivaksi tietokoneella tavallisella selaimella (Chrome, Firefox), joka on myös ajateltu käyttötapa.
 
-Voit myös kokeeksi luoda uuden käyttäjän jolle tulee luodessa peruskäyttäjän oikeudet.
