@@ -3,12 +3,11 @@
 {% block content %}
 <h3>TERVETULOA!</h3>
 <hr>
-<i>Tämä on sovellus tuotannon seurantaan</i>
+<i>Tämä on sovellus hammaslaboratorion tuotannon seurantaan</i>
 
 
 {% if session.get("user_id",0) %}
     <p>
-    Sovellus on tarkoitettu hammaslaboratorion tuotannon seurantaan.<br>
     Tällä hetkellä sovellus on testikäytössä.<br>
     </p>
     <p><b>Testaaja! Muista testata sovellusta myös työnjohtajan oikeuksilla. (admin/pass)</b></p>
