@@ -39,7 +39,7 @@ Tietokannan jaottelusta saa parhaiten kuvan tutustumalla [sql-skeemaan](schema.s
 
 ### Sovelluksen testaaminen
 
-Kokeile sovellusta tunnuksella **admin** ja salasanallas **pass** niin pääset käsiksi kaikkiin toimintoihin! 
+Kokeile sovellusta tunnuksella **admin** ja salasanalla **pass** niin pääset käsiksi kaikkiin toimintoihin! 
 
 Sovelluksen osoite: https://tsoha-tuotannonseuranta.herokuapp.com 
 
