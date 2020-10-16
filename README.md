@@ -35,9 +35,9 @@ Oikeudet voidaan poistaa jos työntekijä esimerkiksi vaihtaa työpaikkaa tai ta
 
 ### Tiedon pysyväistallennus
 
-Sovelluksen tietokantana toimii PostgreSQL -tietokanta. Tietokantatauluja 6kpl ja ne on jaettu oheisen kaavion mukaisesti. Lisäksi on yksi taulu johon on tallennettu Suomen kuntien nimet. Tietokannan jaottelusta saa parhaiten kuvan tutustumalla [sql-skeemaan](schema.sql), mutta selvyyden vuoksi otetaan muutama huomio jaottelun taustasyistä; asiakaskunta on hammaslääkärit ja he saattavat työskennellä usealla eri vastaanotolla, sen takia toimipisteet on omassa taulussaan. Lisäksi yhteen tilaukseen liittyy yleensä yksi tilaustyyppi, jotka ovat useimmiten samoja tiettyjä. Tilaustyypin lisäämiseen on kuitenkin jätetty vapaat tekstikentät koska myös hyvin erikoisia tilauksia saattaa tulla.
+Tietokannan jaottelusta saa parhaiten kuvan tutustumalla [sql-skeemaan](schema.sql), mutta selvyyden vuoksi otetaan muutama huomio jaottelun taustasyistä; asiakaskunta on hammaslääkärit ja he saattavat työskennellä usealla eri vastaanotolla, sen takia toimipisteet on omassa taulussaan. Lisäksi yhteen tilaukseen liittyy yleensä yksi tilaustyyppi, jotka ovat useimmiten samoja tiettyjä. Tilaustyypin lisäämiseen on kuitenkin jätetty vapaat tekstikentät koska myös hyvin erikoisia tilauksia saattaa toisinaan tulla. Sama koskee työvaiheita. Jotkin työvaiheet toistuvat usein mutta joka päivä tulee myös uniikkeja työvaiheita. Työvaiheen lisäyksessä ehdotetaan kymmentä eniten käytettyä työvaihetta.
 
-<img src="/documentation/tietokantakaavio.jpg" height="300" title="Tietokantakaaavio"> 
+<img src="/documentation/tietokantakaavio.jpg" height="200" title="Tietokantakaaavio"> 
 
 ### Sovelluksen testaaminen
 
