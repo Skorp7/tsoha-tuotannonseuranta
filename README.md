@@ -13,7 +13,7 @@ Tilauksen kulku tuotannossa:
 * Uusi tilaus saa luontivaiheessa ID:n joka merkitään työn mukana kulkevaan paperilähetteeseen.
 * Kun työntekijä ottaa tilauksia (yleensä useita kerralla) omalle pöydälleen, hän merkitsee ID:n perusteella niille työvaiheen jonka aikoo suorittaa (esim. 'maalaus'). Työvaiheen statukseksi merkitään *Jonossa* tai *Työn alla* riippuen siitä aloittaako työntekijä kyseisen tilauksen käsittelyn heti vai jääkö se pöydälle jonoon.
    * Kun jonossa oleva tilaus pääsee työn alle, työntekijä merkkaa uuden työvaiheen ja klikkaa valinnan "Työn alla".
-* Tilauksen viimeisen työvaiheen kohdalla työntekijä merkkaa valinnan "kirjaa tilaus samalla ulos", jolloin tilauksen tilaksi vaihtuu LÄHETETTY, ja muutkin työntekijät näkevät että tämä tilaus on nyt valmis.
+* Tilauksen viimeisen työvaiheen kohdalla työntekijä merkkaa valinnan "kirjaa tilaus samalla ulos", jolloin tilauksen tilaksi vaihtuu *lähetetty*, ja muutkin työntekijät näkevät että tämä tilaus on nyt valmis.
 
 
 ### Käyttäjäryhmät
