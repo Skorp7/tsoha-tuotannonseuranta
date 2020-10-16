@@ -10,6 +10,7 @@
 <form action="/production" method="POST" id="dateform">
   <input type="date" id="today" name="date" form="dateform">
   <input type="submit" class="mainButton" value="Etsi tilaukset" form="dateform">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" form="dateform">
 </form>
 <p>
 

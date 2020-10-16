@@ -18,8 +18,13 @@ def index():
     if request.method == "GET":
         return render_template("index.html", time=time.strftime("%H:%M"), date=date)
     if request.method == "POST":
+        token = request.form["csrf_token"]
         session["show_tips"] = request.form["show_tips"]
-        return render_template("index.html", time=time.strftime("%H:%M"), date=date)
+        if session["csrf_token"] == token:
+            return render_template("index.html", time=time.strftime("%H:%M"), date=date)
+        else:
+            return render_template("error.html", message="")
+
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -89,8 +94,8 @@ def new_event():
         is_pending = request.form["is_pending"]
         in_progress = request.form["in_progress"]
         token = request.form["csrf_token"]
-        if orders.seek(order_id) != None and description != "" and events.add(order_id, user_id,
-                                                                               description, is_pending) and session["csrf_token"] == token:
+        if orders.seek(order_id) != None and description != "" and \
+            events.add(order_id, user_id, description, is_pending) and session["csrf_token"] == token:
             if in_progress == "0":
                 orders.check_out_in(order_id, in_progress)
                 events.add(order_id, user_id, "Uloskirjaus", 0)
@@ -168,9 +173,11 @@ def admin():
         user_id = request.form["user_id"]
         username = users.userById(user_id)[1]
         event_list = events.event_list()
-        return render_template("seek_by_user.html", event_list=event_list, user_id=user_id, username=username)
-    else:
-        return render_template("error.html", message="Haku ei onnistunut")
+        token = request.form["csrf_token"]
+        if session["csrf_token"] == token:
+            return render_template("seek_by_user.html", event_list=event_list, user_id=user_id, username=username)
+        else:
+            return render_template("error.html", message="Haku ei onnistunut")
 
 
 @app.route("/change_status", methods=["GET", "POST"])
@@ -312,9 +319,11 @@ def production():
             return render_template("production.html", date=today, order_list=order_list, today=today)
         new_date = datetime.datetime.strptime(datef, "%Y-%m-%d").date()
         new_order_list = orders.order_list(datef)
-        return render_template("production.html", date=new_date, order_list=new_order_list, today=today)
-    else:
-        return render_template("error.html", message="")
+        token = request.form["csrf_token"]
+        if session["csrf_token"] == token:
+            return render_template("production.html", date=new_date, order_list=new_order_list, today=today)
+        else:
+            return render_template("error.html", message="")
 
 
 @app.errorhandler(404)

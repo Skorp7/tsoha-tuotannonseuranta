@@ -21,6 +21,7 @@
         <option value="{{ name[0] }}">{{ name[1] }}</option>
         {% endfor %}
     </select>
+    <input type="hidden" name="csrf_token" form="seek_user" value="{{ session.csrf_token }}">
 </form>
 <br>
 <form>

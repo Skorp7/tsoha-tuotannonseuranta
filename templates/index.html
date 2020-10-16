@@ -30,6 +30,7 @@ Päivämäärä: {{ date }}
     {% endif %}
     <label for="tips"> Älä näytä pop-up käyttövinkkejä</label>
     <input type="hidden" id="tips_hidden" name="show_tips" value="1">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" form="tipsform">
 </form>
 
 
