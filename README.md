@@ -47,5 +47,5 @@ Kokeile sovellusta tunnuksella **admin** ja salasanalla **pass** niin pääset k
 
 Sovelluksen osoite: https://tsoha-tuotannonseuranta.herokuapp.com 
 
-Voit myös kokeeksi luoda uuden käyttäjän jolle tulee luodessa peruskäyttäjän oikeudet. Ulkoasu ja lomakkeiden toiminnat on testattu toimivaksi tietokoneella tavallisella selaimella (Chrome, Firefox), joka on myös ajateltu käyttötapa.
+Voit myös kokeeksi luoda uuden käyttäjän jolle tulee luodessa peruskäyttäjän oikeudet. Tyhjennä selaimen välimuisti ja historia jotta sovellus saa käyttöönsä uusimman css-tiedoston ja muotoilut näkyvät oikein. Ulkoasu ja lomakkeiden toiminnat on testattu toimivaksi tietokoneella tavallisella selaimella (Chrome, Firefox), joka on myös ajateltu käyttötapa. 
 
