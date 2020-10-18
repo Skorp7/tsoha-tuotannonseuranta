@@ -152,7 +152,7 @@ def register():
             return redirect(request.url)
         if users.register(username, password):
             flash("Käyttäjätunnus '" + username + "' luotu", "success")
-            return redirect("/")
+            return redirect("/login")
         else:
             flash("Rekisteröinti epäonnistui. Käyttäjätunnus '" +
                   username + "' on ehkä jo olemassa", "warning")

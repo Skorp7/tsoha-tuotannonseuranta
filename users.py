@@ -41,9 +41,9 @@ def register(username, password):
         sql = "INSERT INTO users (name,status,password,visible) VALUES (:name,0,:password, 1)"
         db.session.execute(sql, {"name": username, "password": hash_value})
         db.session.commit()
+        return True
     except:
         return False
-    return login(username, password)
 
 
 def user():
