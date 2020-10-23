@@ -38,7 +38,7 @@ def register(username, password):
         return False
     hash_value = generate_password_hash(password)
     try:
-        sql = "INSERT INTO users (name,status,password,visible) VALUES (:name,0,:password, 1)"
+        sql = "INSERT INTO users (name,status,password,visible) VALUES (:name,99,:password, 1)"
         db.session.execute(sql, {"name": username, "password": hash_value})
         db.session.commit()
         return True
