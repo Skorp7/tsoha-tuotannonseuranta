@@ -45,7 +45,7 @@ Tietokannan jaottelusta saa parhaiten kuvan tutustumalla [sql-skeemaan](schema.s
 
 Kysy admin-tunnukset niin pääset käsiksi kaikkiin toimintoihin! 
 
-Sovelluksen osoite: https://tsoha-tuotannonseuranta.herokuapp.com 
+Sovellus ei tällä hetkellä ole saatavila netissä.
 
 Voit myös kokeeksi luoda uuden käyttäjän mutta sillä ei ole oikeuksia ennen kuin työnjohtaja lisää ne. Tyhjennä selaimen välimuisti ja historia jotta sovellus saa käyttöönsä uusimman css-tiedoston ja muotoilut näkyvät oikein. Ulkoasu ja lomakkeiden toiminnat on testattu toimivaksi tietokoneella tavallisella selaimella (Chrome, Firefox), joka on myös ajateltu käyttötapa. 
 
