@@ -1,5 +1,9 @@
 # TUOTANNONSEURANTA
 
+Tämä sovellus on tietojenkäsittelytieteen aineopintojen harjoitustyö, tietokantasovellus. Tehtävänanto oli hyvin vapaa, kunhan relaatiotietokantaa käytetään monipuolisesti ja taulujen väliset suhteet ovat monimutkaisia. Python Flaskia ja PostgreSQL:ää tuli käyttää.
+
+### Käyttötarkoitus
+
 Sovellus on tarkoitettu hammaslaboratoroion tuotannon seurantaan. Hammaslaboratorio valmistaa yksilöllisiä suuhun asennettavia kojeita ja hampaita, asiakkaita ovat hammaslääkärit. Tuotantotiloissa tuotetta valmistaessa tilaukset liikkuvat usean eri työntekijän välillä ja tulee helposti sekaannuksia, kuka teki millekin tilaukselle viimeksi mitäkin. Välillä tilauksia voi unohtua eikä ne tavoita pyydettyä toimitusaikaa. Sovellus pyrkii ratkaisemaan näitä tuotannon ongelmia.
 
 Sovelluksen avulla näkee mm.
