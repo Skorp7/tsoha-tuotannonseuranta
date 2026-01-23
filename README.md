@@ -47,9 +47,5 @@ Tietokannan jaottelusta saa parhaiten kuvan tutustumalla [sql-skeemaan](schema.s
 
 ### Sovelluksen testaaminen
 
-Kysy admin-tunnukset niin pääset käsiksi kaikkiin toimintoihin! 
-
-[https://tsoha-tuotannonseuranta.fly.dev](https://tsoha-tuotannonseuranta.fly.dev)
-
-Voit myös kokeeksi luoda uuden käyttäjän mutta sillä ei ole oikeuksia ennen kuin työnjohtaja lisää ne. Tyhjennä selaimen välimuisti ja historia jotta sovellus saa käyttöönsä uusimman css-tiedoston ja muotoilut näkyvät oikein. Ulkoasu ja lomakkeiden toiminnat on testattu toimivaksi tietokoneella tavallisella selaimella (Chrome, Firefox), joka on myös ajateltu käyttötapa. 
+Sovellus ei ole julkisella palvelimella saatavilla tällä hetkellä.
 
